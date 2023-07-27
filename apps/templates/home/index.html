@@ -633,17 +633,6 @@
 		maxZoom: 15
 	});
 
-	function loadJSON(callback) {
-		const xhr = new XMLHttpRequest();
-		xhr.overrideMimeType("application/json");
-		xhr.open("GET", "{% static 'json/pays.json' %}", true);
-		xhr.onreadystatechange = function () {
-			if (xhr.readyState === 4 && xhr.status === 200) {
-				callback(JSON.parse(xhr.responseText));
-			}
-		};
-		xhr.send(null);
-	}
 
 	// Déclarez la variable continentsData en dehors de la fonction loadJSON
 	let continentsData
@@ -662,6 +651,7 @@
 		xhr.send(null);
 	}
 
+	let selectedMarker;
 	// Utilisez la fonction loadJSON pour récupérer les données JSON
 	loadJSON(function (data) {
 		// Ici, vous pouvez utiliser les données JSON récupérées
@@ -728,9 +718,10 @@
 
 			// Remplir le menu déroulant des pays
 			countries.forEach(country => {
-				const optionElement = `<a class="dropdown-item country-item" href="#" data-value="${country.name}">${country.name}</a>`;
+				const optionElement = `<a class="dropdown-item country-item" href="#" data-value="${country.name}" data-lat="${country.latitude}" data-lon="${country.longitude}">${country.name}</a>`;
 				countryDropdown.append(optionElement);
 			});
+
 
 			// Afficher le menu déroulant des pays
 			countryDropdownContainer.show();
@@ -741,11 +732,59 @@
 
 			// Récupérer le pays sélectionné
 			const selectedCountry = $(this).data("value");
+			const lat = $(this).data("lat");
+			const lon = $(this).data("lon");
 
 			// Afficher le pays sélectionné dans le bouton du menu déroulant
 			$("#countryDropdownButton").text(selectedCountry);
 
-			// Masquer le menu déroulant des pays
+			// Déplacer la carte Mapbox pour centrer le pays sélectionné
+			map.flyTo({ center: [lon, lat], zoom: 5 });
+
+
+			function loadCountryGeoJSON(countryName) {
+				// Charger les données GeoJSON des contours du pays ici
+				// Remplacez 'path/to/' par le chemin vers le dossier contenant les fichiers GeoJSON de chaque pays
+				const geoJSONPath = `/static/geojson/${countryName}.geojson`;
+
+				// Vérifier si la source de données existe déjà
+				const sourceExists = map.getSource('countries');
+
+				if (sourceExists) {
+					// Mettre à jour la source de données existante avec le nouveau fichier GeoJSON
+					map.getSource('countries').setData(geoJSONPath);
+				} else {
+					// Ajouter une nouvelle source de données pour le pays sélectionné
+					map.addSource('countries', {
+						type: 'geojson',
+						data: geoJSONPath,
+					});
+
+					// Ajouter une couche de remplissage pour le pays
+					map.addLayer({
+						id: 'country-fill',
+						type: 'fill',
+						source: 'countries',
+						paint: {
+							'fill-color': 'blue', // Couleur de remplissage des pays
+							'fill-opacity': 0.5, // Opacité de remplissage
+						},
+					});
+
+					// Ajouter une couche de contour pour le pays
+					/*map.addLayer({
+						id: 'country-outline',
+						type: 'line',
+						source: 'countries',
+						paint: {
+							'line-color': 'red', // Couleur des contours des pays
+							'line-width': 1, // Epaisseur des contours
+						},
+					});*/
+				}
+			}
+
+			loadCountryGeoJSON(selectedCountry);
 
 
 
