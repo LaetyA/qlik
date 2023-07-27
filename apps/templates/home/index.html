@@ -31,48 +31,63 @@
 					<div class="card-head-row card-tools-still-right">
 						<h4 class="card-title">Users Geolocation</h4>
 						<div class="card-tools">
+							<div class="row">
+								<div class="col">
+									<div class="dropdown show">
+										<a class="btn btn-success dropdown-toggle" href="#" role="button"
+											id="continentDropdownButton" data-toggle="dropdown" aria-haspopup="true"
+											aria-expanded="false">
+											Select a continent
+										</a>
 
-							<div class="dropdown show">
-								<a class="btn btn-success dropdown-toggle" href="#" role="button"
-									id="continentDropdownButton" data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false">
-									Select a continent
-								</a>
+										<div class="dropdown-menu" aria-labelledby="continentDropdownButton"
+											id="continentDropdown">
 
-								<div class="dropdown-menu" aria-labelledby="continentDropdownButton"
-									id="continentDropdown">
-									{% for continent in continentsData.continents %}
-									<a class="dropdown-item continent-item" href="#"
-										data-value="{{ continent.name }}">{{ continent.name }}</a>
-									{% endfor %}
+											{% for continent in continentsData.continents %}
+											<a class="dropdown-item continent-item" href="#"
+												data-value="{{ continent.name }}">{{ continent.name }}</a>
+											{% endfor %}
+										</div>
+									</div>
 								</div>
-							</div>
+								<div class="col">
 
-							<div class="dropdown show" id="regionDropdownContainer" style="display: none;">
-								<a class="btn btn-success dropdown-toggle" href="#" role="button"
-									id="regionDropdownButton" data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false">
-									Select a region
-								</a>
+									<div class="dropdown show" id="regionDropdownContainer" style="display: none;">
+										<a class="btn btn-success dropdown-toggle" href="#" role="button"
+											id="regionDropdownButton" data-toggle="dropdown" aria-haspopup="true"
+											aria-expanded="false">
+											Select a region
+										</a>
 
-								<div class="dropdown-menu" aria-labelledby="regionDropdownButton" id="regionDropdown">
-									<!-- This will be populated with regions based on the selected continent -->
+										<div class="dropdown-menu" aria-labelledby="regionDropdownButton"
+											id="regionDropdown">
+											<!-- This will be populated with regions based on the selected continent -->
+										</div>
+									</div>
 								</div>
-							</div>
+								<div class="col">
+									<!-- Menu déroulant des pays avec barre de recherche -->
+									<div class="dropdown show" id="countryDropdownContainer" style="display: none;">
+										<a class="btn btn-success dropdown-toggle" href="#" role="button"
+											id="countryDropdownButton" data-toggle="dropdown" aria-haspopup="true"
+											aria-expanded="false">
+											Select a country
+										</a>
 
-							<div class="dropdown show" id="countryDropdownContainer" style="display: none;">
-								<a class="btn btn-success dropdown-toggle" href="#" role="button"
-									id="countryDropdownButton" data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false">
-									Select a country
-								</a>
+										<div class="dropdown-menu" aria-labelledby="countryDropdownButton"
+											id="countryDropdown">
+											<!-- Barre de recherche pour les pays -->
+											<input type="text" class="form-control search-input"
+												placeholder="Search country..."
+												onkeyup="filterDropdownItems(this, 'country-item')">
 
-								<div class="dropdown-menu" aria-labelledby="countryDropdownButton" id="countryDropdown">
-									<!-- This will be populated with countries based on the selected region -->
+											<!-- Liste des pays -->
+											<!-- This will be populated with countries based on the selected region -->
+										</div>
+									</div>
 								</div>
+
 							</div>
-
-
 
 						</div>
 					</div>
@@ -456,7 +471,8 @@
 							<div class="flex-1 ml-3 pt-1">
 								<h6 class="text-uppercase fw-bold mb-1">Lee Chong Wei <span
 										class="text-muted pl-3">closed</span></h6>
-								<span class="text-muted">Is there any update plan for RTL version near future?</span>
+								<span class="text-muted">Is there any update plan for RTL version near
+									future?</span>
 							</div>
 							<div class="float-right pt-1">
 								<small class="text-muted">2 Days Ago</small>
@@ -484,7 +500,8 @@
 							<div class="flex-1 ml-3 pt-1">
 								<h6 class="text-uppercase fw-bold mb-1">Logan Paul <span
 										class="text-muted pl-3">closed</span></h6>
-								<span class="text-muted">Is there any update plan for RTL version near future?</span>
+								<span class="text-muted">Is there any update plan for RTL version near
+									future?</span>
 							</div>
 							<div class="float-right pt-1">
 								<small class="text-muted">2 Days Ago</small>
@@ -507,6 +524,7 @@
 <script src="/static/assets/js/demo.js"></script>
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js"></script>
 <script src="https://unpkg.com/mapbox-gl@2.4.1/dist/mapbox-gl.js"></script>
+
 
 
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css" rel="stylesheet" />
@@ -718,8 +736,39 @@
 			countryDropdownContainer.show();
 		});
 
+		countryDropdown.on("click", ".country-item", function (e) {
+			e.preventDefault();
+
+			// Récupérer le pays sélectionné
+			const selectedCountry = $(this).data("value");
+
+			// Afficher le pays sélectionné dans le bouton du menu déroulant
+			$("#countryDropdownButton").text(selectedCountry);
+
+			// Masquer le menu déroulant des pays
+
+
+
+		});
+
 
 	});
+
+	function filterDropdownItems(input, itemClass) {
+		const value = input.value.toLowerCase();
+		const items = document.getElementsByClassName(itemClass);
+
+		for (let i = 0; i < items.length; i++) {
+			const item = items[i];
+			const itemName = item.textContent.toLowerCase();
+
+			if (itemName.includes(value)) {
+				item.style.display = "block";
+			} else {
+				item.style.display = "none";
+			}
+		}
+	}
 
 
 
