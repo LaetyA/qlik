@@ -74,8 +74,8 @@
 											Select a country
 										</a>
 
-										<div class="dropdown-menu" aria-labelledby="countryDropdownButton"
-											id="countryDropdown">
+										<div class="dropdown-menu dropdown-menu-bottom"
+											aria-labelledby="countryDropdownButton" id="countryDropdown">
 											<!-- Barre de recherche pour les pays -->
 											<input type="text" class="form-control search-input"
 												placeholder="Search country..."
@@ -529,6 +529,14 @@
 
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://unpkg.com/mapbox-gl@2.4.1/dist/mapbox-gl.css" />
+
+<style>
+	/* CSS personnalisé pour afficher la liste des pays en dessous du bouton */
+	.dropdown-menu.dropdown-menu-bottom {
+		top: 100% !important;
+		margin-top: 171px !important;
+	}
+</style>
 
 <script>
 	Circles.create({
