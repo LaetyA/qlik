@@ -272,6 +272,11 @@
               "longitude": 24.6849
             },
             {
+              "name": "Eswatini",
+              "latitude": -26.5225,
+              "longitude": 31.4659
+            },
+            {
               "name": "Lesotho",
               "latitude": -29.609988,
               "longitude": 28.233608
@@ -287,7 +292,7 @@
               "longitude": 22.9375
             },
             {
-              "name": "Eswatini",
+              "name": "Swaziland",
               "latitude": -26.5225,
               "longitude": 31.4659
             },
@@ -312,9 +317,9 @@
           "name": "Northern America",
           "countries": [
             {
-              "name": "United States",
-              "latitude": 37.0902,
-              "longitude": -95.7129
+              "name": "Antigua and Barbuda",
+              "latitude": 17.0608,
+              "longitude": -61.7964
             },
             {
               "name": "Canada",
@@ -322,9 +327,54 @@
               "longitude": -106.3468
             },
             {
+              "name": "Dominica",
+              "latitude": 15.414999,
+              "longitude": -61.370976
+            },
+            {
+              "name": "Dominican Republic",
+              "latitude": 18.7357,
+              "longitude": -70.1627
+            },
+            {
+              "name": "Grenada",
+              "latitude": 12.2628,
+              "longitude": -61.6042
+            },
+            {
+              "name": "Haiti",
+              "latitude": 18.9712,
+              "longitude": -72.2852
+            },
+            {
               "name": "Mexico",
               "latitude": 23.6345,
               "longitude": -102.5528
+            },
+            {
+              "name": "Saint Kitts and Nevis",
+              "latitude": 17.3578,
+              "longitude": -62.7822
+            },
+            {
+              "name": "Saint Lucia",
+              "latitude": 13.9094,
+              "longitude": -60.9789
+            },
+            {
+              "name": "Saint Vincent and the Grenadines",
+              "latitude": 13.2528,
+              "longitude": -61.1971
+            },
+            {
+              "name": "Trinidad and Tobago",
+              "latitude": 10.6918,
+              "longitude": -61.2225
+            },
+            {
+              "name": "United States",
+              "latitude": 37.0902,
+              "longitude": -95.7129
             }
           ]
         },
@@ -382,9 +432,9 @@
               "longitude": -74.2973
             },
             {
-              "name": "Venezuela",
-              "latitude": 6.4238,
-              "longitude": -66.5897
+              "name": "French Guiana",
+              "latitude": 3.9339,
+              "longitude": -53.1258
             },
             {
               "name": "Guyana",
@@ -397,9 +447,9 @@
               "longitude": -56.0278
             },
             {
-              "name": "French Guiana",
-              "latitude": 3.9339,
-              "longitude": -53.1258
+              "name": "Venezuela",
+              "latitude": 6.4238,
+              "longitude": -66.5897
             }
           ]
         },
@@ -442,14 +492,14 @@
               "longitude": -63.5887
             },
             {
-              "name": "Peru",
-              "latitude": -9.1900,
-              "longitude": -75.0152
-            },
-            {
               "name": "Ecuador",
               "latitude": -1.8312,
               "longitude": -78.1834
+            },
+            {
+              "name": "Peru",
+              "latitude": -9.1900,
+              "longitude": -75.0152
             }
           ]
         }
@@ -630,11 +680,6 @@
               "name": "China",
               "latitude": 35.8617,
               "longitude": 104.1954
-            },
-            {
-              "name": "Hong Kong",
-              "latitude": 22.3964,
-              "longitude": 114.1095
             },
             {
               "name": "Japan",
@@ -965,6 +1010,11 @@
               "name": "Spain",
               "latitude": 40.4637,
               "longitude": -3.7492
+            },
+            {
+              "name": "Vatican City",
+              "latitude": 41.9029,
+              "longitude": 12.4534
             }
           ]
         },
