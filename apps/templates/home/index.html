@@ -47,6 +47,8 @@
 											<a class="dropdown-item continent-item" href="#"
 												data-value="{{ continent.name }}">{{ continent.name }}</a>
 											{% endfor %}
+
+
 										</div>
 									</div>
 								</div>
@@ -74,12 +76,10 @@
 											Select a country
 										</a>
 
-										<div class="dropdown-menu dropdown-menu-bottom"
-											aria-labelledby="countryDropdownButton" id="countryDropdown">
-											<!-- Barre de recherche pour les pays -->
-											<input type="text" class="form-control search-input"
-												placeholder="Search country..."
-												onkeyup="filterDropdownItems(this, 'country-item')">
+										<div class="dropdown-menu" aria-labelledby="countryDropdownButton"
+											id="countryDropdown">
+
+
 
 											<!-- Liste des pays -->
 											<!-- This will be populated with countries based on the selected region -->
@@ -161,7 +161,7 @@
 				<div class="card">
 					<div class="card-header">
 						<div class="card-head-row">
-							<div class="card-title">User Statistics</div>
+							<div class="card-title">Event per Countries</div>
 							<div class="card-tools">
 								<a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2">
 									<span class="btn-label">
@@ -179,10 +179,10 @@
 						</div>
 					</div>
 					<div class="card-body">
-						<div class="chart-container" style="min-height: 375px">
-							<canvas id="statisticsChart"></canvas>
+						<div class="chart-container">
+							<canvas id="barChart"></canvas>
 						</div>
-						<div id="myChartLegend"></div>
+
 					</div>
 				</div>
 			</div>
@@ -532,9 +532,18 @@
 
 <style>
 	/* CSS personnalisé pour afficher la liste des pays en dessous du bouton */
-	.dropdown-menu.dropdown-menu-bottom {
-		top: 100% !important;
-		margin-top: 171px !important;
+	.dropdown-menu {
+		max-height: 200px;
+		overflow-y: auto;
+		/*top: 100% !important;
+		margin-top: 171px !important;*/
+	}
+
+	.dropdown-menu .dropdown-item {
+		/* Retirez ou désactivez la règle de filter */
+		/* filter: blur(2px); */
+		/* Ou réglez la valeur sur none */
+		filter: none;
 	}
 </style>
 
@@ -632,6 +641,10 @@
 		fillColor: 'rgba(255, 165, 52, .14)'
 	});
 
+
+
+
+
 	mapboxgl.accessToken = 'pk.eyJ1IjoidHJpZ2dlcnMiLCJhIjoiY2wxMjNxYmkwMDM2ZjNpbXZvMXNqaXRwcyJ9.CPlAR38urDrvZeJOIUERIw';
 	var map = new mapboxgl.Map({
 		container: 'map',
@@ -706,6 +719,35 @@
 			regionDropdownContainer.show();
 		});
 
+
+		var dataChart = {
+			labels: [], // Utilisez les noms des pays comme valeurs de l'axe des ordonnées
+			datasets: [{
+				label: "Incidents",
+				backgroundColor: 'rgb(23, 125, 255)',
+				borderColor: 'rgb(23, 125, 255)',
+				data: [], // Utilisez les valeurs des incidents comme données pour le graphique à barres
+			}]
+		};
+
+		var options = {
+			responsive: true,
+			maintainAspectRatio: false,
+			scales: {
+				xAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}]
+			},
+		};
+
+		var myBarChart = new Chart(barChart, {
+			type: 'horizontalBar', // Utilisez le type horizontalBar pour avoir un histogramme horizontal
+			data: dataChart,
+			options: options
+		});
+
 		// Gérer le changement de sélection dans le menu déroulant des régions
 		regionDropdown.on("click", ".region-item", function (e) {
 			e.preventDefault();
@@ -724,6 +766,27 @@
 			const continent = data.continents.find(continent => continent.name === $("#continentDropdownButton").text());
 			const countries = continent.regions.find(region => region.name === selectedRegion).countries;
 
+			// Créer l'élément de la barre de recherche
+			const searchInputElement = $('<input type="text" class="form-control search-input" placeholder="Search country...">')
+
+				.css({
+					"border-top": "0px",
+					"border-bottom": "3px solid gray",
+					"border-left": "0px",
+					"border-right": "0px",
+					"background": "white",
+					"border-radius": "25px",
+					"color": "black",
+					"height": "40px",
+				})
+				// Ajouter l'événement onkeyup à la barre de recherche
+				.on("keyup", function () {
+					filterDropdownItems(this, 'country-item');
+				});
+
+			// Ajouter la barre de recherche au début du dropdown-menu des pays
+			countryDropdown.prepend(searchInputElement);
+
 			// Remplir le menu déroulant des pays
 			countries.forEach(country => {
 				const optionElement = `<a class="dropdown-item country-item" href="#" data-value="${country.name}" data-lat="${country.latitude}" data-lon="${country.longitude}">${country.name}</a>`;
@@ -733,6 +796,15 @@
 
 			// Afficher le menu déroulant des pays
 			countryDropdownContainer.show();
+
+			// Mettre à jour l'objet "data" avec les valeurs des pays et des incidents
+			const countryNames = countries.map(country => country.name);
+			const incidentValues = countries.map(country => Math.floor(Math.random() * 100)); // Valeurs aléatoires entre 0 et 100
+			myBarChart.data.labels = countryNames;
+			myBarChart.data.datasets[0].data = incidentValues;
+			myBarChart.update(); // Mettre à jour le graphique
+
+
 		});
 
 		countryDropdown.on("click", ".country-item", function (e) {
@@ -816,6 +888,11 @@
 			}
 		}
 	}
+
+
+
+
+
 
 
 
