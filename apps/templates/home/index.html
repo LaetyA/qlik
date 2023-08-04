@@ -91,14 +91,21 @@
 
 						</div>
 					</div>
-					<p class="card-category">
-						Map of the distribution of users around the world</p>
+					<a class="btn btn-info btn-border btn-round btn-sm mr-2" id="HeatmapBtn">
+						<span class="btn-label">
+							<i class="fa fa-pencil"></i>
+						</span>
+						Chaleur
+					</a>
 				</div>
 				<div class="card-body">
 					<div class="row">
 						<div class="col-md-6">
 							<div class="mapcontainer">
 								<div id="map" style="width: 1180px; height: 500px;"></div>
+							</div>
+							<div class="mapcontainer" style="display: none;">
+								<div id="heatmapMap" style="width: 100%; height: 500px;"></div>
 							</div>
 						</div>
 					</div>
@@ -163,17 +170,23 @@
 						<div class="card-head-row">
 							<div class="card-title">Event per Countries</div>
 							<div class="card-tools">
-								<a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2">
+								<a class="btn btn-info btn-border btn-round btn-sm mr-2" id="perCountryBtn">
 									<span class="btn-label">
 										<i class="fa fa-pencil"></i>
 									</span>
-									Export
+									per Country
 								</a>
-								<a href="#" class="btn btn-info btn-border btn-round btn-sm">
+								<a class="btn btn-info btn-border btn-round btn-sm mr-2" id="perPeriodBtn">
 									<span class="btn-label">
-										<i class="fa fa-print"></i>
+										<i class="fa fa-pencil"></i>
 									</span>
-									Print
+									per Period
+								</a>
+								<a class="btn btn-info btn-border btn-round btn-sm mr-2" id="perTypeSubtypeBtn">
+									<span class="btn-label">
+										<i class="fa fa-pencil"></i>
+									</span>
+									per Type&Subtype
 								</a>
 							</div>
 						</div>
@@ -181,34 +194,31 @@
 					<div class="card-body">
 						<div class="chart-container">
 							<canvas id="barChart"></canvas>
+							<canvas id="lineChart" style="display:none;"></canvas>
+							<canvas id="bubbleChart" style="display:none;"></canvas>
 						</div>
 
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4">
-				<div class="card card-primary">
-					<div class="card-header">
-						<div class="card-title">Daily Sales</div>
-						<div class="card-category">March 25 - April 02</div>
-					</div>
-					<div class="card-body pb-0">
-						<div class="mb-4 mt-2">
-							<h1>$4,578.58</h1>
-						</div>
-						<div class="pull-in">
-							<canvas id="dailySalesChart"></canvas>
-						</div>
-					</div>
-				</div>
-				<div class="card">
-					<div class="card-body pb-0">
-						<div class="h1 fw-bold float-right text-warning">+7%</div>
-						<h2 class="mb-2">213</h2>
-						<p class="text-muted">Transactions</p>
-						<div class="pull-in sparkline-fix">
-							<div id="lineChart"></div>
-						</div>
+			<div class="col-md-4 custom-height">
+				<div class="card card-primary bg-primary-gradient">
+					<div class="card-body d-flex flex-column">
+						<h4 class="mt-3 b-b1 pb-2 mb-4 fw-bold">Pays</h4>
+						<h1 class="mb-4 fw-bold">17</h1>
+						<h4 class="mt-3 b-b1 pb-2 mb-5 fw-bold">Details Incidents</h4>
+						<h4 class="mt-5 pb-3 mb-0 fw-bold">08h46-11h57</h4>
+						<ul class="list-unstyled">
+							<li class="d-flex justify-content-between pb-1 pt-1">
+								<small>Morts</small> <span>0</span>
+							</li>
+							<li class="d-flex justify-content-between pb-1 pt-1">
+								<small>Blessés</small> <span>38</span>
+							</li>
+							<li class="d-flex justify-content-between pb-1 pt-1">
+								<small>Sains</small> <span>88</span>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -353,21 +363,28 @@
 				</div>
 			</div>
 			<div class="col-md-4">
-				<div class="card card-primary bg-primary-gradient">
-					<div class="card-body">
-						<h4 class="mt-3 b-b1 pb-2 mb-4 fw-bold">Active user right now</h4>
-						<h1 class="mb-4 fw-bold">17</h1>
-						<h4 class="mt-3 b-b1 pb-2 mb-5 fw-bold">Page view per minutes</h4>
-						<div id="activeUsersChart"></div>
-						<h4 class="mt-5 pb-3 mb-0 fw-bold">Top active pages</h4>
-						<ul class="list-unstyled">
-							<li class="d-flex justify-content-between pb-1 pt-1">
-								<small>/product/readypro/index.html</small> <span>7</span>
-							</li>
-							<li class="d-flex justify-content-between pb-1 pt-1">
-								<small>/product/atlantis/demo.html</small> <span>10</span>
-							</li>
-						</ul>
+				<div class="card card-primary">
+					<div class="card-header">
+						<div class="card-title">Daily Sales</div>
+						<div class="card-category">March 25 - April 02</div>
+					</div>
+					<div class="card-body pb-0">
+						<div class="mb-4 mt-2">
+							<h1>$4,578.58</h1>
+						</div>
+						<div class="pull-in">
+							<canvas id="dailySalesChart"></canvas>
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-body pb-0">
+						<div class="h1 fw-bold float-right text-warning">+7%</div>
+						<h2 class="mb-2">213</h2>
+						<p class="text-muted">Transactions</p>
+						<div class="pull-in sparkline-fix">
+							<div id="lineChart"></div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -545,6 +562,14 @@
 		/* Ou réglez la valeur sur none */
 		filter: none;
 	}
+
+	.chart-container {
+		height: 350px;
+	}
+
+	.custom-height {
+		height: 350px;
+	}
 </style>
 
 <script>
@@ -640,6 +665,117 @@
 		lineColor: '#ffa534',
 		fillColor: 'rgba(255, 165, 52, .14)'
 	});
+
+	var lineChart = document.getElementById('lineChart').getContext('2d'),
+		bubbleChart = document.getElementById('bubbleChart').getContext('2d')
+
+
+	var myLineChart = new Chart(lineChart, {
+		type: 'line',
+		data: {
+			labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+			datasets: [{
+				label: "Active Users",
+				borderColor: "#1d7af3",
+				pointBorderColor: "#FFF",
+				pointBackgroundColor: "#1d7af3",
+				pointBorderWidth: 2,
+				pointHoverRadius: 4,
+				pointHoverBorderWidth: 1,
+				pointRadius: 4,
+				backgroundColor: 'transparent',
+				fill: true,
+				borderWidth: 2,
+				data: [542, 480, 430, 550, 530, 453, 380, 434, 568, 610, 700, 900]
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			legend: {
+				position: 'bottom',
+				labels: {
+					padding: 10,
+					fontColor: '#1d7af3',
+				}
+			},
+			tooltips: {
+				bodySpacing: 4,
+				mode: "nearest",
+				intersect: 0,
+				position: "nearest",
+				xPadding: 10,
+				yPadding: 10,
+				caretPadding: 10
+			},
+			layout: {
+				padding: { left: 15, right: 15, top: 15, bottom: 15 }
+			}
+		}
+	});
+
+	var myBubbleChart = new Chart(bubbleChart, {
+		type: 'bubble',
+		data: {
+			datasets: [{
+				label: "Car",
+				data: [{ x: 25, y: 17, r: 25 }, { x: 30, y: 25, r: 28 }, { x: 35, y: 30, r: 8 }],
+				backgroundColor: "#716aca"
+			},
+			{
+				label: "Motorcycles",
+				data: [{ x: 10, y: 17, r: 20 }, { x: 30, y: 10, r: 7 }, { x: 35, y: 20, r: 10 }],
+				backgroundColor: "#1d7af3"
+			}],
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			legend: {
+				position: 'bottom'
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}],
+				xAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}]
+			},
+		}
+	});
+
+
+	// Gérer le clic sur le bouton "per Country"
+	$("#perCountryBtn").on("click", function () {
+		// Afficher le graphique "barChart" et masquer les autres graphiques
+		$("#barChart").show();
+		$("#lineChart").hide();
+		$("#bubbleChart").hide();
+	});
+
+	// Gérer le clic sur le bouton "per Period"
+	$("#perPeriodBtn").on("click", function () {
+		// Afficher le graphique "lineChart" et masquer les autres graphiques
+		$("#barChart").hide();
+		$("#lineChart").show();
+		$("#bubbleChart").hide();
+	});
+
+	// Gérer le clic sur le bouton "per Type&Subtype"
+	$("#perTypeSubtypeBtn").on("click", function () {
+		// Afficher le graphique "bubbleChart" et masquer les autres graphiques
+		$("#barChart").hide();
+		$("#lineChart").hide();
+		$("#bubbleChart").show();
+	});
+
+	// Afficher le graphique "barChart" par défaut
+	$("#barChart").show();
 
 
 
