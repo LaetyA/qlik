@@ -812,6 +812,82 @@
 	});
 
 
+	var heatmapMap;
+
+
+
+	document.getElementById('HeatmapBtn').addEventListener('click', function () {
+		// Masquer la carte existante et afficher la carte de chaleur
+		document.querySelector('.mapcontainer #map').style.display = 'none';
+		document.querySelector('.mapcontainer #heatmapMap').style.display = 'block';
+
+		// Ajouter la couche de chaleur à la carte de chaleur
+
+		heatmapMap = new mapboxgl.Map({
+			container: 'heatmapMap',
+			style: 'mapbox://styles/mapbox/light-v10',
+			center: [-5.5471, 7.5468545], // Remplacez par les coordonnées du centre de votre carte
+			zoom: 5,// Niveau de zoom initial
+			maxZoom: 15
+		});
+
+		var heatmapData = [
+			{ lng: 13.404954, lat: 52.520008, value: 0.6 }, // Berlin, Germany
+			{ lng: 2.352222, lat: 48.856614, value: 0.7 }, // Paris, France
+			{ lng: -0.180525, lat: 51.404818, value: 0.9 }, // London, United Kingdom
+			{ lng: 4.351710, lat: 50.850340, value: 0.8 }, // Brussels, Belgium
+			{ lng: 12.496366, lat: 41.902782, value: 0.4 }, // Rome, Italy
+			{ lng: 31.235712, lat: 30.044420, value: 0.3 }, // Cairo, Egypt
+			{ lng: 2.173403, lat: 41.385064, value: 0.5 }, // Barcelona, Spain
+			{ lng: 32.585179, lat: 15.500654, value: 0.2 }, // Khartoum, Sudan
+			{ lng: 35.689506, lat: 139.691700, value: 0.7 }, // Tokyo, Japan
+			{ lng: 25.276987, lat: -25.731340, value: 0.6 }, // Johannesburg, South Africa
+			{ lng: 5.603717, lat: 52.076665, value: 0.8 }, // Amsterdam, Netherlands
+			{ lng: -8.629105, lat: 41.157944, value: 0.4 }, // Porto, Portugal
+			// Ajoutez plus de points avec leurs coordonnées et valeurs ici
+		];
+		// Remplacez "YOUR_HEATMAP_DATA" par vos données de chaleur au format GeoJSON
+		heatmapMap.on('load', function () {
+			heatmapMap.addLayer({
+				id: 'heatmapLayer',
+				type: 'heatmap',
+				source: {
+					type: 'geojson',
+					data: {
+						type: 'FeatureCollection',
+						features: heatmapData.map(point => ({
+							type: 'Feature',
+							geometry: {
+								type: 'Point',
+								coordinates: [point.lng, point.lat]
+							},
+							properties: {
+								value: point.value
+							}
+						}))
+					}
+				},
+				paint: {
+					'heatmap-radius': 20,
+					'heatmap-color': [
+						'interpolate',
+						['linear'],
+						['heatmap-density'],
+						0, 'rgba(33,102,172,0)',
+						0.2, 'rgb(103,169,207)',
+						0.4, 'rgb(209,229,240)',
+						0.6, 'rgb(253,219,199)',
+						0.8, 'rgb(239,138,98)',
+						1, 'rgb(178,24,43)'
+					],
+					'heatmap-opacity': 0.75
+				}
+			});
+		});
+	});
+
+
+
 
 
 	// Déclarez la variable continentsData en dehors de la fonction loadJSON
@@ -980,8 +1056,10 @@
 			// Déplacer la carte Mapbox pour centrer le pays sélectionné
 			map.flyTo({ center: [lon, lat], zoom: 5 });
 
+			heatmapMap.flyTo({ center: [lon, lat], zoom: 5 });
 
-			function loadCountryGeoJSON(countryName) {
+
+			function loadCountryGeoJSON(map, countryName) {
 				// Charger les données GeoJSON des contours du pays ici
 				// Remplacez 'path/to/' par le chemin vers le dossier contenant les fichiers GeoJSON de chaque pays
 				const geoJSONPath = `/static/geojson/${countryName}.geojson`;
@@ -1023,7 +1101,8 @@
 				}
 			}
 
-			loadCountryGeoJSON(selectedCountry);
+			loadCountryGeoJSON(map, selectedCountry);
+			loadCountryGeoJSON(heatmapMap, selectedCountry);
 
 
 
@@ -1050,79 +1129,6 @@
 
 
 
-	document.getElementById('HeatmapBtn').addEventListener('click', function () {
-		// Masquer la carte existante et afficher la carte de chaleur
-		document.querySelector('.mapcontainer #map').style.display = 'none';
-		document.querySelector('.mapcontainer #heatmapMap').style.display = 'block';
-
-		// Créer la carte de chaleur
-
-		mapboxgl.accessToken = 'pk.eyJ1IjoidHJpZ2dlcnMiLCJhIjoiY2wxMjNxYmkwMDM2ZjNpbXZvMXNqaXRwcyJ9.CPlAR38urDrvZeJOIUERIw';
-		var heatmapMap = new mapboxgl.Map({
-			container: 'heatmapMap',
-			style: 'mapbox://styles/mapbox/light-v10',
-			center: [-5.5471, 7.5468545], // Remplacez par les coordonnées du centre de votre carte
-			zoom: 5,// Niveau de zoom initial
-			maxZoom: 15
-		});
-
-
-		// Ajouter la couche de chaleur à la carte de chaleur
-
-		var heatmapData = [
-			{ lng: 13.404954, lat: 52.520008, value: 0.6 }, // Berlin, Germany
-			{ lng: 2.352222, lat: 48.856614, value: 0.7 }, // Paris, France
-			{ lng: -0.180525, lat: 51.404818, value: 0.9 }, // London, United Kingdom
-			{ lng: 4.351710, lat: 50.850340, value: 0.8 }, // Brussels, Belgium
-			{ lng: 12.496366, lat: 41.902782, value: 0.4 }, // Rome, Italy
-			{ lng: 31.235712, lat: 30.044420, value: 0.3 }, // Cairo, Egypt
-			{ lng: 2.173403, lat: 41.385064, value: 0.5 }, // Barcelona, Spain
-			{ lng: 32.585179, lat: 15.500654, value: 0.2 }, // Khartoum, Sudan
-			{ lng: 35.689506, lat: 139.691700, value: 0.7 }, // Tokyo, Japan
-			{ lng: 25.276987, lat: -25.731340, value: 0.6 }, // Johannesburg, South Africa
-			{ lng: 5.603717, lat: 52.076665, value: 0.8 }, // Amsterdam, Netherlands
-			{ lng: -8.629105, lat: 41.157944, value: 0.4 }, // Porto, Portugal
-			// Ajoutez plus de points avec leurs coordonnées et valeurs ici
-		];
-		// Remplacez "YOUR_HEATMAP_DATA" par vos données de chaleur au format GeoJSON
-		heatmapMap.on('load', function () {
-			heatmapMap.addLayer({
-				id: 'heatmapLayer',
-				type: 'heatmap',
-				source: {
-					type: 'geojson',
-					data: {
-						type: 'FeatureCollection',
-						features: heatmapData.map(point => ({
-							type: 'Feature',
-							geometry: {
-								type: 'Point',
-								coordinates: [point.lng, point.lat]
-							},
-							properties: {
-								value: point.value
-							}
-						}))
-					}
-				},
-				paint: {
-					'heatmap-radius': 20,
-					'heatmap-color': [
-						'interpolate',
-						['linear'],
-						['heatmap-density'],
-						0, 'rgba(33,102,172,0)',
-						0.2, 'rgb(103,169,207)',
-						0.4, 'rgb(209,229,240)',
-						0.6, 'rgb(253,219,199)',
-						0.8, 'rgb(239,138,98)',
-						1, 'rgb(178,24,43)'
-					],
-					'heatmap-opacity': 0.75
-				}
-			});
-		});
-	});
 
 
 
