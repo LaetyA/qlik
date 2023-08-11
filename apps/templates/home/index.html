@@ -455,80 +455,38 @@
 							</div>
 						</div>
 					</div>
+					<!-- Boucle pour afficher les commentaires -->
+					
 					<div class="card-body">
-						<div class="d-flex">
+						{% for comment in comments %}
+						<div class="d-flex mb-2">
+							<!-- Avatar de l'utilisateur -->
 							<div class="avatar avatar-online">
-								<span class="avatar-title rounded-circle border border-white bg-info">J</span>
+								<span class="avatar-title rounded-circle border border-white bg-info">{{ comment.get_username|first }}</span>
 							</div>
+							<!-- Contenu du commentaire -->
 							<div class="flex-1 ml-3 pt-1">
-								<h6 class="text-uppercase fw-bold mb-1">Joko Subianto <span
-										class="text-warning pl-3">pending</span></h6>
-								<span class="text-muted">I am facing some trouble with my viewport. When i start
-									my</span>
+								<h6 class="text-uppercase fw-bold mb-1">{{ comment.get_username }} {{ comment.user_id.first_name }} {{ comment.user_id.last_name }}</h6>
+								<span class="text-muted">{{ comment.text }}</span>
 							</div>
+							<!-- Heure du commentaire -->
 							<div class="float-right pt-1">
-								<small class="text-muted">8:40 PM</small>
+								<small class="text-muted">{{ comment.date|date:"h:i A" }}</small>
 							</div>
 						</div>
 						<div class="separator-dashed"></div>
-						<div class="d-flex">
-							<div class="avatar avatar-offline">
-								<span class="avatar-title rounded-circle border border-white bg-secondary">P</span>
-							</div>
-							<div class="flex-1 ml-3 pt-1">
-								<h6 class="text-uppercase fw-bold mb-1">Prabowo Widodo <span
-										class="text-success pl-3">open</span></h6>
-								<span class="text-muted">I have some query regarding the license issue.</span>
-							</div>
-							<div class="float-right pt-1">
-								<small class="text-muted">1 Day Ago</small>
-							</div>
-						</div>
-						<div class="separator-dashed"></div>
-						<div class="d-flex">
-							<div class="avatar avatar-away">
-								<span class="avatar-title rounded-circle border border-white bg-danger">L</span>
-							</div>
-							<div class="flex-1 ml-3 pt-1">
-								<h6 class="text-uppercase fw-bold mb-1">Lee Chong Wei <span
-										class="text-muted pl-3">closed</span></h6>
-								<span class="text-muted">Is there any update plan for RTL version near
-									future?</span>
-							</div>
-							<div class="float-right pt-1">
-								<small class="text-muted">2 Days Ago</small>
-							</div>
-						</div>
-						<div class="separator-dashed"></div>
-						<div class="d-flex">
-							<div class="avatar avatar-offline">
-								<span class="avatar-title rounded-circle border border-white bg-secondary">P</span>
-							</div>
-							<div class="flex-1 ml-3 pt-1">
-								<h6 class="text-uppercase fw-bold mb-1">Peter Parker <span
-										class="text-success pl-3">open</span></h6>
-								<span class="text-muted">I have some query regarding the license issue.</span>
-							</div>
-							<div class="float-right pt-1">
-								<small class="text-muted">2 Day Ago</small>
-							</div>
-						</div>
-						<div class="separator-dashed"></div>
-						<div class="d-flex">
-							<div class="avatar avatar-away">
-								<span class="avatar-title rounded-circle border border-white bg-danger">L</span>
-							</div>
-							<div class="flex-1 ml-3 pt-1">
-								<h6 class="text-uppercase fw-bold mb-1">Logan Paul <span
-										class="text-muted pl-3">closed</span></h6>
-								<span class="text-muted">Is there any update plan for RTL version near
-									future?</span>
-							</div>
-							<div class="float-right pt-1">
-								<small class="text-muted">2 Days Ago</small>
-							</div>
-						</div>
+						{% endfor %}
 					</div>
+					
+
+					<!-- Affichez le formulaire pour poster un commentaire -->
+					<form id="commentForm" method="post">
+						{% csrf_token %}
+						<textarea id="commentText" name="text" class="form-control" rows="3"
+							placeholder="Write a comment..."></textarea>
+						<button id="postCommentBtn" type="button" class="btn btn-primary mt-3">Post Comment</button>
+					</form>
+
 				</div>
 			</div>
 		</div>
@@ -820,6 +778,25 @@
 		maxZoom: 15
 	});
 
+	var geolocateControl = new mapboxgl.GeolocateControl({ // Utilisation de this.geolocateControl
+		positionOptions: {
+			enableHighAccuracy: true
+		},
+		trackUserLocation: true,
+		showUserHeading: true
+	});
+
+	var geolocateHeatControl = new mapboxgl.GeolocateControl({ // Utilisation de this.geolocateControl
+		positionOptions: {
+			enableHighAccuracy: true
+		},
+		trackUserLocation: true,
+		showUserHeading: true
+	});
+
+	map.addControl(this.geolocateControl, 'top-left');
+	heatmapMap.addControl(this.geolocateHeatControl, 'top-left');
+
 	var heatmapData = [
 		{ lng: 13.404954, lat: 52.520008, value: 0.6 }, // Berlin, Germany
 		{ lng: 2.352222, lat: 48.856614, value: 0.7 }, // Paris, France
@@ -981,6 +958,7 @@
 			type: 'horizontalBar', // Utilisez le type horizontalBar pour avoir un histogramme horizontal
 			data: dataChart,
 			options: options
+
 		});
 
 		// Gérer le changement de sélection dans le menu déroulant des régions
@@ -1126,6 +1104,42 @@
 			}
 		}
 	}
+
+	/* TOUT CE QUI CONCERNE L'ENVOI D'UN COMMENTAIRE*/
+
+	document.getElementById('postCommentBtn').addEventListener('click', function () {
+		// Récupérer le texte du commentaire et le CSRF token
+		var commentText = document.getElementById('commentText').value;
+		var csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+		// Créer un objet de données pour envoyer via AJAX
+		var data = new FormData();
+		data.append('text', commentText);
+		data.append('csrfmiddlewaretoken', csrfToken);
+
+		// Envoyer le commentaire via AJAX
+		fetch("{% url 'home' %}", {
+			method: 'POST',
+			body: data,
+			headers: {
+				'X-CSRFToken': csrfToken,
+				'X-Requested-With': 'XMLHttpRequest' // Indiquer que c'est une requête AJAX
+			}
+		})
+			.then(response => response.json())
+			.then(data => {
+				console.log(data.message);
+				// Actualiser la liste des commentaires sans recharger la page (c'est un exemple, vous devez implémenter cette partie)
+			})
+			.catch(error => {
+				console.error("Erreur lors de l'envoi du commentaire:", error);
+			});
+	});
+
+
+
+
+
 
 
 
