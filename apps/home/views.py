@@ -17,7 +17,6 @@ from .models import Comment
 from django.http import JsonResponse
 
 
-
 @login_required(login_url="/login/")
 def index(request):
     # Chemin absolu vers le fichier JSON
@@ -31,7 +30,8 @@ def index(request):
     user = request.user  # Utilisateur connecté
 
     context = {'continentsData': continentsData, 'user': user}
-    comments = Comment.objects.all()  # Vous pouvez ajouter des filtres ici si nécessaire
+    # Vous pouvez ajouter des filtres ici si nécessaire
+    comments = Comment.objects.all()
     context['comments'] = comments
 
     if request.method == 'POST' and request.is_ajax():
@@ -41,10 +41,17 @@ def index(request):
             text = request.POST.get('text')
 
             # Créez un nouveau commentaire en utilisant l'utilisateur connecté
-            Comment.objects.create(user=user, text=text)
+            comment = Comment.objects.create(user=user, text=text)
 
             # Renvoyez une réponse JSON indiquant le succès
-            return JsonResponse({'message': 'Comment added successfully!'})
+            return JsonResponse({
+                'message': 'Comment added successfully!',
+                'comment_user': {
+                    'username': comment.user.username,
+                    'first_name': comment.user.first_name,
+                    'last_name': comment.user.last_name,
+                }
+            })
         else:
             # L'utilisateur n'est pas authentifié
             return JsonResponse({'message': 'User not authenticated.'}, status=401)

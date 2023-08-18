@@ -435,56 +435,71 @@
 				<div class="card full-height">
 					<div class="card-header">
 						<div class="card-head-row">
-							<div class="card-title">Support Tickets</div>
+							<div class="card-title">Commentaires</div>
 							<div class="card-tools">
-								<ul class="nav nav-pills nav-secondary nav-pills-no-bd nav-sm" id="pills-tab"
-									role="tablist">
-									<li class="nav-item">
-										<a class="nav-link" id="pills-today" data-toggle="pill" href="#pills-today"
-											role="tab" aria-selected="true">Today</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link active" id="pills-week" data-toggle="pill" href="#pills-week"
-											role="tab" aria-selected="false">Week</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link" id="pills-month" data-toggle="pill" href="#pills-month"
-											role="tab" aria-selected="false">Month</a>
-									</li>
-								</ul>
+								<div class="form-group">
+									<div class="input-icon">
+										<input id="commentSearch" type="text" class="form-control"
+											placeholder="Search for...">
+										<span class="input-icon-addon">
+											<i class="fa fa-search"></i>
+										</span>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 					<!-- Boucle pour afficher les commentaires -->
-					
-					<div class="card-body">
-						{% for comment in comments %}
-						<div class="d-flex mb-2">
+
+					<div class="card-body comment" id="commentsContainer">
+						<!-- Boucle pour afficher les commentaires -->
+						{% for comment in comments reversed %}
+						<div class="d-flex mb-2 comment-entry">
 							<!-- Avatar de l'utilisateur -->
 							<div class="avatar avatar-online">
-								<span class="avatar-title rounded-circle border border-white bg-info">{{ comment.get_username|first }}</span>
+								<span class="avatar-title rounded-circle border border-white random-color">
+									{{ comment.get_username|slice:"1" }}</span>
 							</div>
 							<!-- Contenu du commentaire -->
 							<div class="flex-1 ml-3 pt-1">
-								<h6 class="text-uppercase fw-bold mb-1">{{ comment.get_username }} {{ comment.user_id.first_name }} {{ comment.user_id.last_name }}</h6>
+								<h6 class="text-uppercase fw-bold mb-1">
+									{{ comment.get_username }}
+									{{ comment.user.first_name }}
+									{{ comment.user.last_name }}</h6>
 								<span class="text-muted">{{ comment.text }}</span>
 							</div>
 							<!-- Heure du commentaire -->
 							<div class="float-right pt-1">
-								<small class="text-muted">{{ comment.date|date:"h:i A" }}</small>
+								<small class="text-muted">{{ comment.date|date:"G:i / j M Y " }}</small>
 							</div>
 						</div>
 						<div class="separator-dashed"></div>
 						{% endfor %}
 					</div>
-					
+
+					<br>
+					<div class="container" style="text-align: center;" id="postButton">
+						<button class="btn btn-secondary mt-3" style="height: 45px; width: 130px; ">
+							<span class="btn-label">
+								<i class="fa fa-plus"></i>
+							</span>
+							Post
+						</button>
+					</div>
+
 
 					<!-- Affichez le formulaire pour poster un commentaire -->
-					<form id="commentForm" method="post">
+					<form id="commentForm" method="post" class="hidden-form">
 						{% csrf_token %}
 						<textarea id="commentText" name="text" class="form-control" rows="3"
 							placeholder="Write a comment..."></textarea>
-						<button id="postCommentBtn" type="button" class="btn btn-primary mt-3">Post Comment</button>
+						<div class="container" style="text-align: center;" id="postButtonContainer">
+							<div class="card-action">
+								<button type="button" class="btn btn-danger mr-2" id="cancelButton">Annuler</button>
+								<button type="button" class="btn btn-success" id="submitCommentBtn">Valider</button>
+							</div>
+						</div>
+
 					</form>
 
 				</div>
@@ -532,6 +547,34 @@
 
 	.custom-height {
 		height: 350px;
+	}
+
+	.popup {
+		background-color: white;
+		border: 1px solid #ddd;
+		padding: 5px;
+		display: flex;
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+
+	.popup i {
+		margin: 0 5px;
+		cursor: pointer;
+	}
+
+	.hidden-form {
+		display: none;
+	}
+
+	.comment {
+		max-height: 310px;
+		overflow-y: auto;
+	}
+
+	.comment-highlight {
+		background-color: red;
 	}
 </style>
 
@@ -952,14 +995,53 @@
 					}
 				}]
 			},
+			onClick: function (event, elements) {
+				// Supprimez le popup précédent s'il existe
+				var existingPopup = document.querySelector(".chart-container .popup");
+				if (existingPopup) {
+					existingPopup.remove();
+				}
+
+				if (elements && elements.length > 0) {
+					var elementIndex = elements[0]._index; // Index de la barre cliquée
+					var popup = document.createElement("div");
+					popup.className = "popup";
+					popup.innerHTML = '<i class="fas fa-plus-circle"></i></i><i class="far fa-times-circle"><i class="fas fa-minus"></i></i><i class="fas fa-check"></i><i class="fas fa-times"></i>';
+
+					// Ajoutez le popup à l'intérieur de la div avec la classe "chart-container"
+					var chartContainer = document.querySelector(".chart-container");
+					chartContainer.appendChild(popup);
+
+					// Positionnez le popup en haut à droite de la div "chart-container"
+					popup.style.position = "absolute";
+					popup.style.right = "0";
+					popup.style.top = "0";
+
+					// Ajoutez des événements pour les icônes de check et croix
+					var checkIcon = popup.querySelector(".fa-check");
+					var crossIcon = popup.querySelector(".fa-times");
+					checkIcon.addEventListener("click", function () {
+						// Logique à exécuter en cas de clic sur l'icône de check
+						console.log("Check icon clicked");
+						chartContainer.removeChild(popup);
+					});
+					crossIcon.addEventListener("click", function () {
+						// Logique à exécuter en cas de clic sur l'icône de croix
+						console.log("Cross icon clicked");
+						chartContainer.removeChild(popup);
+					});
+				}
+			}
 		};
+
 
 		var myBarChart = new Chart(barChart, {
 			type: 'horizontalBar', // Utilisez le type horizontalBar pour avoir un histogramme horizontal
 			data: dataChart,
 			options: options
-
 		});
+
+
 
 		// Gérer le changement de sélection dans le menu déroulant des régions
 		regionDropdown.on("click", ".region-item", function (e) {
@@ -1107,7 +1189,29 @@
 
 	/* TOUT CE QUI CONCERNE L'ENVOI D'UN COMMENTAIRE*/
 
-	document.getElementById('postCommentBtn').addEventListener('click', function () {
+
+	// Liste de classes de couleur prédéfinies
+	var colorClasses = ["bg-primary", "bg-secondary", "bg-info", "bg-success", "bg-danger", "bg-warning"];
+
+	// Fonction pour choisir une couleur aléatoire
+	function getRandomColor() {
+		var randomIndex = Math.floor(Math.random() * colorClasses.length);
+		return colorClasses[randomIndex];
+	}
+
+	// Appliquer une couleur aléatoire à tous les éléments avec la classe "random-color"
+	$(".random-color").each(function () {
+		var randomColor = getRandomColor();
+		$(this).addClass(randomColor);
+	});
+
+	// Obtenez une référence au bouton et au formulaire
+	var postButton = document.getElementById("postButton");
+	var commentForm = document.getElementById("commentForm");
+	var cancelButton = document.getElementById("cancelButton");
+
+
+	document.getElementById('submitCommentBtn').addEventListener('click', function () {
 		// Récupérer le texte du commentaire et le CSRF token
 		var commentText = document.getElementById('commentText').value;
 		var csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
@@ -1129,12 +1233,104 @@
 			.then(response => response.json())
 			.then(data => {
 				console.log(data.message);
-				// Actualiser la liste des commentaires sans recharger la page (c'est un exemple, vous devez implémenter cette partie)
+
+				// Mettez à jour la liste des commentaires dans l'interface utilisateur
+				const commentsContainer = document.querySelector(".card-body.comment");
+				const updatedComment = `
+            <!-- Nouveau commentaire -->
+				<div class="d-flex mb-2">
+					<!-- Avatar de l'utilisateur -->
+					<div class="avatar avatar-online">
+						<span class="avatar-title rounded-circle border border-white random-color">
+							${data.comment_user.username.slice(0, 1)}
+						</span>
+					</div>
+					<!-- Contenu du commentaire -->
+					<div class="flex-1 ml-3 pt-1">
+						<h6 class="text-uppercase fw-bold mb-1">
+							${data.comment_user.username}
+							${data.comment_user.first_name}
+							${data.comment_user.last_name}
+						</h6>
+						<span class="text-muted">${commentText}</span>
+					</div>
+					<!-- Heure du commentaire -->
+					<div class="float-right pt-1">
+						<small class="text-muted">Maintenant</small>
+					</div>	
+				</div>
+            <div class="separator-dashed"></div>
+        `;
+
+				// Ajouter le nouveau commentaire à la fin de la liste des commentaires
+				//commentsContainer.innerHTML += updatedComment;
+				commentsContainer.insertAdjacentHTML("afterbegin", updatedComment);
+
+				// Masquer le formulaire et afficher à nouveau le bouton "Post"
+				commentForm.classList.add("hidden-form");
+				postButton.style.display = "block";
 			})
 			.catch(error => {
 				console.error("Erreur lors de l'envoi du commentaire:", error);
 			});
 	});
+
+
+	// Ajoutez un événement de clic au bouton
+	postButton.addEventListener("click", function () {
+		// Basculez la visibilité du formulaire en ajoutant ou en supprimant la classe "hidden-form"
+		commentForm.classList.toggle("hidden-form");
+		postButton.style.display = "none"; // Masquez le bouton "Post"
+	});
+
+	cancelButton.addEventListener("click", function () {
+		// Réinitialisez la visibilité du formulaire et du bouton "Post"
+		commentForm.classList.add("hidden-form");
+		postButton.style.display = "block";
+	});
+	const commentSearchInput = document.getElementById("commentSearch");
+	const commentsContainer = document.getElementById("commentsContainer");
+	const originalCommentsHTML = commentsContainer.innerHTML;
+	const commentEntries = commentsContainer.querySelectorAll(".comment-entry");
+
+	commentSearchInput.addEventListener("input", function () {
+		const searchText = commentSearchInput.value.toLowerCase();
+
+		let filteredCommentsHTML = "";
+
+		commentEntries.forEach(function (entry) {
+			const commentText = entry.textContent.toLowerCase();
+			const shouldDisplay = commentText.includes(searchText);
+
+			if (shouldDisplay) {
+				filteredCommentsHTML += entry.outerHTML;
+			}
+		});
+
+		if (filteredCommentsHTML === "") {
+			commentsContainer.innerHTML = "No matching comments found.";
+		} else {
+			commentsContainer.innerHTML = filteredCommentsHTML;
+		}
+
+		console.log("Esprit Saint");
+	});
+
+	// Réinitialiser les commentaires à leur état initial
+	function resetComments() {
+		commentsContainer.innerHTML = originalCommentsHTML;
+	}
+
+	commentSearchInput.addEventListener("focus", function () {
+		resetComments();
+	});
+
+
+
+
+
+
+
 
 
 
