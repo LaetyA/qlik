@@ -551,12 +551,13 @@
 
 	.popup {
 		background-color: white;
-		border: 1px solid #ddd;
-		padding: 5px;
+		/*border: 1px solid #ddd;*/
+		padding: 0px;
 		display: flex;
 		position: absolute;
 		top: 0;
 		right: 0;
+		border-radius: 5px;
 	}
 
 	.popup i {
@@ -974,6 +975,7 @@
 			regionDropdownContainer.show();
 		});
 
+		var selectedBars = new Set(); // Utilisez un ensemble pour stocker les indices des barres sélectionnées
 
 		var dataChart = {
 			labels: [], // Utilisez les noms des pays comme valeurs de l'axe des ordonnées
@@ -995,18 +997,58 @@
 					}
 				}]
 			},
+			
 			onClick: function (event, elements) {
-				// Supprimez le popup précédent s'il existe
-				var existingPopup = document.querySelector(".chart-container .popup");
-				if (existingPopup) {
-					existingPopup.remove();
-				}
-
 				if (elements && elements.length > 0) {
 					var elementIndex = elements[0]._index; // Index de la barre cliquée
+
+					// Vérifiez si la barre est déjà sélectionnée
+					if (selectedBars.has(elementIndex)) {
+						// La barre est déjà sélectionnée, donc la désélectionner
+						selectedBars.delete(elementIndex);
+					} else {
+						// La barre n'est pas déjà sélectionnée, donc l'ajouter à la sélection
+						selectedBars.add(elementIndex);
+					}
+
+					// Mettre à jour les couleurs en fonction des barres sélectionnées
+					var meta = myBarChart.getDatasetMeta(0);
+					meta.data.forEach(function (bar, i) {
+						if (selectedBars.has(i)) {
+							bar._model.backgroundColor = 'green';
+						} else {
+							bar._model.backgroundColor = 'rgb(23, 125, 255)';
+						}
+					});
+
+					// Mettez à jour le graphique pour refléter les changements
+					myBarChart.update();
+
+					// Créez le popup avec les boutons ici
 					var popup = document.createElement("div");
 					popup.className = "popup";
-					popup.innerHTML = '<i class="fas fa-plus-circle"></i></i><i class="far fa-times-circle"><i class="fas fa-minus"></i></i><i class="fas fa-check"></i><i class="fas fa-times"></i>';
+
+					// Créez le groupe de boutons avec les icônes
+					popup.innerHTML = `
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-secondary btn-sm active">
+                        <input type="radio" name="options" id="option1" autocomplete="off">
+                        <i class="fas fa-plus-circle"></i>
+                    </label>
+                    <label class="btn btn-secondary btn-sm">
+                        <input type="radio" name="options" id="option2" autocomplete="off">
+                        <i class="far fa-times-circle"></i>
+                    </label>
+                    <label class="btn btn-secondary btn-sm">
+                        <input type="radio" name="options" id="option3" autocomplete="off">
+                        <i class="fas fa-check"></i>
+                    </label>
+                    <label class="btn btn-secondary btn-sm">
+                        <input type="radio" name="options" id="option4" autocomplete="off">
+                        <i class="fas fa-times"></i>
+                    </label>
+                </div>
+            `;
 
 					// Ajoutez le popup à l'intérieur de la div avec la classe "chart-container"
 					var chartContainer = document.querySelector(".chart-container");
@@ -1017,29 +1059,23 @@
 					popup.style.right = "0";
 					popup.style.top = "0";
 
-					// Ajoutez des événements pour les icônes de check et croix
-					var checkIcon = popup.querySelector(".fa-check");
-					var crossIcon = popup.querySelector(".fa-times");
-					checkIcon.addEventListener("click", function () {
-						// Logique à exécuter en cas de clic sur l'icône de check
-						console.log("Check icon clicked");
-						chartContainer.removeChild(popup);
-					});
-					crossIcon.addEventListener("click", function () {
-						// Logique à exécuter en cas de clic sur l'icône de croix
-						console.log("Cross icon clicked");
+					// Supprimez le popup lorsque le bouton "x" est cliqué
+					var closeButton = popup.querySelector(".btn-secondary:last-child");
+					closeButton.addEventListener("click", function () {
 						chartContainer.removeChild(popup);
 					});
 				}
 			}
 		};
 
-
 		var myBarChart = new Chart(barChart, {
 			type: 'horizontalBar', // Utilisez le type horizontalBar pour avoir un histogramme horizontal
 			data: dataChart,
 			options: options
 		});
+
+
+
 
 
 
@@ -1313,7 +1349,7 @@
 			commentsContainer.innerHTML = filteredCommentsHTML;
 		}
 
-		console.log("Esprit Saint");
+		console.log("Je t'aime Ruru");
 	});
 
 	// Réinitialiser les commentaires à leur état initial
