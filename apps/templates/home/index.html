@@ -12,15 +12,135 @@
 <div class="content">
 	<div class="panel-header bg-primary-gradient">
 		<div class="page-inner py-5">
-			<div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
-				<!--<div>
-						<h2 class="text-white pb-2 fw-bold">Dashboard</h2>
-						<h5 class="text-white op-7 mb-2">Free Bootstrap 4 Admin Dashboard</h5>
+			<div class="container mt-5">
+				<div class="row">
+					<div class="col my-2">
+						<div class="dropdown dropdown-custom">
+							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
+								id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+								Actors
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+								<li><a class="dropdown-item" href="#">Main Actor</a></li>
+								<li><a class="dropdown-item" href="#">Main Actor Type</a></li>
+								<li><a class="dropdown-item" href="#">Counterparty</a></li>
+							</ul>
+						</div>
 					</div>
-					<div class="ml-md-auto py-2 py-md-0">
-						<a href="#" class="btn btn-white btn-border btn-round mr-2">Manage</a>
-						<a href="#" class="btn btn-secondary btn-round">Add Customer</a>
-					</div>-->
+					<div class="col my-2">
+						<div class="dropdown dropdown-custom">
+							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
+								id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">Time</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+								<li><a class="dropdown-item" href="#">Event Period</a></li>
+								<li><a class="dropdown-item" href="#">Event Year</a></li>
+								<li><a class="dropdown-item" href="#">Event Date</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col my-2">
+						<div class="dropdown dropdown-custom">
+							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
+								id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">Events</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+								<li><a class="dropdown-item" href="#">Event Type</a></li>
+								<li><a class="dropdown-item" href="#">Event Subtype</a></li>
+								<li><a class="dropdown-item" href="#">Event Source</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col my-2">
+						<div class="dropdown dropdown-custom">
+							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
+								id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">Time</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<li><a class="dropdown-item" href="#">Last Day</a></li>
+								<li><a class="dropdown-item" href="#">Last 6 Days</a></li>
+								<li><a class="dropdown-item" href="#">Last 30Days</a></li>
+								<li><a class="dropdown-item" href="#">Last 90 Days</a></li>
+								<li><a class="dropdown-item" href="#">Last Year</a></li>
+								<li><a class="dropdown-item" href="#">All Dates</a></li>
+								<li><a class="dropdown-item" href="#" id="openModal">Custom Date</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col my-2">
+						<div class="dropdown dropdown-custom">
+							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
+								id="dropdownMenuButton4" data-bs-toggle="dropdown"
+								aria-expanded="false">Measure</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
+								<li><a class="dropdown-item" href="#">Events</a></li>
+								<li><a class="dropdown-item" href="#">Fatalities</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col my-2">
+						<div class="dropdown dropdown-custom">
+							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
+								id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-expanded="false">Point Type
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton5">
+								<li><a class="dropdown-item" href="#">Icon</a></li>
+								<li><a class="dropdown-item" href="#">Point</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col my-2">
+						<div class="dropdown dropdown-custom">
+							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
+								id="dropdownMenuButton6" data-bs-toggle="dropdown" aria-expanded="false">Map Type
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton6">
+								<li><a class="dropdown-item" href="#">Default</a></li>
+								<li><a class="dropdown-item" href="#">Satellite</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col my-2 ">
+						<div class="dropdown dropdown-custom">
+							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
+								id="dropdownMenuButton7" data-bs-toggle="dropdown" aria-expanded="false">Last
+								Available</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton7">
+								<li><a class="dropdown-item" href="#">02/08/2023</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<!-- popup -->
+
+				<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
+					sty>
+					<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+						<div class="modal-content">
+							<div class="modal-header" style="color: black;">
+								<h5 class="modal-title" id="myModalLabel">Select date range :</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Fermer"></button>
+							</div>
+							<div class="modal-body" style="color: black;">
+								<div class="row">
+									<div class="col">
+										<h5>start</h5>
+										<input type="text" id="dateRangePicker1"
+											class="form-control datepicker-input" />
+									</div>
+									<div class="col">
+										<h5>end</h5>
+										<input type="text" id="dateRangePicker2"
+											class="form-control datepicker-input" />
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary" id="btnApply">Appliquer</button>
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -227,6 +347,156 @@
 				</div>
 			</div>
 		</div>
+
+
+
+
+
+
+
+
+
+
+		<div class="row row-card-no-pd">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<div class="card-head-row card-tools-still-right">
+
+						</div>
+						<a class="btn btn-info btn-border btn-round btn-sm mr-2" id="HeatmapBtn">
+							<span class="btn-label">
+								<i class="fa fa-pencil"></i>
+							</span>
+							Chaleur
+						</a>
+						<a class="btn btn-info btn-border btn-round btn-sm mr-2" id="BasemapBtn">
+							<span class="btn-label">
+								<i class="fa fa-pencil"></i>
+							</span>
+							Normal
+						</a>
+					</div>
+					<div class="card-body">
+						<div class="page-inner mt--5">
+							<!-- debut de la section de travail graphe -->
+							<div class="row mt--2">
+								<!-- debut graphe1-->
+								<div class="col-md-6">
+									<div class="card full-height">
+										<div class="card-body">
+											<div class="card-title">Total Event Per Period</div>
+											<canvas id="barCanvas" aria-label="Event_period" role="img"></canvas>
+										</div>
+									</div>
+								</div>
+								<!-- debut graphe2-->
+
+								<div class="col-md-6">
+									<div class="card full-height">
+										<div class="card-body">
+											<div class="card-title">
+												<div class="row">
+													<div class="col-md-8">
+														Total Events per type & subtype
+													</div>
+													<div class="col-md-4 col-md-4-hidden"
+														style="background-color: white;">
+														<div class="row">
+															<div class="col-md-3">&#x1F4E2;</div>
+															<div class="col-md-3">&#x1F4E2;</div>
+															<div class="col-md-3">&#x1F4E2;</div>
+															<div class="col-md-3">&#x1F4E2;</div>
+														</div>
+													</div>
+
+												</div>
+
+											</div>
+
+										</div>
+										<canvas id="EventTypeCanvas" aria-label="Events_type" role="img"></canvas>
+										<div class="row">
+											<div class="col-md-4 d-flex align-items-center">
+												<div class="legend-box" style="background-color:#FFFF00;"></div>
+												<p class="ml-2 mb-0" style="color: white;">Battles</p>
+											</div>
+
+											<div class="col-md-4 d-flex align-items-center">
+												<div class="legend-box" style="background-color: #00FFFF;"></div>
+												<p class="ml-2 mb-0" style="color: white;">Protests</p>
+											</div>
+											<div class="col-md-4 d-flex align-items-center">
+												<div class="legend-box" style="background-color: #7A238A;"></div>
+												<p class="ml-2 mb-0" style="color: white;">Strategic developments</p>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-4 d-flex align-items-center">
+												<div class="legend-box" style="background-color: #D473D4;"></div>
+												<p class="ml-2 mb-0" style="font-size: 11px;color: white;">
+													Explosions/remote
+													violences
+												</p>
+											</div>
+											<div class="col-md-4 d-flex align-items-center">
+												<div class="legend-box" style="background-color: #FA8072;"></div>
+												<p class="ml-2 mb-0" style="color: white;">Riots</p>
+											</div>
+											<div class="col-md-4 d-flex align-items-center">
+												<div class="legend-box" style="background-color:#FFC961;"></div>
+												<p class="ml-2 mb-0" style="font-size: 13px;color: white;">Violence
+													against
+													civilians
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		<div class="row">
 			<div class="col-md-4">
 				<div class="card">
@@ -395,41 +665,50 @@
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				<div class="card full-height">
+				<div class="card full-height" id="event-card">
 					<div class="card-header">
-						<div class="card-title">Feed Activity</div>
+						<div class="card-title">
+							<div class="row align-items-center">
+								<!-- Colonne "Last Events" -->
+								<div class="col-md-3">
+									<span>Last Events</span>
+								</div>
+								<!-- Colonne de la barre de recherche -->
+								<div class="col-md-9">
+									<div class="input-group">
+										<input type="text" class="form-control" id="search-bar"
+											placeholder="Rechercher..." aria-haspopup="true" aria-expanded="false"
+											data-toggle="dropdown">
+										<div class="input-group-append">
+											<button class="btn btn-outline-secondary dropdown-toggle" type="button"
+												data-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false"></button>
+											<div class="dropdown-menu" aria-labelledby="search-bar">
+												<div id="dropdown-options"></div>
+											</div>
+
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="card-body">
-						<ol class="activity-feed">
-							<li class="feed-item feed-item-secondary">
-								<time class="date" datetime="9-25">Sep 25</time>
-								<span class="text">Responded to need <a href="#">"Volunteer opportunity"</a></span>
-							</li>
-							<li class="feed-item feed-item-success">
-								<time class="date" datetime="9-24">Sep 24</time>
-								<span class="text">Added an interest <a href="#">"Volunteer Activities"</a></span>
-							</li>
-							<li class="feed-item feed-item-info">
-								<time class="date" datetime="9-23">Sep 23</time>
-								<span class="text">Joined the group <a href="single-group.php">"Boardsmanship
-										Forum"</a></span>
-							</li>
-							<li class="feed-item feed-item-warning">
-								<time class="date" datetime="9-21">Sep 21</time>
-								<span class="text">Responded to need <a href="#">"In-Kind Opportunity"</a></span>
-							</li>
-							<li class="feed-item feed-item-danger">
-								<time class="date" datetime="9-18">Sep 18</time>
-								<span class="text">Created need <a href="#">"Volunteer Opportunity"</a></span>
-							</li>
-							<li class="feed-item">
-								<time class="date" datetime="9-17">Sep 17</time>
-								<span class="text">Attending the event <a href="single-event.php">"Some New
-										Event"</a></span>
-							</li>
-						</ol>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<!-- Contenu du corps de la carte -->
+							<ol class="activity-feed" id="activity-feed">
+								<!-- Les données récupérées via AJAX seront affichées ici -->
+							</ol>
+						</div>
 					</div>
 				</div>
+				<div id="replace">
+
+				</div>
+
+
+
 			</div>
 			<div class="col-md-6">
 				<div class="card full-height">
@@ -461,16 +740,16 @@
 									{{ comment.get_username|slice:"1" }}</span>
 							</div>
 							<!-- Contenu du commentaire -->
-							<div class="flex-1 ml-3 pt-1">
+							<div class="flex-1 ml-3 pt-1" style="color: white;">
 								<h6 class="text-uppercase fw-bold mb-1">
 									{{ comment.get_username }}
 									{{ comment.user.first_name }}
 									{{ comment.user.last_name }}</h6>
-								<span class="text-muted">{{ comment.text }}</span>
+								<span class="text-muted" style="color: white !important;">{{ comment.text }}</span>
 							</div>
 							<!-- Heure du commentaire -->
 							<div class="float-right pt-1">
-								<small class="text-muted">{{ comment.date|date:"G:i / j M Y " }}</small>
+								<small class="text-muted" style="color: white !important;">{{ comment.date|date:"G:i / j M Y " }}</small>
 							</div>
 						</div>
 						<div class="separator-dashed"></div>
@@ -523,6 +802,9 @@
 
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://unpkg.com/mapbox-gl@2.4.1/dist/mapbox-gl.css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 
 
 <style>
@@ -576,6 +858,101 @@
 
 	.comment-highlight {
 		background-color: red;
+	}
+
+
+
+	.card-body-scroll {
+		overflow: auto;
+		/* Défilement automatique lorsque le contenu dépasse */
+		max-height: 500px;
+		/* Hauteur maximale du div avec défilement */
+	}
+
+	.col-md-4-hidden {
+		display: none;
+	}
+
+	.legend-box {
+		width: 20px;
+		height: 20px;
+		border: 1px solid #ccc;
+		display: inline-block;
+		vertical-align: middle;
+		margin-right: 5px;
+	}
+
+	/* style de la plus grande chart*/
+
+	.chart-grand {
+		height: 500px;
+		/* Vous pouvez ajuster la hauteur souhaitée ici */
+	}
+
+	/* Additional styles for the modal */
+	.modal-dialog {
+		max-width: 300px;
+		/* Reduce the modal width */
+		bottom: 100px;
+	}
+
+	.modal-content {
+		max-height: 400px;
+		/* Adjust the modal content height */
+		overflow-y: auto;
+		/* Enable vertical scroll if content overflows */
+	}
+
+	/* Positionnement personnalisé pour la fenêtre modale */
+	.modal-bottom {
+		margin-top: 50px;
+		/* Ajuster l'espace entre le dropdown et la fenêtre modale */
+		margin-right: 50px;
+	}
+
+	/* Styles personnalisés pour les dropdowns */
+	.dropdown-custom .btn {
+		background-color: #ffffff;
+		/* Couleur de fond blanche */
+		color: #000000;
+		/* Couleur du texte en noir */
+		width: 130px;
+		/* Largeur du dropdown */
+	}
+
+	.dropdown-custom .btn:hover,
+	.dropdown-custom .btn:focus {
+		background-color: #f2f2f2;
+		/* Couleur de fond au survol ou au focus */
+	}
+
+	.dropdown-custom .dropdown-menu {
+		background-color: #ffffff;
+		/* Couleur de fond blanche pour la liste déroulante */
+		width: 10px;
+		/* Même largeur que le dropdown */
+	}
+
+	.dropdown-custom .dropdown-item {
+		color: #000000;
+		/* Couleur du texte en noir pour les éléments de la liste déroulante */
+	}
+
+	.dropdown-custom .dropdown-item:hover,
+	.dropdown-custom .dropdown-item:focus {
+		background-color: #f2f2f2;
+		/* Couleur de fond au survol ou au focus des éléments de la liste déroulante */
+	}
+
+	/* Ajuster la largeur des boutons */
+	.btn-custom-width {
+		width: 150px;
+		/* Vous pouvez ajuster cette valeur selon vos besoins */
+	}
+
+	/* Ajuster la liste déroulante à la largeur du bouton déclencheur */
+	.dropdown.show .dropdown-menu {
+		width: 100% !important;
 	}
 </style>
 
@@ -997,7 +1374,7 @@
 					}
 				}]
 			},
-			
+
 			onClick: function (event, elements) {
 				if (elements && elements.length > 0) {
 					var elementIndex = elements[0]._index; // Index de la barre cliquée
@@ -1363,7 +1740,413 @@
 
 
 
+	/*--------------------------------------CODE--TANIA----------------------------------------------------*/
 
+
+	const barCanvas = document.getElementById("barCanvas");
+
+	const barChart3 = new Chart(barCanvas,
+		{
+			type: "bar",
+			data: {
+				labels: ["202207", "202208", "202209", "202210", "202211", "202212", "202301", "202302", "202303", "202304", "202305", "202306", "202307"],
+				datasets: [
+					{
+						label: 'Total Events',
+						data: [282, 794, 990, 1061, 790, 720, 1029, 911, 1225, 1109, 997, 1001, 587],
+						backgroundColor: [
+							"#FEFEE0",//ecru
+							"#FEFEE0",//ecru
+							"#FEFEE0",//ecru
+							"#FEFEE0",//ecru
+							"#FEFEE0",//ecru
+							"#FEFEE0",//ecru
+							"#FEFEE0",//ecru
+							"#FEFEE0",//ecru
+							"#FEFEE0",//ecru
+							"#FEFEE0",//ecru
+							"#FEFEE0",//ecru
+							"#FEFEE0",//ecru
+							"#FEFEE0",//ecru
+							"#FEFEE0",//ecru
+							"#FEFEE0",//ecru
+						]
+					}
+				]
+			},
+			options: {
+				scales: {
+					y: {
+						title: {
+							display: true,
+							text: 'Total Events'
+
+						},
+						suggestedMax: 1300,
+					},
+					x: {
+						ticks: {
+							font: {
+								style: "italic"
+							},
+							maxRotation: 45, // Angle d'inclinaison, ajustez selon vos besoins
+							minRotation: 45
+
+						}
+					}
+				}
+			}
+		})
+
+
+
+
+	const EventTypeCanvas = document.getElementById("EventTypeCanvas");
+
+	function ValeurWithK(value) {
+		if (value > 1000) {
+			return (value / 1000) + 'k';
+		} else {
+			return value;
+		}
+	}
+
+	function getEventTypeLabel(context) {
+		var labelIndex = context.dataIndex;
+		var labels = context.chart.data.labels;
+		return 'Event type: ' + labels[labelIndex];
+	}
+
+	function getTotalEventLabel(context) {
+		var value = context.parsed.y || 0;
+		return 'Total events: ' + value;
+	}
+
+	const options = {
+		plugins: {
+			tooltip: {
+				callbacks: {
+					label: function (context) {
+						return [getEventTypeLabel(context), getTotalEventLabel(context)];
+					}
+				}
+			},
+		},
+		scales: {
+			y: {
+				title: {
+					display: true,
+					text: 'Total Events'
+				},
+				suggestedMax: 800000,
+				ticks: {
+					callback: function (value) {
+						return ValeurWithK(value);
+					}
+				}
+			},
+			x: {
+				title: {
+					display: true,
+					text: 'Event Type(icon)'
+				},
+				ticks: {
+					callback: function (value) {
+						let label = this.getLabelForValue(value);
+						if (label.length > 11) {
+							return label.substr(0, 11) + "...";
+						} else {
+							return label;
+						}
+					}
+				},
+			},
+		},
+	};
+
+	const barChart2 = new Chart(EventTypeCanvas, {
+		type: "bar",
+		data: {
+			labels: ["\u{1F4E2}|Protests", "\u{1F4A5}|Battles", "\u{1F4A3}|Explosions/remote violences", "\u{1F469}|Violence against civilians", "\u{1F680}|Strategic developments", "\u{270A}|Riots"],
+			datasets: [{
+				label: "Events per Type & Subtype",
+				data: [282010, 794000, 990000, 1061000, 790000, 720010],
+				backgroundColor: [
+					"#00FFFF",
+					"#FFFF00",
+					"#D473D4",
+					"#FFC961",
+					"#7A238A",
+					"#FA8072",
+				],
+				hoverBackgroundColor: [
+					"#00CCCC",
+					"#FFD700",
+					"#C25CC2",
+					"#E6B035",
+					"#641B6B",
+					"#E9967A",
+				],
+				borderColor: [], // Leave this empty for default border color
+				borderWidth: 1, // Initial border width
+			}],
+		},
+		options: options,
+	});
+
+	var selectedBars = []; // Tableau pour stocker les indices des barres sélectionnées
+	const originalBackgroundColor = barChart2.data.datasets[0].backgroundColor.slice();
+	const originalBorderColor = barChart2.data.datasets[0].borderColor.slice();
+
+	EventTypeCanvas.onclick = function (event) {
+		const activeBars = barChart2.getElementsAtEventForMode(event, 'index', { intersect: true });
+
+		if (activeBars.length > 0) {
+			const clickedIndex = activeBars[0].index;
+
+			// Vérifier si la barre est déjà sélectionnée
+			const selectedIndex = selectedBars.indexOf(clickedIndex);
+			if (selectedIndex !== -1) {
+				// La barre est déjà sélectionnée, donc la désélectionner
+				selectedBars.splice(selectedIndex, 1);
+			} else {
+				// La barre n'est pas déjà sélectionnée, donc l'ajouter à la sélection
+				selectedBars.push(clickedIndex);
+			}
+
+			// Mettre à jour les couleurs et les bordures en fonction des barres sélectionnées
+			for (let i = 0; i < barChart2.data.datasets[0].backgroundColor.length; i++) {
+				if (selectedBars.includes(i)) {
+					barChart2.data.datasets[0].backgroundColor[i] = originalBackgroundColor[i];
+					barChart2.data.datasets[0].borderColor[i] = "#000000"; // Black border for selected bar
+					barChart2.data.datasets[0].borderWidth[i] = 3;
+				} else {
+					barChart2.data.datasets[0].backgroundColor[i] = lightenColor(originalBackgroundColor[i], 40);
+					barChart2.data.datasets[0].borderColor[i] = originalBackgroundColor[i]; // Reset border color for unselected bar
+					barChart2.data.datasets[0].borderWidth[i] = 1; // Reset border width
+				}
+			}
+
+			barChart2.update();
+		}
+	};
+
+	document.addEventListener('click', function (event) {
+		if (!EventTypeCanvas.contains(event.target)) {
+			selectedBars = []; // Réinitialiser la sélection
+			for (let i = 0; i < barChart2.data.datasets[0].backgroundColor.length; i++) {
+				barChart2.data.datasets[0].backgroundColor[i] = originalBackgroundColor[i];
+				barChart2.data.datasets[0].borderColor[i] = originalBackgroundColor[i]; // Reset border color
+				barChart2.data.datasets[0].borderWidth[i] = 1; // Reset border width
+			}
+
+			barChart2.update();
+		}
+	});
+
+	// Fonction pour rendre une couleur plus claire
+	function lightenColor(color, percent) {
+		const num = parseInt(color.slice(1), 16);
+		const amt = Math.round(2.55 * percent);
+		const R = (num >> 16) + amt;
+		const G = (num >> 8 & 0x00FF) + amt;
+		const B = (num & 0x0000FF) + amt;
+		return `#${(0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 + (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 + (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1)}`;
+	}
+
+
+	
+	$(document).ready(function () {
+
+var dropdownContainer = $('#dropdown-options');
+var searchBar = $('#search-bar');
+searchBar.on('input', function () {
+	var query = $(this).val().toLowerCase();
+
+	var found = false; // Variable pour suivre si des résultats ont été trouvés
+
+	dropdownContainer.find('.dropdown-item').each(function () {
+		var itemText = $(this).text().toLowerCase();
+
+		if (itemText.includes(query)) {
+			$(this).show();
+			found = true; // Au moins un résultat a été trouvé
+		} else {
+			$(this).hide();
+		}
+	});
+
+	// Afficher "Aucun résultat trouvé" si aucun résultat n'a été trouvé
+	if (!found) {
+		dropdownContainer.append($('<div class="dropdown-item">no results found</div>'));
+	}
+});
+
+function showCard() {
+	$('#event-card').show(); // Afficher la div avec l'identifiant event-card
+}
+$('[data-toggle="dropdown"]').dropdown();
+function formatEventDate(rawDate) {
+	var eventDate = new Date(rawDate);
+	var options = { day: 'numeric', month: 'long', year: 'numeric' };
+	return eventDate.toLocaleDateString('en-US', options);
+}
+
+function applySearchFilter(query, data) {
+	return data.filter(function (item) {
+		return item.notes.includes(query);
+	});
+}
+
+var activityFeed = $('#activity-feed');
+var searchInput = $('#search-input');
+
+
+$.ajax({
+	url: window.location.href,
+	method: 'GET',
+	dataType: 'json',
+	success: function (data) {
+		var dropdownContainer = $('#dropdown-options'); // Sélectionner le conteneur spécifique
+
+		// Générer les éléments de la liste déroulante à partir des données reçues
+		data.forEach(function (item) {
+			var optionLink = $('<a>', {
+				// href: '#',
+				class: 'dropdown-item',
+				css: {
+					color: 'black',
+					overflow: 'hidden',
+					whiteSpace: 'normal', // Permettre au texte de passer à la ligne
+					wordWrap: 'break-word', // Permettre le passage à la ligne
+					maxWidth: '100%' // Limiter la largeur pour éviter que le texte dépasse le conteneur
+				},
+				text: item.notes
+			});
+			optionLink.on('click', function () {
+				$('#event-card').hide(); // Masquer la div avec l'identifiant event-card
+
+				// Insère le nouveau contenu dans le conteneur "replace"
+				var newContent = `
+						<div class="card full-height" id="replace">
+							<!-- Le contenu de la nouvelle div ici -->
+								<div class="card-header">
+									<div class="card-title">
+										<div class="card-title">
+											<div class="row align-items-center">
+												<div class="col-md-10">
+													<span style="font-weight: bold;">Event Description</span>
+												</div>
+												<div class="col-md-2">
+													<button id="transparent-button" class="btn btn-default">Last Event</button>
+
+												</div>
+
+											</div>
+										</div>
+
+									</div>
+									<div class="card-body-scroll">
+										<div class="container mt-5" >
+											<div style="color: white;">	
+												${item.notes}<br>
+												<br>
+												<span style="font-weight: bold;">date: </span>${item.event_date}<br>
+												<br>
+												<span style="font-weight: bold;">Country: </span>${item.country}<br>
+												<br>
+												<span style="font-weight: bold;">type: </span>${item.type}<br>
+												<br>
+												<span style="font-weight: bold;">source: </span>${item.source}<br>
+												<br>
+												<span style="font-weight: bold;">fatalities: </span>${item.fatalities}<br>
+												<br>
+											</div>
+										</div>
+									</div>
+								</div>
+							`;
+
+				$('#replace').html(newContent);
+
+				// Ajoutez la gestion d'événement de clic pour le bouton transparent
+				$('#transparent-button').on('click', function () {
+					showCard(); // Réapparition de la div
+				});
+
+			});
+			dropdownContainer.append(optionLink);
+		});
+
+		dropdownContainer.css({
+			width: '450px',
+			height: '300px',
+			overflow: 'auto'
+		});
+
+		var types = ['success', 'info', 'warning', 'danger'];
+
+		function updateFeed(query) {
+			activityFeed.empty();
+
+			var filteredData = applySearchFilter(query, data);
+
+			for (var i = 0; i < filteredData.length; i++) {
+				if (filteredData[i].notes.trim() === '') {
+					continue;
+				}
+
+				var listItem = $('<li></li>').addClass('feed-item').addClass('feed-item-' + types[i % types.length]);
+
+				var formattedDate = formatEventDate(filteredData[i].event_date);
+				var time = $('<time class="date"></time>').text(formattedDate);
+				listItem.append(time);
+
+				var text = filteredData[i].notes;
+				var span = $('<span class="text" style="color:white"></span>').text(text);
+				listItem.append(span);
+				activityFeed.append(listItem);
+			}
+		}
+
+		updateFeed('');
+
+		searchInput.on('input', function () {
+			var query = $(this).val();
+			updateFeed(query);
+		});
+	},
+
+	error: function (error) {
+		console.log('Une erreur s\'est produite :', error);
+	}
+});
+
+});
+
+
+
+// Fonction pour afficher directement le calendrier dès que la fenêtre modale s'affiche
+$('#myModal').on('shown.bs.modal', function () {
+$('#dateRangePicker1, #dateRangePicker2').datepicker({
+	format: 'dd/mm/yyyy',
+	autoclose: true,
+	todayHighlight: true,
+});
+});
+
+// Ouvrir la fenêtre modale lors du clic sur l'élément "Option 3"
+$('#openModal').click(function () {
+$('#myModal').modal('show');
+// Vider les valeurs des inputs du calendrier lors de l'ouverture de la fenêtre modale
+$('#dateRangePicker1, #dateRangePicker2').val('');
+});
+
+// Fonction pour enregistrer les dates sélectionnées lorsque le bouton "Appliquer" est cliqué
+$('#btnApply').click(function () {
+var startDate = $('#dateRangePicker1').datepicker('getDate');
+var endDate = $('#dateRangePicker2').datepicker('getDate');
+});
 
 
 

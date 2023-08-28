@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 import os
 import json
-from .models import Comment
+from .models import Comment,Donqlick
 from django.http import JsonResponse
 
 
@@ -29,7 +29,18 @@ def index(request):
     # Obtenez l'utilisateur connecté
     user = request.user  # Utilisateur connecté
 
-    context = {'continentsData': continentsData, 'user': user}
+    doneqlick = Donqlick.objects.all()  # Récupérer les données Qlik
+
+    context = {'continentsData': continentsData, 'user': user, 'segment': 'index', 'doneqlick': doneqlick}
+
+
+
+    if request.is_ajax():
+        data = [{'event_date': donqlick.event_date, 'notes': donqlick.notes, 'country': donqlick.country, 'type': donqlick.event_type,
+                 'main-actor': donqlick.actor1, 'source': donqlick.source, 'fatalities': donqlick.fatalities} for donqlick in doneqlick]
+        return JsonResponse(data, safe=False)
+
+
     # Vous pouvez ajouter des filtres ici si nécessaire
     comments = Comment.objects.all()
     context['comments'] = comments
