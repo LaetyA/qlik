@@ -211,18 +211,19 @@
 
 						</div>
 					</div>
-					<a class="btn btn-info btn-border btn-round btn-sm mr-2" id="HeatmapBtn">
-						<span class="btn-label">
-							<i class="fa fa-pencil"></i>
-						</span>
-						Chaleur
-					</a>
 					<a class="btn btn-info btn-border btn-round btn-sm mr-2" id="BasemapBtn">
 						<span class="btn-label">
 							<i class="fa fa-pencil"></i>
 						</span>
 						Normal
 					</a>
+					<a class="btn btn-info btn-border btn-round btn-sm mr-2" id="HeatmapBtn">
+						<span class="btn-label">
+							<i class="fa fa-pencil"></i>
+						</span>
+						Chaleur
+					</a>
+					
 				</div>
 				<div class="card-body">
 					<div class="row">
@@ -1306,6 +1307,7 @@
 	}
 
 	let selectedMarker;
+	var myBarChart;
 	// Utilisez la fonction loadJSON pour récupérer les données JSON
 	loadJSON(function (data) {
 		// Ici, vous pouvez utiliser les données JSON récupérées
@@ -1445,7 +1447,7 @@
 			}
 		};
 
-		var myBarChart = new Chart(barChart, {
+		myBarChart = new Chart(barChart, {
 			type: 'horizontalBar', // Utilisez le type horizontalBar pour avoir un histogramme horizontal
 			data: dataChart,
 			options: options
@@ -1504,14 +1506,6 @@
 
 			// Afficher le menu déroulant des pays
 			countryDropdownContainer.show();
-
-			// Mettre à jour l'objet "data" avec les valeurs des pays et des incidents
-			const countryNames = countries.map(country => country.name);
-			const incidentValues = countries.map(country => Math.floor(Math.random() * 100)); // Valeurs aléatoires entre 0 et 100
-			myBarChart.data.labels = countryNames;
-			myBarChart.data.datasets[0].data = incidentValues;
-			myBarChart.update(); // Mettre à jour le graphique
-
 
 		});
 
@@ -1737,6 +1731,217 @@
 	commentSearchInput.addEventListener("focus", function () {
 		resetComments();
 	});
+
+
+
+
+/*-----------------------------------SELECTION PAYS SUR LA CARTE---------------------------------------*/
+
+var isPopupOpen = false;
+
+	function createCustomPopup() {
+		var popup = new mapboxgl.Popup({
+			closeButton: false, // Désactivez le bouton de fermeture par défaut
+			className: 'custom-popup', // Classe CSS personnalisée pour le style
+		});
+
+		return popup;
+	}
+
+	// Fonction pour mettre à jour le contenu du popup
+	function updatePopupContent(popup, countryName) {
+		var popupContent = document.createElement('div');
+		popupContent.innerHTML = `
+			<h3>${countryName}</h3>
+			<button class="popup-button" id="popup-ok">OK</button>
+			<button class="popup-button" id="popup-cancel">Annuler</button>
+		`;
+
+		// Mettez à jour le contenu du popup
+		popup.setDOMContent(popupContent);
+	}
+
+
+
+
+
+	var selectedCountries = [];
+
+	// Utilisez la fonction loadJSON pour charger le fichier pays.json
+	loadJSON(function (data) {
+		// Récupérez la liste des pays
+		var countries = getCountries(data);
+		// Chargez les données GeoJSON pour chaque pays
+		countries.forEach(country => {
+			loadCountryGeoJSON(country);
+		});
+	});
+
+	// Fonction pour obtenir la liste des pays à partir du fichier JSON
+	function getCountries(data) {
+		var countries = [];
+
+		data.continents.forEach(continent => {
+			continent.regions.forEach(region => {
+				region.countries.forEach(country => {
+					countries.push(country);
+				});
+			});
+		});
+
+		return countries;
+	}
+
+	// Fonction pour charger les données GeoJSON d'un pays
+	function loadCountryGeoJSON(country) {
+		var geoJSONPath = `/static/geojson/${country.name}.geojson`;
+
+		fetch(geoJSONPath)
+			.then(response => response.json())
+			.then(geojson => {
+				// Ajoutez les données GeoJSON du pays à la carte
+				map.addSource(country.name, {
+					type: 'geojson',
+					data: geojson
+				});
+
+
+				
+				// Ajoutez une couche de remplissage avec une opacité de 0 (transparente)
+				map.addLayer({
+					id: country.name + '-fill',
+					type: 'fill',
+					source: country.name,
+					layout: {},
+					paint: {
+						'fill-color': '#e0115f', 
+						'fill-opacity': 0, 
+						'fill-outline-color': 'black' // Couleur de la bordure initiale (noire)
+					},
+					properties: {
+						'country-name': country.name
+					}
+				});
+
+
+				// Ajoutez une couche sans couleur initiale
+				map.addLayer({
+					id: country.name + '-borders',
+					type: 'line',
+					source: country.name,
+					layout: {},
+					paint: {
+						'line-width': 1,
+						'line-color': 'transparent' // Couleur de la bordure initiale (transparente)
+					},
+					properties: {
+        				'country-name': country.name
+    				}
+				});
+				
+			})
+			.catch(error => {
+				console.error('Erreur lors du chargement des données GeoJSON pour ' + country.name + ':', error);
+			});
+	}
+
+
+		var popup = createCustomPopup();
+
+		// Ajoutez une interaction de clic à la carte
+		map.on('click', function(e) {
+			var features = map.queryRenderedFeatures(e.point);
+
+			if (features.length > 0) {
+
+			
+				// Parcourez les couches de carte pour trouver la couche de remplissage correspondante
+				features.forEach(function(feature) {
+					var layerId = feature.layer.id;
+					if (layerId.endsWith('-fill')) {
+						var countryName = layerId.replace('-fill', '');
+						
+						updatePopupContent(popup, countryName);
+
+						if (!popup.isOpen()) {
+							popup.setLngLat(e.lngLat).addTo(map);
+						}
+
+						
+
+
+						// Vérifiez si le pays est déjà dans la liste des pays sélectionnés
+						var index = selectedCountries.indexOf(countryName);
+
+						if (index !== -1) {
+							// Si le pays est déjà sélectionné, retirez-le de la liste
+							selectedCountries.splice(index, 1);
+							// Réinitialisez la couleur de la bordure du pays à transparent
+							map.setPaintProperty(countryName + '-borders', 'line-color', 'transparent');
+						} else {
+							// Si le pays n'est pas encore sélectionné, ajoutez-le à la liste
+							selectedCountries.push(countryName);
+							// Mettez à jour la couleur de la bordure du pays pour la mettre en évidence (verte)
+							map.setPaintProperty(countryName + '-borders', 'line-color', 'green');
+							map.setPaintProperty(countryName + '-borders', 'line-width', 2);
+						}
+
+
+						function updateFillProperties() {
+							selectedCountries.forEach(function(countryName) {
+								map.setPaintProperty(countryName + '-fill', 'fill-opacity', 0.5);
+								map.setPaintProperty(countryName + '-borders', 'line-color', 'transparent');
+							});
+						}
+
+
+						var popupOKButton = document.getElementById('popup-ok');
+						popupOKButton.addEventListener('click', function() {
+							console.log(selectedCountries);
+
+							myBarChart.data.labels = selectedCountries;
+							var incidentValues = selectedCountries.map(function (countryName) {
+								// Remplacez ceci par votre logique pour obtenir les valeurs appropriées pour chaque pays.
+								return Math.floor(Math.random() * 100);
+							});
+
+							myBarChart.data.datasets[0].data = incidentValues;
+							myBarChart.update();
+
+							// Appelez la fonction pour mettre à jour les propriétés de remplissage
+							updateFillProperties();
+
+							//popup.remove();
+						});
+
+
+
+
+						var popupCancelButton = document.getElementById('popup-cancel');
+						popupCancelButton.addEventListener('click', function() {
+							// Réinitialisez l'opacité des pays sélectionnés à 0 (transparent)
+							selectedCountries.forEach(function(countryName) {
+								map.setPaintProperty(countryName + '-fill', 'fill-opacity', 0);
+								map.setPaintProperty(countryName + '-borders', 'line-color', 'transparent'); // Remettez la couleur de la bordure à l'état initial
+							});
+							selectedCountries = []; // Réinitialisez la liste des pays sélectionnés
+ 
+
+							// Fermez le popup
+							popup.remove();
+						});
+
+
+					}
+						
+				});
+			}
+		});
+
+
+
+	
+
 
 
 
