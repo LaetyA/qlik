@@ -223,7 +223,12 @@
 						</span>
 						Chaleur
 					</a>
-					
+					<a class="btn btn-info btn-border btn-round btn-sm mr-2" id="SatmapBtn">
+						<span class="btn-label">
+							<i class="fa fa-pencil"></i>
+						</span>
+						Satellite
+					</a>
 				</div>
 				<div class="card-body">
 					<div class="row">
@@ -231,6 +236,7 @@
 							<div class="mapcontainer">
 								<div id="map" style="width: 1180px; height: 500px;"></div>
 								<div id="heatmapMap" style="width: 1180px; height: 500px; display: none;"></div>
+								<div id="satmapMap" style="width: 1180px; height: 500px; display: none;"></div>
 							</div>
 						</div>
 					</div>
@@ -365,13 +371,13 @@
 						<div class="card-head-row card-tools-still-right">
 
 						</div>
-						<a class="btn btn-info btn-border btn-round btn-sm mr-2" id="HeatmapBtn">
+						<a class="btn btn-info btn-border btn-round btn-sm mr-2">
 							<span class="btn-label">
 								<i class="fa fa-pencil"></i>
 							</span>
 							Chaleur
 						</a>
-						<a class="btn btn-info btn-border btn-round btn-sm mr-2" id="BasemapBtn">
+						<a class="btn btn-info btn-border btn-round btn-sm mr-2">
 							<span class="btn-label">
 								<i class="fa fa-pencil"></i>
 							</span>
@@ -1169,17 +1175,8 @@
 	document.querySelector('.mapcontainer #map').style.display = 'block';*/
 
 
-	// Gérer le clic sur le bouton "per Country"
-	$("#BasemapBtn").on("click", function () {
-		// Afficher le graphique "barChart" et masquer les autres graphiques
-		$("#map").show();
-		$("#heatmapMap").hide();
-	});
 
-	// Afficher le graphique "barChart" par défaut
-	$("#map").show();
-
-
+	
 
 
 	mapboxgl.accessToken = 'pk.eyJ1IjoidHJpZ2dlcnMiLCJhIjoiY2wxMjNxYmkwMDM2ZjNpbXZvMXNqaXRwcyJ9.CPlAR38urDrvZeJOIUERIw';
@@ -1195,6 +1192,14 @@
 	var heatmapMap = new mapboxgl.Map({
 		container: 'heatmapMap',
 		style: 'mapbox://styles/mapbox/light-v10',
+		center: [-5.5471, 7.5468545], // Remplacez par les coordonnées du centre de votre carte
+		zoom: 5,// Niveau de zoom initial
+		maxZoom: 15
+	});
+
+	var satmapMap = new mapboxgl.Map({
+		container: 'satmapMap',
+		style: 'mapbox://styles/mapbox/satellite-v9',
 		center: [-5.5471, 7.5468545], // Remplacez par les coordonnées du centre de votre carte
 		zoom: 5,// Niveau de zoom initial
 		maxZoom: 15
@@ -1216,8 +1221,34 @@
 		showUserHeading: true
 	});
 
+	var geolocateSatControl = new mapboxgl.GeolocateControl({ // Utilisation de this.geolocateControl
+		positionOptions: {
+			enableHighAccuracy: true
+		},
+		trackUserLocation: true,
+		showUserHeading: true
+	});
+
 	map.addControl(this.geolocateControl, 'top-left');
 	heatmapMap.addControl(this.geolocateHeatControl, 'top-left');
+	satmapMap.addControl(this.geolocateSatControl, 'top-left');
+
+	var mapes = [map, heatmapMap, satmapMap];
+
+
+
+		// Gérer le clic sur le bouton "per Country"
+	$("#BasemapBtn").on("click", function () {
+		// Afficher le graphique "barChart" et masquer les autres graphiques
+		$("#map").show();
+		$("#heatmapMap").hide();
+		$("#satmapMap").hide();
+	});
+
+	// Afficher le graphique "barChart" par défaut
+	$("#map").show();
+
+
 
 	var heatmapData = [
 		{ lng: 13.404954, lat: 52.520008, value: 0.6 }, // Berlin, Germany
@@ -1276,17 +1307,27 @@
 		});
 	});
 
+
 	document.getElementById('HeatmapBtn').addEventListener('click', function () {
 		// Masquer la carte existante et afficher la carte de chaleur
 		document.querySelector('.mapcontainer #map').style.display = 'none';
+		document.querySelector('.mapcontainer #satmapMap').style.display = 'none';
 		document.querySelector('.mapcontainer #heatmapMap').style.display = 'block';
 
 		// Redimensionner la carte de chaleur pour s'adapter à la taille du conteneur
 		heatmapMap.resize();
 	});
 
+	document.getElementById('SatmapBtn').addEventListener('click', function () {
+		// Masquer la carte existante et afficher la carte de chaleur
+		document.querySelector('.mapcontainer #map').style.display = 'none';
+		document.querySelector('.mapcontainer #heatmapMap').style.display = 'none';
+		document.querySelector('.mapcontainer #satmapMap').style.display = 'block';
 
-
+		// Redimensionner la carte de chaleur pour s'adapter à la taille du conteneur
+		satmapMap.resize();
+	});
+	
 
 
 	// Déclarez la variable continentsData en dehors de la fonction loadJSON
@@ -1570,6 +1611,7 @@
 
 			loadCountryGeoJSON(map, selectedCountry);
 			loadCountryGeoJSON(heatmapMap, selectedCountry);
+			loadCountryGeoJSON(satmapMap, selectedCountry);
 
 
 
@@ -1737,31 +1779,21 @@
 
 /*-----------------------------------SELECTION PAYS SUR LA CARTE---------------------------------------*/
 
-var isPopupOpen = false;
+	var isPopupOpen = false;
+	var popupOKButton; // Déclarez les variables globales ici
+	var popupCancelButton;
+	var popups = {};
 
 	function createCustomPopup() {
-		var popup = new mapboxgl.Popup({
+		var pop = new mapboxgl.Popup({
 			closeButton: false, // Désactivez le bouton de fermeture par défaut
 			className: 'custom-popup', // Classe CSS personnalisée pour le style
 		});
 
-		return popup;
+		return pop;
 	}
 
 	// Fonction pour mettre à jour le contenu du popup
-	function updatePopupContent(popup, countryName) {
-		var popupContent = document.createElement('div');
-		popupContent.innerHTML = `
-			<h3>${countryName}</h3>
-			<button class="popup-button" id="popup-ok">OK</button>
-			<button class="popup-button" id="popup-cancel">Annuler</button>
-		`;
-
-		// Mettez à jour le contenu du popup
-		popup.setDOMContent(popupContent);
-	}
-
-
 
 
 
@@ -1771,9 +1803,11 @@ var isPopupOpen = false;
 	loadJSON(function (data) {
 		// Récupérez la liste des pays
 		var countries = getCountries(data);
-		// Chargez les données GeoJSON pour chaque pays
+		// Chargez les données GeoJSON pour chaque pays sur toutes les cartes
 		countries.forEach(country => {
-			loadCountryGeoJSON(country);
+			loadPaysGeoJSON(map, country);
+			loadPaysGeoJSON(heatmapMap, country);
+			loadPaysGeoJSON(satmapMap, country);
 		});
 	});
 
@@ -1793,7 +1827,7 @@ var isPopupOpen = false;
 	}
 
 	// Fonction pour charger les données GeoJSON d'un pays
-	function loadCountryGeoJSON(country) {
+	function loadPaysGeoJSON(map,country) {
 		var geoJSONPath = `/static/geojson/${country.name}.geojson`;
 
 		fetch(geoJSONPath)
@@ -1846,10 +1880,88 @@ var isPopupOpen = false;
 	}
 
 
-		var popup = createCustomPopup();
+	function OKButtonClick(selectedCountries, mapes, myBarChart) {
+		console.log(selectedCountries);
+
+		// Mettez à jour les données du graphique pour myBarChart
+		myBarChart.data.labels = selectedCountries;
+		var incidentValues = selectedCountries.map(function (countryName) {
+			// Remplacez ceci par votre logique pour obtenir les valeurs appropriées pour chaque pays.
+			return Math.floor(Math.random() * 100);
+		});
+
+		myBarChart.data.datasets[0].data = incidentValues;
+		myBarChart.update();
+
+		// Mettez à jour les propriétés de remplissage pour chaque carte
+		mapes.forEach(function (map) {
+			selectedCountries.forEach(function (countryName) {
+				map.setPaintProperty(countryName + '-fill', 'fill-opacity', 0.5);
+				map.setPaintProperty(countryName + '-borders', 'line-color', 'green');
+			});
+		});
+	}
+
+
+
+	// Fonction pour gérer le clic sur le bouton "Annuler"
+	function CancelButtonClick(selectedCountries, mapes) {
+		// Réinitialisez l'opacité des pays sélectionnés à 0 (transparent) pour chaque carte
+		mapes.forEach(function (map) {
+			selectedCountries.forEach(function (countryName) {
+				map.setPaintProperty(countryName + '-fill', 'fill-opacity', 0);
+				map.setPaintProperty(countryName + '-borders', 'line-color', 'transparent');
+			});
+		});
+
+		 // Réinitialisez la liste des pays sélectionnés
+		 selectedCountries.length = 0;
+		console.log(selectedCountries);
+
+		// Fermez le popup pour chaque carte en utilisant l'objet popups
+		mapes.forEach(function (map) {
+			var popup = popups[map.getContainer().id];
+			if (popup) {
+				popup.remove();
+				delete popups[map.getContainer().id];
+			}
+		});
+	}
+
+
+
+	function updatePopupContent(pop, countryName, selectedCountries, mapes, myBarChart) {
+		var popupContent = document.createElement('div');
+		popupContent.innerHTML = `
+			<h3>${countryName}</h3>
+			<button class="popup-button" id="popup-ok">OK</button>
+			<button class="popup-button" id="popup-cancel">Annuler</button>
+		`;
+
+		// Mettez à jour le contenu du popup
+		pop.setDOMContent(popupContent);
+
+		popupOKButton = popupContent.querySelector('#popup-ok');
+    	popupCancelButton = popupContent.querySelector('#popup-cancel');
+
+		popupOKButton.addEventListener('click', function () {
+			OKButtonClick(selectedCountries, mapes, myBarChart);
+			//popups[layerId].remove(); // Supprimez le popup ici
+		});
+
+		popupCancelButton.addEventListener('click', function () {
+			CancelButtonClick(selectedCountries, mapes);
+			//popups[layerId].remove(); // Supprimez le popup ici
+		});
+	}
+
+	function setupMapClickInteraction(map, mapName, otherMaps) {
+
+		
 
 		// Ajoutez une interaction de clic à la carte
 		map.on('click', function(e) {
+
 			var features = map.queryRenderedFeatures(e.point);
 
 			if (features.length > 0) {
@@ -1861,14 +1973,19 @@ var isPopupOpen = false;
 					if (layerId.endsWith('-fill')) {
 						var countryName = layerId.replace('-fill', '');
 						
-						updatePopupContent(popup, countryName);
+						if (!popups[layerId]) {
+                        var pop = createCustomPopup();
+                        updatePopupContent(pop, countryName, selectedCountries, otherMaps, myBarChart);
 
-						if (!popup.isOpen()) {
-							popup.setLngLat(e.lngLat).addTo(map);
-						}
+                        // Affichez le popup
+                        pop.setLngLat(e.lngLat).addTo(map);
+
+                        // Stockez le popup associé à la couche
+                        popups[layerId] = pop;
+                    }
 
 						
-
+						
 
 						// Vérifiez si le pays est déjà dans la liste des pays sélectionnés
 						var index = selectedCountries.indexOf(countryName);
@@ -1886,49 +2003,25 @@ var isPopupOpen = false;
 							map.setPaintProperty(countryName + '-borders', 'line-width', 2);
 						}
 
-
-						function updateFillProperties() {
-							selectedCountries.forEach(function(countryName) {
-								map.setPaintProperty(countryName + '-fill', 'fill-opacity', 0.5);
-								map.setPaintProperty(countryName + '-borders', 'line-color', 'transparent');
-							});
-						}
-
-
-						var popupOKButton = document.getElementById('popup-ok');
-						popupOKButton.addEventListener('click', function() {
-							console.log(selectedCountries);
-
-							myBarChart.data.labels = selectedCountries;
-							var incidentValues = selectedCountries.map(function (countryName) {
-								// Remplacez ceci par votre logique pour obtenir les valeurs appropriées pour chaque pays.
-								return Math.floor(Math.random() * 100);
-							});
-
-							myBarChart.data.datasets[0].data = incidentValues;
-							myBarChart.update();
-
-							// Appelez la fonction pour mettre à jour les propriétés de remplissage
-							updateFillProperties();
-
-							//popup.remove();
+						otherMaps.forEach(function (otherMap) {
+							if (otherMap !== map) {
+								// Mettez à jour la couleur de la bordure des pays sur les autres cartes
+								selectedCountries.forEach(function (country) {
+									otherMap.setPaintProperty(country + '-borders', 'line-color', 'green');
+									otherMap.setPaintProperty(country + '-borders', 'line-width', 2);
+								});
+							}
 						});
 
 
 
+						popupOKButton.addEventListener('click', function () {
+							OKButtonClick(selectedCountries, mapes, myBarChart);
+						});
 
-						var popupCancelButton = document.getElementById('popup-cancel');
-						popupCancelButton.addEventListener('click', function() {
-							// Réinitialisez l'opacité des pays sélectionnés à 0 (transparent)
-							selectedCountries.forEach(function(countryName) {
-								map.setPaintProperty(countryName + '-fill', 'fill-opacity', 0);
-								map.setPaintProperty(countryName + '-borders', 'line-color', 'transparent'); // Remettez la couleur de la bordure à l'état initial
-							});
-							selectedCountries = []; // Réinitialisez la liste des pays sélectionnés
- 
-
-							// Fermez le popup
-							popup.remove();
+						popupCancelButton.addEventListener('click', function () {
+							CancelButtonClick(selectedCountries, mapes);
+							pop.remove();
 						});
 
 
@@ -1937,6 +2030,22 @@ var isPopupOpen = false;
 				});
 			}
 		});
+
+		console.log('Interaction de clic configurée pour la carte ' + mapName);
+
+	}
+
+	// Configurez l'interaction de clic pour chaque carte
+
+	mapes.forEach(function (map) {
+		setupMapClickInteraction(map, 'NomDeLaCarte', mapes);
+	});
+
+
+
+
+
+
 
 
 
