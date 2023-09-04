@@ -3,6 +3,8 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
+import datetime
+from dateutil.relativedelta import relativedelta
 from django import template
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -15,6 +17,7 @@ import os
 import json
 from .models import Comment,Donqlick
 from django.http import JsonResponse
+from django.db import connection
 
 
 @login_required(login_url="/login/")
@@ -41,7 +44,6 @@ def index(request):
         return JsonResponse(data, safe=False)
 
 
-    # Vous pouvez ajouter des filtres ici si nécessaire
     comments = Comment.objects.all()
     context['comments'] = comments
 
@@ -124,3 +126,70 @@ def add_comment(request):
     else:
         # Renvoyer une réponse JSON en cas de requête invalide
         return JsonResponse({'message': 'Invalid request method.'}, status=400)
+
+
+def fetch_event_data(request):
+    if request.method == 'GET':
+        selected_countries = request.GET.getlist('selectedCountries[]')
+        # Échappez correctement les noms de pays avec des guillemets simples
+        selected_countries_string = ",".join(f"'{country}'" for country in selected_countries)
+
+        sql_query = f"""
+            SELECT country, COUNT(event_id_cnty) AS event_count
+            FROM donqlick
+            WHERE country IN ({selected_countries_string})
+            GROUP BY country;
+        """
+
+        with connection.cursor() as cursor:
+            cursor.execute(sql_query)
+            results = cursor.fetchall()
+
+        data = [{'country': country, 'event_count': event_count} for country, event_count in results]
+
+        return JsonResponse(data, safe=False)
+    else:
+        return JsonResponse({'error': 'Méthode non autorisée'}, status=400)
+    
+    
+def fetch_event_period(request):
+    if request.method == 'GET':
+        selected_countries = request.GET.getlist('selectedCountries[]')
+        selected_countries_string = ",".join(f"'{country}'" for country in selected_countries)
+
+        # Obtenez la date actuelle
+        current_date = datetime.datetime.now()
+
+        # Calculez la date il y a 12 mois à partir de la date actuelle
+        twelve_months_ago = current_date - relativedelta(months=11)
+
+        month_dates = [twelve_months_ago + relativedelta(months=i) for i in range(12)]
+
+        # Initialisez un dictionnaire pour stocker les données par mois
+        data_by_month = {date.strftime('%Y-%m'): 0 for date in month_dates}
+
+        sql_query = f"""
+            SELECT DATE_FORMAT(event_date, '%%Y-%%m') AS month, COUNT(event_id_cnty) AS event_count
+            FROM donqlick
+            WHERE country IN ({selected_countries_string})
+            AND event_date >= %s
+            AND event_date <= %s
+            GROUP BY month;
+        """
+
+        with connection.cursor() as cursor:
+            cursor.execute(sql_query, [twelve_months_ago, current_date])
+
+            results = cursor.fetchall()
+
+            # Mettez à jour le dictionnaire des données avec les résultats
+            for row in results:
+                month = row[0]
+                event_count = row[1]
+                data_by_month[month] = event_count
+
+        # Convertissez le dictionnaire en une liste pour la réponse JSON
+        data = [{'month': month, 'event_count': event_count} for month, event_count in data_by_month.items()]
+        return JsonResponse(data, safe=False)
+    else:
+        return JsonResponse({'error': 'marche pas data per period'}, status=400)

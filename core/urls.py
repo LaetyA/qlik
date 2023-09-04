@@ -15,6 +15,8 @@ urlpatterns = [
 
     # The home page
     path('', views.index, name='home'),
+    path('fetch_event_data/', views.fetch_event_data, name='fetch_event_data'),  
+    path('fetch_event_period/', views.fetch_event_period, name='fetch_event_period'),
 
     # Matches any html file
     re_path(r'^.*\.*', views.pages, name='pages'),

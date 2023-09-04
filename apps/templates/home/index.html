@@ -336,20 +336,52 @@
 				<div class="card card-primary bg-primary-gradient">
 					<div class="card-body d-flex flex-column">
 						<h4 class="mt-3 b-b1 pb-2 mb-4 fw-bold">Pays</h4>
-						<h1 class="mb-4 fw-bold">17</h1>
-						<h4 class="mt-3 b-b1 pb-2 mb-5 fw-bold">Details Incidents</h4>
-						<h4 class="mt-5 pb-3 mb-0 fw-bold">08h46-11h57</h4>
+						<h5 class="mb-4 fw-bold">France</h5>
+						<h4 class="mt-3 b-b1 pb-2 mb-5 fw-bold">Details Event</h4>
 						<ul class="list-unstyled">
 							<li class="d-flex justify-content-between pb-1 pt-1">
-								<small>Morts</small> <span>0</span>
+								<small>Année:</small> <span>2023</span>
 							</li>
 							<li class="d-flex justify-content-between pb-1 pt-1">
-								<small>Blessés</small> <span>38</span>
+								<small>Total Events:</small> <span>2023</span>
 							</li>
 							<li class="d-flex justify-content-between pb-1 pt-1">
-								<small>Sains</small> <span>88</span>
+								<small>Fatalities:</small> <span>0</span>
 							</li>
+							<li class="d-flex justify-content-between pb-1 pt-1">
+								<small>Fatalities:</small> <span>0</span>
+							</li>
+							<li class="d-flex justify-content-between pb-1 pt-1">
+								<small>Fatalities:</small> <span>0</span>
+							</li>
+							
 						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header">
+						<div class="card-title">Event per Period</div>
+					</div>
+					<div class="card-body">
+						<div class="chart-container">
+							<canvas id="barPeriod"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header">
+						<div class="card-title">Line Chart</div>
+					</div>
+					<div class="card-body">
+						<div class="chart-container">
+							<canvas id="lineChart"></canvas>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -492,184 +524,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-		<div class="row">
-			<div class="col-md-4">
-				<div class="card">
-					<div class="card-header">
-						<div class="card-title">Top Products</div>
-					</div>
-					<div class="card-body pb-0">
-						<div class="d-flex">
-							<div class="avatar">
-								<img src="/static/assets/img/logoproduct.svg" alt="..."
-									class="avatar-img rounded-circle">
-							</div>
-							<div class="flex-1 pt-1 ml-2">
-								<h6 class="fw-bold mb-1">CSS</h6>
-								<small class="text-muted">Cascading Style Sheets</small>
-							</div>
-							<div class="d-flex ml-auto align-items-center">
-								<h3 class="text-info fw-bold">+$17</h3>
-							</div>
-						</div>
-						<div class="separator-dashed"></div>
-						<div class="d-flex">
-							<div class="avatar">
-								<img src="/static/assets/img/logoproduct.svg" alt="..."
-									class="avatar-img rounded-circle">
-							</div>
-							<div class="flex-1 pt-1 ml-2">
-								<h6 class="fw-bold mb-1">J.CO Donuts</h6>
-								<small class="text-muted">The Best Donuts</small>
-							</div>
-							<div class="d-flex ml-auto align-items-center">
-								<h3 class="text-info fw-bold">+$300</h3>
-							</div>
-						</div>
-						<div class="separator-dashed"></div>
-						<div class="d-flex">
-							<div class="avatar">
-								<img src="/static/assets/img/logoproduct3.svg" alt="..."
-									class="avatar-img rounded-circle">
-							</div>
-							<div class="flex-1 pt-1 ml-2">
-								<h6 class="fw-bold mb-1">Ready Pro</h6>
-								<small class="text-muted">Bootstrap 4 Admin Dashboard</small>
-							</div>
-							<div class="d-flex ml-auto align-items-center">
-								<h3 class="text-info fw-bold">+$350</h3>
-							</div>
-						</div>
-						<div class="separator-dashed"></div>
-						<div class="pull-in">
-							<canvas id="topProductsChart"></canvas>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="card">
-					<div class="card-body">
-						<div class="card-title fw-mediumbold">Suggested People</div>
-						<div class="card-list">
-							<div class="item-list">
-								<div class="avatar">
-									<img src="/static/assets/img/jm_denis.jpg" alt="..."
-										class="avatar-img rounded-circle">
-								</div>
-								<div class="info-user ml-3">
-									<div class="username">Jimmy Denis</div>
-									<div class="status">Graphic Designer</div>
-								</div>
-								<button class="btn btn-icon btn-primary btn-round btn-xs">
-									<i class="fa fa-plus"></i>
-								</button>
-							</div>
-							<div class="item-list">
-								<div class="avatar">
-									<img src="/static/assets/img/chadengle.jpg" alt="..."
-										class="avatar-img rounded-circle">
-								</div>
-								<div class="info-user ml-3">
-									<div class="username">Chad</div>
-									<div class="status">CEO Zeleaf</div>
-								</div>
-								<button class="btn btn-icon btn-primary btn-round btn-xs">
-									<i class="fa fa-plus"></i>
-								</button>
-							</div>
-							<div class="item-list">
-								<div class="avatar">
-									<img src="/static/assets/img/talha.jpg" alt="..." class="avatar-img rounded-circle">
-								</div>
-								<div class="info-user ml-3">
-									<div class="username">Talha</div>
-									<div class="status">Front End Designer</div>
-								</div>
-								<button class="btn btn-icon btn-primary btn-round btn-xs">
-									<i class="fa fa-plus"></i>
-								</button>
-							</div>
-							<div class="item-list">
-								<div class="avatar">
-									<img src="/static/assets/img/mlane.jpg" alt="..." class="avatar-img rounded-circle">
-								</div>
-								<div class="info-user ml-3">
-									<div class="username">John Doe</div>
-									<div class="status">Back End Developer</div>
-								</div>
-								<button class="btn btn-icon btn-primary btn-round btn-xs">
-									<i class="fa fa-plus"></i>
-								</button>
-							</div>
-							<div class="item-list">
-								<div class="avatar">
-									<img src="/static/assets/img/talha.jpg" alt="..." class="avatar-img rounded-circle">
-								</div>
-								<div class="info-user ml-3">
-									<div class="username">Talha</div>
-									<div class="status">Front End Designer</div>
-								</div>
-								<button class="btn btn-icon btn-primary btn-round btn-xs">
-									<i class="fa fa-plus"></i>
-								</button>
-							</div>
-							<div class="item-list">
-								<div class="avatar">
-									<img src="/static/assets/img/jm_denis.jpg" alt="..."
-										class="avatar-img rounded-circle">
-								</div>
-								<div class="info-user ml-3">
-									<div class="username">Jimmy Denis</div>
-									<div class="status">Graphic Designer</div>
-								</div>
-								<button class="btn btn-icon btn-primary btn-round btn-xs">
-									<i class="fa fa-plus"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="card card-primary">
-					<div class="card-header">
-						<div class="card-title">Daily Sales</div>
-						<div class="card-category">March 25 - April 02</div>
-					</div>
-					<div class="card-body pb-0">
-						<div class="mb-4 mt-2">
-							<h1>$4,578.58</h1>
-						</div>
-						<div class="pull-in">
-							<canvas id="dailySalesChart"></canvas>
-						</div>
-					</div>
-				</div>
-				<div class="card">
-					<div class="card-body pb-0">
-						<div class="h1 fw-bold float-right text-warning">+7%</div>
-						<h2 class="mb-2">213</h2>
-						<p class="text-muted">Transactions</p>
-						<div class="pull-in sparkline-fix">
-							<div id="lineChart"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="row">
 			<div class="col-md-6">
 				<div class="card full-height" id="event-card">
@@ -1395,7 +1249,7 @@
 			regionDropdownContainer.show();
 		});
 
-		var selectedBars = new Set(); // Utilisez un ensemble pour stocker les indices des barres sélectionnées
+
 
 		var dataChart = {
 			labels: [], // Utilisez les noms des pays comme valeurs de l'axe des ordonnées
@@ -1406,6 +1260,10 @@
 				data: [], // Utilisez les valeurs des incidents comme données pour le graphique à barres
 			}]
 		};
+
+		var selectedBars = new Set();
+
+		
 
 		var options = {
 			responsive: true,
@@ -1418,31 +1276,27 @@
 				}]
 			},
 
+			
+
 			onClick: function (event, elements) {
 				if (elements && elements.length > 0) {
-					var elementIndex = elements[0]._index; // Index de la barre cliquée
+				var elementIndex = elements[0]._index; // Index de la barre cliquée
+				var clickedBar = elements[0];
+				var dataset = this.data.datasets[clickedBar._datasetIndex];
+				
+				// Vérifiez si la barre est déjà sélectionnée
+				if (selectedBars.has(elementIndex)) {
+					// Désélectionnez la barre et réinitialisez sa couleur
+					selectedBars.delete(elementIndex);
+					dataset.backgroundColor[elementIndex] = 'rgb(23, 125, 255)';
+				} else {
+					// Sélectionnez la barre et changez sa couleur
+					selectedBars.add(elementIndex);
+					dataset.backgroundColor[elementIndex] = 'beige';
+				}
 
-					// Vérifiez si la barre est déjà sélectionnée
-					if (selectedBars.has(elementIndex)) {
-						// La barre est déjà sélectionnée, donc la désélectionner
-						selectedBars.delete(elementIndex);
-					} else {
-						// La barre n'est pas déjà sélectionnée, donc l'ajouter à la sélection
-						selectedBars.add(elementIndex);
-					}
-
-					// Mettre à jour les couleurs en fonction des barres sélectionnées
-					var meta = myBarChart.getDatasetMeta(0);
-					meta.data.forEach(function (bar, i) {
-						if (selectedBars.has(i)) {
-							bar._model.backgroundColor = 'green';
-						} else {
-							bar._model.backgroundColor = 'rgb(23, 125, 255)';
-						}
-					});
-
-					// Mettez à jour le graphique pour refléter les changements
-					myBarChart.update();
+				// Mettez à jour le graphique
+				this.update(); 
 
 					// Créez le popup avec les boutons ici
 					var popup = document.createElement("div");
@@ -1494,6 +1348,12 @@
 			options: options
 		});
 
+
+
+		
+	
+
+	
 
 
 
@@ -1880,7 +1740,155 @@
 	}
 
 
+	
+	/*-------------------------------------------BARCHART_PERIOD---AND---TYPES&SUBTYPES------------------------*/
+
+	barPeriod = document.getElementById('barPeriod').getContext('2d')
+
+
+	// Obtenez la date actuelle
+	/*var currentDate = new Date();
+
+	// Initialisez un tableau pour stocker les libellés des mois
+	var monthLabels = [];
+
+	// Bouclez pour obtenir les libellés des 12 derniers mois
+	for (var i = 11; i >= 0; i--) {
+		var month = currentDate.getMonth() + 1; // Mois actuel (1-12)
+		var year = currentDate.getFullYear(); // Année actuelle
+
+		// Ajoutez le libellé au format "MMM/YY" au tableau
+		var monthLabel = getMonthName(month) + '/' + year.toString().substr(2);
+		monthLabels.push(monthLabel);
+
+		// Passez au mois précédent
+		currentDate.setMonth(currentDate.getMonth() - 1);
+	}
+
+	// Inversez le tableau pour avoir les mois dans l'ordre
+	monthLabels.reverse();*/
+
+	// Définissez les données du graphique avec les libellés générés
+	var myBarPeriod = new Chart(barPeriod, {
+		type: 'bar',
+		data: {
+			labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+			datasets: [{
+				label: "Sales",
+				backgroundColor: 'beige',
+				borderColor: 'beige',
+				data: [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4],
+			}],
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}]
+			},
+		}
+	});
+
+	// Fonction pour obtenir le nom du mois à partir du numéro de mois (1-12)
+	function getMonthName(monthNumber) {
+		var months = [
+			"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+		];
+		return months[monthNumber - 1];
+	}
+
+	var monthlyEventTotals = new Array(12).fill(0);
+
 	function OKButtonClick(selectedCountries, mapes, myBarChart) {
+    // Effectuez une requête AJAX pour obtenir les données des événements
+    $.ajax({
+        type: "GET",
+        url: "{% url 'fetch_event_data' %}",
+        data: { selectedCountries: selectedCountries },
+        dataType: "json",
+        success: function (data) {
+            console.log("enfin", data);
+            // Les données des événements sont disponibles dans la variable "data"
+
+            // Créez un tableau pour stocker toutes les valeurs, y compris les nulles
+            const allCountries = selectedCountries.map(countryName => {
+                const entry = data.find(entry => entry.country === countryName);
+                if (entry) {
+                    return {
+                        country: entry.country,
+                        event_count: entry.event_count
+                    };
+                } else {
+                    return {
+                        country: countryName,
+                        event_count: 0 // Valeur nulle
+                    };
+                }
+            });
+
+            const labels = allCountries.map(entry => entry.country);
+            const eventValues = allCountries.map(entry => entry.event_count);
+
+            // Mettez à jour les données du graphique avec les données réelles
+            myBarChart.data.labels = labels;
+            myBarChart.data.datasets[0].data = eventValues;
+
+            // Personnalisez les couleurs de remplissage en fonction des valeurs des données
+            const backgroundColors = allCountries.map(entry => entry.event_count === 0 ? 'red' : 'rgb(23, 125, 255)');
+            myBarChart.data.datasets[0].backgroundColor = backgroundColors;
+
+            myBarChart.update();
+
+            // Mettez à jour les propriétés de remplissage pour chaque carte
+            mapes.forEach(function (map) {
+                selectedCountries.forEach(function (countryName) {
+                    map.setPaintProperty(countryName + '-fill', 'fill-opacity', 0.5);
+                    map.setPaintProperty(countryName + '-borders', 'line-color', 'green');
+                });
+            });
+
+			$.ajax({
+                type: "GET",
+                url: "{% url 'fetch_event_period' %}",  // Utilisez le nom de vue 'fetch_event_period'
+                data: { selectedCountries: selectedCountries },
+                dataType: "json",
+                success: function (periodData) {
+					console.log("periodData",periodData)
+
+					  // Obtenez les données de l'événement depuis periodData
+					  var eventCounts = periodData.map(function (item) {
+						return item.event_count;
+					});
+
+					var eventMonth = periodData.map(function (item) {
+						return item.month;
+					});
+
+					// Mettez à jour le dataset du graphique avec les nouvelles données
+					myBarPeriod.data.datasets[0].data = eventCounts;  
+					myBarPeriod.data.labels = eventMonth;
+					// Rafraîchissez le graphique
+					myBarPeriod.update();
+                   
+                },
+                error: function (error) {
+                    console.error("Erreur lors de la récupération des données des événements par période: ", error);
+                }
+            });
+        },
+        error: function (error) {
+            console.error("Erreur lors de la récupération des données des événements: ", error);
+        }
+    });
+}
+
+
+/*
+function OKButtonClick(selectedCountries, mapes, myBarChart) {
 		console.log(selectedCountries);
 
 		// Mettez à jour les données du graphique pour myBarChart
@@ -1900,8 +1908,61 @@
 				map.setPaintProperty(countryName + '-borders', 'line-color', 'green');
 			});
 		});
-	}
+	}*/
 
+
+
+	/*
+	function OKButtonClick(selectedCountries, mapes, myBarChart) {
+		// Créez un tableau vide pour stocker les valeurs des incidents
+		var incidentValues = [];
+
+		// Exemple de requête à l'API d'ACLED pour obtenir le nombre d'événements par pays
+		fetch('https://api.acleddata.com/acled/read', {
+			method: 'POST',
+			body: JSON.stringify({
+			countries: selectedCountries,
+			}),
+			headers: {
+			'Content-Type': 'application/json',
+			},
+		})
+		.then((response) => response.json())
+		.then((data) => {
+		// Traitez les données de la réponse de l'API ici
+		// Supposons que les données sont sous forme de tableau d'objets JSON avec des propriétés telles que "country" et "event_count"
+
+		// Créez un objet pour stocker le nombre d'événements par pays
+		const eventsByCountry = {};
+
+		// Remplissez l'objet avec les données de l'API
+		console.log(data);
+		data.forEach((entry) => {
+			eventsByCountry[entry.country] = entry.event_count;
+		});
+
+		// Remplissez le tableau incidentValues avec les données de l'API dans le même ordre que selectedCountries
+		incidentValues = selectedCountries.map((country) => eventsByCountry[country] || 0); // Utilisez 0 si aucune donnée n'est disponible
+
+		// Mettez à jour les données du graphe avec les données réelles
+		myBarChart.data.labels = selectedCountries;
+		myBarChart.data.datasets[0].data = incidentValues;
+		myBarChart.update();
+
+		// Mettez à jour les propriétés de remplissage pour chaque carte
+		mapes.forEach(function (map) {
+			selectedCountries.forEach(function (countryName) {
+			map.setPaintProperty(countryName + '-fill', 'fill-opacity', 0.5);
+			map.setPaintProperty(countryName + '-borders', 'line-color', 'green');
+			});
+		});
+		})
+		.catch(error => {
+					console.error("Erreur lors de la requete API ACLED:", error);
+		});
+	
+
+	}*/
 
 
 	// Fonction pour gérer le clic sur le bouton "Annuler"
@@ -2461,6 +2522,8 @@ $('#btnApply').click(function () {
 var startDate = $('#dateRangePicker1').datepicker('getDate');
 var endDate = $('#dateRangePicker2').datepicker('getDate');
 });
+
+
 
 
 
