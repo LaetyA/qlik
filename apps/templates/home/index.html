@@ -246,54 +246,6 @@
 	</div>
 	<br>
 	<div class="page-inner mt--5">
-		<div class="row mt--2">
-			<div class="col-md-6">
-				<div class="card full-height">
-					<div class="card-body">
-						<div class="card-title">Overall statistics</div>
-						<div class="card-category">Daily information about statistics in system</div>
-						<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
-							<div class="px-2 pb-2 pb-md-0 text-center">
-								<div id="circles-1"></div>
-								<h6 class="fw-bold mt-3 mb-0">New Users</h6>
-							</div>
-							<div class="px-2 pb-2 pb-md-0 text-center">
-								<div id="circles-2"></div>
-								<h6 class="fw-bold mt-3 mb-0">Sales</h6>
-							</div>
-							<div class="px-2 pb-2 pb-md-0 text-center">
-								<div id="circles-3"></div>
-								<h6 class="fw-bold mt-3 mb-0">Subscribers</h6>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="card full-height">
-					<div class="card-body">
-						<div class="card-title">Total income & spend statistics</div>
-						<div class="row py-3">
-							<div class="col-md-4 d-flex flex-column justify-content-around">
-								<div>
-									<h6 class="fw-bold text-uppercase text-success op-8">Total Income</h6>
-									<h3 class="fw-bold">$9.782</h3>
-								</div>
-								<div>
-									<h6 class="fw-bold text-uppercase text-danger op-8">Total Spend</h6>
-									<h3 class="fw-bold">$1,248</h3>
-								</div>
-							</div>
-							<div class="col-md-8">
-								<div id="chart-container">
-									<canvas id="totalIncomeChart"></canvas>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="row">
 			<div class="col-md-8">
 				<div class="card">
@@ -340,21 +292,16 @@
 						<h4 class="mt-3 b-b1 pb-2 mb-5 fw-bold">Details Event</h4>
 						<ul class="list-unstyled">
 							<li class="d-flex justify-content-between pb-1 pt-1">
-								<small>Année:</small> <span>2023</span>
+								<h5>Année:</h4> <span><bold>2023</bold></span>
 							</li>
+							<br>
 							<li class="d-flex justify-content-between pb-1 pt-1">
-								<small>Total Events:</small> <span>2023</span>
+								<h5>Total Events:</h4> <span><bold>2023</bold></span>
 							</li>
+							<br>
 							<li class="d-flex justify-content-between pb-1 pt-1">
-								<small>Fatalities:</small> <span>0</span>
-							</li>
-							<li class="d-flex justify-content-between pb-1 pt-1">
-								<small>Fatalities:</small> <span>0</span>
-							</li>
-							<li class="d-flex justify-content-between pb-1 pt-1">
-								<small>Fatalities:</small> <span>0</span>
-							</li>
-							
+								<h5>Fatalities:</h4> <span><bold>2023</bold></span>
+							</li>	
 						</ul>
 					</div>
 				</div>
@@ -376,152 +323,16 @@
 			<div class="col-md-6">
 				<div class="card">
 					<div class="card-header">
-						<div class="card-title">Line Chart</div>
+						<div class="card-title">Per Type&SubTypes</div>
 					</div>
 					<div class="card-body">
 						<div class="chart-container">
-							<canvas id="lineChart"></canvas>
+							<canvas id="barType"></canvas>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
-
-
-
-
-
-
-
-
-
-		<div class="row row-card-no-pd">
-			<div class="col-md-12">
-				<div class="card">
-					<div class="card-header">
-						<div class="card-head-row card-tools-still-right">
-
-						</div>
-						<a class="btn btn-info btn-border btn-round btn-sm mr-2">
-							<span class="btn-label">
-								<i class="fa fa-pencil"></i>
-							</span>
-							Chaleur
-						</a>
-						<a class="btn btn-info btn-border btn-round btn-sm mr-2">
-							<span class="btn-label">
-								<i class="fa fa-pencil"></i>
-							</span>
-							Normal
-						</a>
-					</div>
-					<div class="card-body">
-						<div class="page-inner mt--5">
-							<!-- debut de la section de travail graphe -->
-							<div class="row mt--2">
-								<!-- debut graphe1-->
-								<div class="col-md-6">
-									<div class="card full-height">
-										<div class="card-body">
-											<div class="card-title">Total Event Per Period</div>
-											<canvas id="barCanvas" aria-label="Event_period" role="img"></canvas>
-										</div>
-									</div>
-								</div>
-								<!-- debut graphe2-->
-
-								<div class="col-md-6">
-									<div class="card full-height">
-										<div class="card-body">
-											<div class="card-title">
-												<div class="row">
-													<div class="col-md-8">
-														Total Events per type & subtype
-													</div>
-													<div class="col-md-4 col-md-4-hidden"
-														style="background-color: white;">
-														<div class="row">
-															<div class="col-md-3">&#x1F4E2;</div>
-															<div class="col-md-3">&#x1F4E2;</div>
-															<div class="col-md-3">&#x1F4E2;</div>
-															<div class="col-md-3">&#x1F4E2;</div>
-														</div>
-													</div>
-
-												</div>
-
-											</div>
-
-										</div>
-										<canvas id="EventTypeCanvas" aria-label="Events_type" role="img"></canvas>
-										<div class="row">
-											<div class="col-md-4 d-flex align-items-center">
-												<div class="legend-box" style="background-color:#FFFF00;"></div>
-												<p class="ml-2 mb-0" style="color: white;">Battles</p>
-											</div>
-
-											<div class="col-md-4 d-flex align-items-center">
-												<div class="legend-box" style="background-color: #00FFFF;"></div>
-												<p class="ml-2 mb-0" style="color: white;">Protests</p>
-											</div>
-											<div class="col-md-4 d-flex align-items-center">
-												<div class="legend-box" style="background-color: #7A238A;"></div>
-												<p class="ml-2 mb-0" style="color: white;">Strategic developments</p>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-4 d-flex align-items-center">
-												<div class="legend-box" style="background-color: #D473D4;"></div>
-												<p class="ml-2 mb-0" style="font-size: 11px;color: white;">
-													Explosions/remote
-													violences
-												</p>
-											</div>
-											<div class="col-md-4 d-flex align-items-center">
-												<div class="legend-box" style="background-color: #FA8072;"></div>
-												<p class="ml-2 mb-0" style="color: white;">Riots</p>
-											</div>
-											<div class="col-md-4 d-flex align-items-center">
-												<div class="legend-box" style="background-color:#FFC961;"></div>
-												<p class="ml-2 mb-0" style="font-size: 13px;color: white;">Violence
-													against
-													civilians
-												</p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 		<div class="row">
@@ -863,45 +674,6 @@
 		styleText: true
 	})
 
-	var totalIncomeChart = document.getElementById('totalIncomeChart').getContext('2d');
-
-	var mytotalIncomeChart = new Chart(totalIncomeChart, {
-		type: 'bar',
-		data: {
-			labels: ["S", "M", "T", "W", "T", "F", "S", "S", "M", "T"],
-			datasets: [{
-				label: "Total Income",
-				backgroundColor: '#ff9e27',
-				borderColor: 'rgb(23, 125, 255)',
-				data: [6, 4, 9, 5, 4, 6, 4, 3, 8, 10],
-			}],
-		},
-		options: {
-			responsive: true,
-			maintainAspectRatio: false,
-			legend: {
-				display: false,
-			},
-			scales: {
-				yAxes: [{
-					ticks: {
-						display: false //this will remove only the label
-					},
-					gridLines: {
-						drawBorder: false,
-						display: false
-					}
-				}],
-				xAxes: [{
-					gridLines: {
-						drawBorder: false,
-						display: false
-					}
-				}]
-			},
-		}
-	});
-
 	$('#lineChart').sparkline([105, 103, 123, 100, 95, 105, 115], {
 		type: 'line',
 		height: '70',
@@ -1184,6 +956,23 @@
 	
 
 
+	function updateCountryCard(entry) {
+		// Sélectionnez les éléments HTML correspondants dans la carte de pays
+		var countryCard = document.querySelector('.col-md-4.custom-height .card.card-primary.bg-primary-gradient');
+		var countryNameElement = countryCard.querySelector('h5.mb-4');
+		var yearElement = countryCard.querySelector('ul li:nth-child(1) span');
+		var totalEventsElement = countryCard.querySelector('ul li:nth-child(2) span');
+		var fatalitiesElement = countryCard.querySelector('ul li:nth-child(3) span');
+
+		// Mettez à jour le contenu HTML avec les informations du pays
+		countryNameElement.textContent = entry.country;
+		yearElement.textContent = "Année: " + entry.years;
+		totalEventsElement.textContent = "Total Events: " + entry.event_count;
+		fatalitiesElement.textContent = "Fatalities: " + entry.total_fatalities;
+	}
+
+
+
 	// Déclarez la variable continentsData en dehors de la fonction loadJSON
 	let continentsData
 
@@ -1250,6 +1039,14 @@
 		});
 
 
+		
+
+
+
+
+
+
+
 
 		var dataChart = {
 			labels: [], // Utilisez les noms des pays comme valeurs de l'axe des ordonnées
@@ -1283,6 +1080,11 @@
 				var elementIndex = elements[0]._index; // Index de la barre cliquée
 				var clickedBar = elements[0];
 				var dataset = this.data.datasets[clickedBar._datasetIndex];
+
+				var countryInfo = countryData[elementIndex]; // Supposons que vous ayez une variable `countryData` contenant les données du pays
+
+				// Affichez les informations dans la carte du pays
+				updateCountryCard(countryInfo);
 				
 				// Vérifiez si la barre est déjà sélectionnée
 				if (selectedBars.has(elementIndex)) {
@@ -1744,6 +1546,7 @@
 	/*-------------------------------------------BARCHART_PERIOD---AND---TYPES&SUBTYPES------------------------*/
 
 	barPeriod = document.getElementById('barPeriod').getContext('2d')
+	barType = document.getElementById('barType').getContext('2d')
 
 
 	// Obtenez la date actuelle
@@ -1777,7 +1580,7 @@
 				label: "Sales",
 				backgroundColor: 'beige',
 				borderColor: 'beige',
-				data: [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4],
+				data: [],
 			}],
 		},
 		options: {
@@ -1790,6 +1593,68 @@
 					}
 				}]
 			},
+		}
+	});
+
+	var myBarType = new Chart(barType, {
+		type: 'bar',
+		data: {
+			labels: ["\u{1F4A5}BAT", "\u{1F4A3}E/R", "\u{1F4E2}PRO", "\u{270A}RIO", "\u{1F680}SD", "\u{1F469}VAC"],
+			datasets: [{
+				label: "Sales",
+				backgroundColor: ['#F0C300', '#FF6600', '#7A238A', '#FA8072', '#3A9D23', '#00FFFF'],
+				borderColor: 'beige',
+				data: [],
+			}],
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}],
+				xAxes: [{
+					ticks: {
+						callback: function (label, index, labels) {
+							// Créez un dictionnaire pour faire correspondre les catégories complètes aux abréviations
+							var abbreviationMap = {
+								"Battles": "\u{1F4A5}BAT",
+								"Explosions/Remote violence": "\u{1F4A3}E/R",
+								"Protests": "\u{1F4E2}PRO",
+								"Riots": "\u{270A}RIO",
+								"Strategic developments": "\u{1F680}SD",
+								"Violence against civilians": "\u{1F469}VAC"
+							};
+							
+							// Vérifiez si une abréviation correspond à la catégorie complète
+							if (abbreviationMap[label]) {
+								return abbreviationMap[label];
+							}
+							
+							// Si aucune abréviation n'est trouvée, retournez la catégorie complète
+							return label;
+						}
+					}
+				}]
+			},
+			tooltips: {
+				callbacks: {
+					title: function(tooltipItem, data) {
+						// Récupérez l'index de la barre survolée
+						var index = tooltipItem[0].index;
+						
+						// Récupérez l'étiquette complète correspondant à l'index
+						var fullLabel = data.labels[index];
+						
+						// Retournez l'étiquette complète pour le titre du tooltip
+						return fullLabel;
+					}
+				}
+			},
+			
 		}
 	});
 
@@ -1818,6 +1683,7 @@
             const allCountries = selectedCountries.map(countryName => {
                 const entry = data.find(entry => entry.country === countryName);
                 if (entry) {
+					
                     return {
                         country: entry.country,
                         event_count: entry.event_count
@@ -1828,6 +1694,8 @@
                         event_count: 0 // Valeur nulle
                     };
                 }
+			
+           
             });
 
             const labels = allCountries.map(entry => entry.country);
@@ -1842,6 +1710,7 @@
             myBarChart.data.datasets[0].backgroundColor = backgroundColors;
 
             myBarChart.update();
+			//updateCountryCard(allCountries[0]);
 
             // Mettez à jour les propriétés de remplissage pour chaque carte
             mapes.forEach(function (map) {
@@ -1873,7 +1742,36 @@
 					myBarPeriod.data.labels = eventMonth;
 					// Rafraîchissez le graphique
 					myBarPeriod.update();
-                   
+
+
+                  
+					$.ajax({
+						type: "GET",
+						url: "{% url 'fetch_event_type' %}",  // Utilisez le nom de vue 'fetch_event_period'
+						data: { selectedCountries: selectedCountries },
+						dataType: "json",
+						success: function (typeData) {
+							console.log("typeData",typeData)
+
+							var eventCounts = typeData.map(function (item) {
+								return item.event_count;
+							});
+
+							var eventType = typeData.map(function (item) {
+								return item.category;
+							});
+
+							// Mettez à jour le dataset du graphique avec les nouvelles données
+							myBarType.data.datasets[0].data = eventCounts;  
+							myBarType.data.labels = eventType;
+							// Rafraîchissez le graphique
+							myBarType.update();
+						
+						},
+						error: function (error) {
+							console.error("Erreur lors de la récupération des données des événements par type: ", error);
+						}
+					});
                 },
                 error: function (error) {
                     console.error("Erreur lors de la récupération des données des événements par période: ", error);

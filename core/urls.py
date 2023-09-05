@@ -17,6 +17,7 @@ urlpatterns = [
     path('', views.index, name='home'),
     path('fetch_event_data/', views.fetch_event_data, name='fetch_event_data'),  
     path('fetch_event_period/', views.fetch_event_period, name='fetch_event_period'),
+    path('fetch_event_type/', views.fetch_event_type, name='fetch_event_type'),
 
     # Matches any html file
     re_path(r'^.*\.*', views.pages, name='pages'),

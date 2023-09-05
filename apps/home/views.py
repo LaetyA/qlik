@@ -135,7 +135,11 @@ def fetch_event_data(request):
         selected_countries_string = ",".join(f"'{country}'" for country in selected_countries)
 
         sql_query = f"""
-            SELECT country, COUNT(event_id_cnty) AS event_count
+            SELECT
+                country,
+                COUNT(event_id_cnty) AS event_count,
+                SUM(fatalities) AS total_fatalities,
+                GROUP_CONCAT(DISTINCT year ORDER BY year ASC SEPARATOR ', ') AS years
             FROM donqlick
             WHERE country IN ({selected_countries_string})
             GROUP BY country;
@@ -145,7 +149,16 @@ def fetch_event_data(request):
             cursor.execute(sql_query)
             results = cursor.fetchall()
 
-        data = [{'country': country, 'event_count': event_count} for country, event_count in results]
+        data = [
+            {
+                'country': country,
+                'event_count': event_count,
+                'total_fatalities': total_fatalities,
+                'years': years
+            }
+            for country, event_count, total_fatalities, years in results
+        ]
+
 
         return JsonResponse(data, safe=False)
     else:
@@ -193,3 +206,33 @@ def fetch_event_period(request):
         return JsonResponse(data, safe=False)
     else:
         return JsonResponse({'error': 'marche pas data per period'}, status=400)
+
+
+def fetch_event_type(request):
+    if request.method == 'GET':
+        selected_countries = request.GET.getlist('selectedCountries[]')
+        selected_countries_string = ",".join(f"'{country}'" for country in selected_countries)
+
+        sql_query = f"""
+            SELECT event_type, COUNT(event_id_cnty) AS event_count
+            FROM donqlick
+            WHERE country IN ({selected_countries_string})
+            GROUP BY event_type;
+        """
+
+        with connection.cursor() as cursor:
+            cursor.execute(sql_query)
+
+            results = cursor.fetchall()
+
+            # Créez un dictionnaire pour stocker les données par catégorie
+            data_by_category = {row[0]: row[1] for row in results}
+
+        # Convertissez le dictionnaire en une liste pour la réponse JSON
+        data = [{'category': category, 'event_count': event_count} for category, event_count in data_by_category.items()]
+        print("tyyyyype",data)
+        return JsonResponse(data, safe=False)
+    else:
+        return JsonResponse({'error': 'marche pas data per category'}, status=400)
+
+    
