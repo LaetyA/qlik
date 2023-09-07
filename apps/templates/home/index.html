@@ -288,19 +288,19 @@
 				<div class="card card-primary bg-primary-gradient">
 					<div class="card-body d-flex flex-column">
 						<h4 class="mt-3 b-b1 pb-2 mb-4 fw-bold">Pays</h4>
-						<h5 class="mb-4 fw-bold">France</h5>
+						<h5 class="mb-4 fw-bold" id="paysName">---</h5>
 						<h4 class="mt-3 b-b1 pb-2 mb-5 fw-bold">Details Event</h4>
 						<ul class="list-unstyled">
 							<li class="d-flex justify-content-between pb-1 pt-1">
-								<h5>Année:</h4> <span><bold>2023</bold></span>
+								<h5>Année:</h5> <span><strong id="year">---</strong></span>
 							</li>
 							<br>
 							<li class="d-flex justify-content-between pb-1 pt-1">
-								<h5>Total Events:</h4> <span><bold>2023</bold></span>
+								<h5>Total Events:</h5> <span><strong id="totEvents">---</strong></span>
 							</li>
 							<br>
 							<li class="d-flex justify-content-between pb-1 pt-1">
-								<h5>Fatalities:</h4> <span><bold>2023</bold></span>
+								<h5>Fatalities:</h5> <span><strong id="fatals">---</strong></span>
 							</li>	
 						</ul>
 					</div>
@@ -956,27 +956,31 @@
 	
 
 
-	function updateCountryCard(entry) {
-		// Sélectionnez les éléments HTML correspondants dans la carte de pays
-		var countryCard = document.querySelector('.col-md-4.custom-height .card.card-primary.bg-primary-gradient');
-		var countryNameElement = countryCard.querySelector('h5.mb-4');
-		var yearElement = countryCard.querySelector('ul li:nth-child(1) span');
-		var totalEventsElement = countryCard.querySelector('ul li:nth-child(2) span');
-		var fatalitiesElement = countryCard.querySelector('ul li:nth-child(3) span');
+	function updateCountryCard(data, countryName) {
+		// Trouvez l'entrée correspondante dans les données
+		const entry = data.find(entry => entry.country === countryName);
+		console.log("maco",data)
 
-		// Mettez à jour le contenu HTML avec les informations du pays
-		countryNameElement.textContent = entry.country;
-		yearElement.textContent = "Année: " + entry.years;
-		totalEventsElement.textContent = "Total Events: " + entry.event_count;
-		fatalitiesElement.textContent = "Fatalities: " + entry.total_fatalities;
+		if (entry) {
+			// Sélectionnez les éléments HTML correspondants par leurs identifiants
+			var countryNameElement = document.getElementById('paysName');
+			var yearElement = document.getElementById('year');
+			var totalEventsElement = document.getElementById('totEvents');
+			var fatalitiesElement = document.getElementById('fatals');
+
+			// Mettez à jour le contenu HTML avec les informations du pays
+			countryNameElement.textContent = entry.country;
+			yearElement.textContent = entry.years;
+			totalEventsElement.textContent = entry.event_count;
+			fatalitiesElement.textContent = entry.total_fatalities;
+		} else {
+			// Gérer le cas où aucune donnée n'est disponible pour le pays
+			console.log("Aucune donnée disponible pour " + countryName);
+		}
 	}
 
 
 
-	// Déclarez la variable continentsData en dehors de la fonction loadJSON
-	let continentsData
-
-	// Fonction pour charger les données JSON depuis pays.json via une requête AJAX
 	function loadJSON(callback) {
 		const xhr = new XMLHttpRequest();
 		xhr.overrideMimeType("application/json");
@@ -1059,6 +1063,7 @@
 		};
 
 		var selectedBars = new Set();
+		var allCountries = [];
 
 		
 
@@ -1080,11 +1085,9 @@
 				var elementIndex = elements[0]._index; // Index de la barre cliquée
 				var clickedBar = elements[0];
 				var dataset = this.data.datasets[clickedBar._datasetIndex];
+				var countryName = dataset.label[elementIndex];
 
-				var countryInfo = countryData[elementIndex]; // Supposons que vous ayez une variable `countryData` contenant les données du pays
-
-				// Affichez les informations dans la carte du pays
-				updateCountryCard(countryInfo);
+        		updateCountryCard(allCountries, countryName);
 				
 				// Vérifiez si la barre est déjà sélectionnée
 				if (selectedBars.has(elementIndex)) {
@@ -1099,6 +1102,8 @@
 
 				// Mettez à jour le graphique
 				this.update(); 
+
+				
 
 					// Créez le popup avec les boutons ici
 					var popup = document.createElement("div");
@@ -1657,16 +1662,20 @@
 			
 		}
 	});
+	
+	function getCategoryEmoji(category) {
+		const emojiMap = {
+			"Battles": "\u{1F4A5}",
+			"Explosions/Remote violence": "\u{1F4A3}",
+			"Protests": "\u{1F4E2}",
+			"Riots": "\u{270A}",
+			"Strategic developments": "\u{1F680}",
+			"Violence against civilians": "\u{1F469}"
+		};
 
-	// Fonction pour obtenir le nom du mois à partir du numéro de mois (1-12)
-	function getMonthName(monthNumber) {
-		var months = [
-			"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-		];
-		return months[monthNumber - 1];
+		// Retournez l'emoji correspondant à la catégorie, ou une chaîne vide par défaut
+		return emojiMap[category] || "";
 	}
-
-	var monthlyEventTotals = new Array(12).fill(0);
 
 	function OKButtonClick(selectedCountries, mapes, myBarChart) {
     // Effectuez une requête AJAX pour obtenir les données des événements
@@ -1680,7 +1689,7 @@
             // Les données des événements sont disponibles dans la variable "data"
 
             // Créez un tableau pour stocker toutes les valeurs, y compris les nulles
-            const allCountries = selectedCountries.map(countryName => {
+                allCountries = selectedCountries.map(countryName => {
                 const entry = data.find(entry => entry.country === countryName);
                 if (entry) {
 					
@@ -1710,7 +1719,7 @@
             myBarChart.data.datasets[0].backgroundColor = backgroundColors;
 
             myBarChart.update();
-			//updateCountryCard(allCountries[0]);
+		
 
             // Mettez à jour les propriétés de remplissage pour chaque carte
             mapes.forEach(function (map) {
@@ -1720,6 +1729,7 @@
                 });
             });
 
+			updateCountryCard(data, selectedCountries[0]); 
 			$.ajax({
                 type: "GET",
                 url: "{% url 'fetch_event_period' %}",  // Utilisez le nom de vue 'fetch_event_period'
@@ -1753,19 +1763,108 @@
 						success: function (typeData) {
 							console.log("typeData",typeData)
 
-							var eventCounts = typeData.map(function (item) {
-								return item.event_count;
-							});
+							
+							var allCategories = [
+								"Battles",
+								"Explosions/Remote violence",
+								"Protests",
+								"Riots",
+								"Strategic developments",
+								"Violence against civilians"
+							];
 
-							var eventType = typeData.map(function (item) {
-								return item.category;
+							// Créez un objet pour stocker le compte par catégorie
+							var categoryCounts = {};
+
+							// Parcourez typeData et mettez à jour le compte pour chaque catégorie
+							typeData.forEach(function (item) {
+								var category = item.category;
+								var eventCount = item.event_count;
+
+								// Si la catégorie n'existe pas dans categoryCounts, initialisez-la à 0
+								if (!categoryCounts[category]) {
+									categoryCounts[category] = 0;
+								}
+
+								// Mettez à jour le compte pour la catégorie
+								categoryCounts[category] += eventCount;
 							});
 
 							// Mettez à jour le dataset du graphique avec les nouvelles données
-							myBarType.data.datasets[0].data = eventCounts;  
-							myBarType.data.labels = eventType;
-							// Rafraîchissez le graphique
-							myBarType.update();
+							var eventCounts = Object.values(categoryCounts);
+							var eventType = Object.keys(categoryCounts);
+
+							// Ajoutez les catégories manquantes avec un compte de 0
+							allCategories.forEach(function (category) {
+								if (!eventType.includes(category)) {
+									eventType.push(category);
+									eventCounts.push(0);
+								}
+							});
+
+								eventType.sort();
+
+								if (eventType.length === 0) {
+									eventType = ["\u{1F4A5}BAT", "\u{1F4A3}E/R", "\u{1F4E2}PRO", "\u{270A}RIO", "\u{1F680}SD", "\u{1F469}VAC"];
+								}
+
+								// Mettez à jour le dataset du graphique avec les nouvelles données
+								myBarType.data.datasets[0].data = eventCounts;  
+								myBarType.data.labels = eventType;
+
+							
+								//myBarType.data.labels = ["\u{1F4A5}BAT", "\u{1F4A3}E/R", "\u{1F4E2}PRO", "\u{270A}RIO", "\u{1F680}SD", "\u{1F469}VAC"];
+							
+							
+
+							// Triez eventType par ordre alphabétique
+							
+
+
+							myBarType.options.onClick = function (event, elements) {
+							if (elements && elements.length > 0) {
+								// Récupérez la catégorie de la barre cliquée
+								var elementIndex = elements[0]._index;
+								var clickedCategory = this.data.labels[elementIndex];
+
+								// Obtenez l'emoji correspondant à la catégorie
+								var emoji = getCategoryEmoji(clickedCategory);
+
+								if (emoji) {
+									// Filtrer les données pour obtenir uniquement la catégorie sélectionnée
+									var filteredData = typeData.filter(function (item) {
+										return item.category === clickedCategory;
+									});
+
+									if (filteredData.length > 0) {
+										// Récupérez les coordonnées pour la catégorie sélectionnée
+										var coordinates = filteredData[0].coordinates;
+										console.log("coordonnée:", coordinates);
+
+										// Ajoutez de nouveaux marqueurs avec l'emoji comme icône
+										coordinates.forEach(function (coordinate) {
+											var latitude = coordinate[0];
+											var longitude = coordinate[1];
+
+											// Créez un élément HTML personnalisé pour l'icône
+											var icon = document.createElement('div');
+											icon.innerHTML = emoji;
+											icon.className = 'category-marker';
+
+											// Créez le marqueur avec l'icône personnalisée
+											var marker = new mapboxgl.Marker({ element: icon })
+												.setLngLat([longitude, latitude])
+												.addTo(map);
+
+												markers.push(marker);
+										});
+									}
+								}
+							}
+						};
+
+						// Rafraîchissez le graphique
+						myBarType.update();
 						
 						},
 						error: function (error) {
@@ -1862,6 +1961,7 @@ function OKButtonClick(selectedCountries, mapes, myBarChart) {
 
 	}*/
 
+	var markers = [];
 
 	// Fonction pour gérer le clic sur le bouton "Annuler"
 	function CancelButtonClick(selectedCountries, mapes) {
@@ -1875,7 +1975,7 @@ function OKButtonClick(selectedCountries, mapes, myBarChart) {
 
 		 // Réinitialisez la liste des pays sélectionnés
 		 selectedCountries.length = 0;
-		console.log(selectedCountries);
+		 console.log(selectedCountries);
 
 		// Fermez le popup pour chaque carte en utilisant l'objet popups
 		mapes.forEach(function (map) {
@@ -1884,6 +1984,13 @@ function OKButtonClick(selectedCountries, mapes, myBarChart) {
 				popup.remove();
 				delete popups[map.getContainer().id];
 			}
+		});
+
+		popups = {}; // Réinitialisez la liste des popups
+
+		// Supprimez tous les marqueurs de la liste globale
+		markers.forEach(function (marker) {
+			marker.remove();
 		});
 	}
 

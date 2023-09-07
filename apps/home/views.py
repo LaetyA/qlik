@@ -208,16 +208,16 @@ def fetch_event_period(request):
         return JsonResponse({'error': 'marche pas data per period'}, status=400)
 
 
+
 def fetch_event_type(request):
     if request.method == 'GET':
         selected_countries = request.GET.getlist('selectedCountries[]')
         selected_countries_string = ",".join(f"'{country}'" for country in selected_countries)
 
         sql_query = f"""
-            SELECT event_type, COUNT(event_id_cnty) AS event_count
+            SELECT event_type, latitude, longitude
             FROM donqlick
-            WHERE country IN ({selected_countries_string})
-            GROUP BY event_type;
+            WHERE country IN ({selected_countries_string});
         """
 
         with connection.cursor() as cursor:
@@ -226,13 +226,41 @@ def fetch_event_type(request):
             results = cursor.fetchall()
 
             # Créez un dictionnaire pour stocker les données par catégorie
-            data_by_category = {row[0]: row[1] for row in results}
+            data_by_category = {}
 
-        # Convertissez le dictionnaire en une liste pour la réponse JSON
-        data = [{'category': category, 'event_count': event_count} for category, event_count in data_by_category.items()]
-        print("tyyyyype",data)
-        return JsonResponse(data, safe=False)
+            for row in results:
+                category, latitude, longitude = row
+
+                if category not in data_by_category:
+                    data_by_category[category] = {
+                        'category': category,
+                        'coordinates': []
+                    }
+
+                data_by_category[category]['coordinates'].append([latitude, longitude])
+
+            # Convertissez le dictionnaire en une liste pour la réponse JSON
+            data_list = list(data_by_category.values())
+
+        # Ajoutez le nombre d'événements par catégorie en parcourant à nouveau la base de données
+        for category_data in data_list:
+            category = category_data['category']
+            sql_query_count = f"""
+                SELECT COUNT(event_id_cnty) AS event_count
+                FROM donqlick
+                WHERE country IN ({selected_countries_string}) AND event_type = %s;
+            """
+            with connection.cursor() as cursor:
+                cursor.execute(sql_query_count, [category])
+                result = cursor.fetchone()
+                if result:
+                    category_data['event_count'] = result[0]
+                else:
+                    category_data['event_count'] = 0
+
+        # Renvoyez la liste de données au format JSON
+        print("noouuu:",data_list)
+        return JsonResponse(data_list, safe=False)
     else:
         return JsonResponse({'error': 'marche pas data per category'}, status=400)
 
-    
