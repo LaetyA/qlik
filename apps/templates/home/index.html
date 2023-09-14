@@ -2550,6 +2550,9 @@ searchBar.on('input', function () {
 function showCard() {
 	$('#event-card').show(); // Afficher la div avec l'identifiant event-card
 }
+function HideReplaceDropdown(){
+	$('#replace').hide();
+}
 $('[data-toggle="dropdown"]').dropdown();
 function formatEventDate(rawDate) {
 	var eventDate = new Date(rawDate);
@@ -2656,7 +2659,8 @@ function fetchDataAndProcess() {
 				$('#replace').html(newContentDropdown);
 				$('#transparent-button-newContentDropdown').on('click', function () {
   					showCard(); // Afficher la div "event-card"
-  					$('#replace').hide(); // Masquer la div "replace"
+					HideReplaceDropdown();
+  					// $('#replace').hide(); // Masquer la div "replace"
 				});
 			});
 			dropdownContainer.append(optionLink);
@@ -2827,36 +2831,34 @@ function fetchDataAndProcess() {
 		});
 				
 		$("p[id^='main-actor']").click(function() {
-		var typesColor = ['success', 'info', 'warning', 'danger'];
+			var typesColor = ['success', 'info', 'warning', 'danger'];
 
-    var paragraphText = $(this).text();
-    var count = 0;
-    var notesList = $('<ol>').addClass('activity-feed'); // Ajoutez la classe activity-feed à la liste
+			var count = 0;
+			var notesList = $('<ol>').addClass('activity-feed'); // Ajoutez la classe activity-feed à la liste	
+			var paragraphText = $(this).text();
+			for (var i = 0; i < data.length; i++) {
+				var mainActorContent = data[i]['main-actor'];
 
-    for (var i = 0; i < data.length; i++) {
-        var mainActorContent = data[i]['main-actor'];
+				if (mainActorContent && mainActorContent.includes(paragraphText)) {
+					count++;
+					var notes = data[i]['notes'];
 
-        if (mainActorContent && mainActorContent.includes(paragraphText)) {
-            count++;
-            var notes = data[i]['notes'];
-            if (notes !== null) {
-                // Créez un élément <li> avec la classe feed-item pour chaque note
-                var listItem = $('<li>').addClass('feed-item').addClass('feed-item-' + typesColor[i % typesColor.length]);;
-				var date = $('<div class="date"></div>').text(formatEventDate(data[i]['event_date']));
-				var text = $('<div class="text" style="color:white"></div>').text(notes);
+					if (notes !== null) {
+						// Créez un élément <li> avec la classe feed-item pour chaque note
+						var listItem = $('<li>').addClass('feed-item').addClass('feed-item-' + typesColor[i % typesColor.length]);;
+						var date = $('<div class="date"></div>').text(formatEventDate(data[i]['event_date']));
+						var text = $('<div class="text" style="color:white"></div>').text(notes);
+						
+						listItem.append(date, text); // Ajoutez la date et le texte à l'élément <li>
+						notesList.append(listItem); // Ajoutez l'élément <li> à la liste
+					}
+				}
+			}
+			
 
-                listItem.append(date, text); // Ajoutez la date et le texte à l'élément <li>
-                notesList.append(listItem); // Ajoutez l'élément <li> à la liste
-            }
-        }
-    }
-	$('text').click(function() {
-		alert("click")
-	})
-
-    $('html, body').animate({
-        scrollTop: '+=2500'
-    }, 1000);
+			$('html, body').animate({
+				scrollTop: '+=2500'
+			}, 1000);
 
     var newContent = `
         <div class="card full-height" id="div-main-actor">
@@ -2882,92 +2884,27 @@ function fetchDataAndProcess() {
                 </div>
             </div>
         </div>`;
-
+		
     $('#event-card').hide();
-    $('#div-main-actor').html(newContent).show();
+    // $('#div-main-actor').html(newContent).show();
+	// Après avoir ajouté newContent au DOM
+$('#div-main-actor').html(newContent).show();
+
+// Ajoutez un gestionnaire d'événements "click" aux éléments de note
+$('#div-main-actor .feed-item').on('click', function() {
+    // Récupérez le texte de la note à partir du contenu de l'élément cliqué
+    var noteText = $(this).find('.text').text();
+    // Affichez une alerte avec le texte de la note
+    alert('Note: ' + noteText);
+});
+
+// ...
+
     $('#transparent-button').on('click', function() {
         showCard();
         $('#div-main-actor').hide();
     });
 
-
-// $("p[id^='main-actor']").click(function() {
-	
-//     var paragraphText = $(this).text(); 
-//     var count = 0;
-//     var notesString = ''; // Initialisez une chaîne pour stocker les notes
-
-//     for (var i = 0; i < data.length; i++) {
-//         var mainActorContent = data[i]['main-actor']; // Obtenez le contenu de 'main-actor'
-
-//         if (mainActorContent && mainActorContent.includes(paragraphText)) {
-//             count++;
-//             var notes = data[i]['notes'];
-// 			var country = data[i]['country'];
-// 			var date = data[i]['event_date'];
-// 			var type = data[i]['type'];
-// 			var source = data[i]['source'];
-// 			var fatalities= data[i]['fatalities'];
-
-
-
-//             // console.log(notes);
-// 			if(notes!==null){
-// 				notesString += '<div>'+ notes+'</div>' ;
-// 				notesString += `<div class="note"><span>${notes}</span></div>`;
-// 			// 	var listItem = $('<li></li>').addClass('feed-item').addClass('feed-item-' + types[i % types.length]);
-
-// 			// var formattedDate = formatEventDate(filteredData[i].event_date);
-// 			// var time = $('<time class="date"></time>').text(formattedDate);
-// 			// listItem.append(time);
-					
-// 			// var text_id = filteredData[i].id;
-// 			// var text = filteredData[i].notes;
-// 			// var span = $('<span class="text" style="color:white"></span>').text(text);
-// 			// span.attr('data-text-id', text_id);  // Définir l'attribut de données pour l'ID
-
-// 			}
-//         }
-		
-//     }
-	
-// 	$('html, body').animate({
-// 		scrollTop: '+=2500'
-//     }, 1000); 
-	
-	
-// 							var newContent = `
-// 								<div class="card full-height" id="replace">
-// 								<!-- Le contenu de la nouvelle div ici -->
-// 								<div class="card-header">
-// 									<div class="card-title">
-// 										<div class="row align-items-center">
-// 										<div class="col-md-9">
-// 											<span style="font-weight: bold;">Event Description</span>
-// 										</div>
-// 										<div class="col-md-3">
-// 											<button id="transparent-button" class="btn btn-default">All Last Events </button>
-// 										</div>
-// 									</div>
-// 								</div>
-// 								</div>
-// 								<div class="card-body-scroll">
-// 									<div class="container mt-5" >
-// 										<div style="color: white;">	
-// 											<span>${notesString}</span>
-// 											<br>
-// 											<br>
-// 									</div>
-// 								</div>
-// 							</div>`;
-							
-
-//     $('#event-card').hide(); 
-//     $('#replace').html(newContent).show(); 
-//     $('#transparent-button').on('click', function () {
-//         showCard(); 
-//         $('#replace').hide(); 
-//     });
 	$('.note').on('click', function () {
       
 		var newContentSpan = `<div class="card full-height" id="div-main-actor">
@@ -2979,8 +2916,6 @@ function fetchDataAndProcess() {
 											<button class="btn btn-default" id="button-go_back">
 												<i class="fas fa-arrow-left"  style="font-size:18px"></i> go back
 											</button>
-
-
 										</div>
 										<div class="col-md-8">
 											<span style ="font-weight : bold ; display:block;text-align :center;margin : 0 auto;">Event Description </span>											
@@ -3016,50 +2951,13 @@ function fetchDataAndProcess() {
     $('#div-main-actor').html(newContentSpan).show(); 
 	    
 	$('#transparent-button-newContentSpan').on('click', function () {
-         showCard(); // Afficher la div "event-card"
-
-        $('#div-main-actor').hide(); // Masquer la div "replace"
+         showCard(); 
+        $('#div-main-actor').hide(); 
 		// $('#replace').html(newContent).show(); // Afficher la div "replace"
-
-
     });
 	
     });
 });
-
-// $("p[id^='main-actor']").click(function() {
-//     var paragraphText = $(this).text(); // Obtenez le contenu du paragraphe cliqué
-
-//     // Initialisez un compteur pour le nombre d'occurrences
-//     var count = 0;
-
-//     // Initialisez une chaîne pour stocker les notes
-//     var notesString = "";
-
-//     // Parcourez le tableau data pour trouver les correspondances
-//     for (var i = 0; i < data.length; i++) {
-//         var mainActorContent = data[i]['main-actor']; // Obtenez le contenu de 'main-actor'
-
-//         if (mainActorContent && mainActorContent.includes(paragraphText)) {
-//             // Une correspondance est trouvée, incrémente le compteur
-//             count++;
-
-//             // Récupérez les notes associées à cette occurrence
-//             var notes = data[i]['notes'];
-
-//             // Ajoutez les notes à la chaîne de notes
-//             if (notesString !== "") {
-//                 notesString += "\n\n"; // Ajoutez un saut de ligne entre les notes
-//             }
-//             notesString += "Notes associées à l'occurrence " + count + " : " + notes;
-//         }
-//     }
-
-//     // Affichez le nombre total d'occurrences et les notes associées dans l'alerte
-//     var alertMessage = "Vous avez cliqué sur l'acteur principal avec le contenu : \"" + paragraphText + "\".\n\nNombre d'occurrences : " + count + "\n\n" + notesString;
-//     alert(alertMessage);
-// });
-
 
     }
 
