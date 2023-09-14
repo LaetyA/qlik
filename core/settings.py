@@ -106,7 +106,7 @@ else:
             'USER': 'root',
             'PASSWORD': '',
             'HOST': 'localhost',  # Ou l'adresse IP de votre serveur MariaDB
-            'PORT': '3307',       # Port sur lequel MariaDB écoute
+            'PORT': '3306',       # Port sur lequel MariaDB écoute
         }
     }
 

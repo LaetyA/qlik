@@ -40,7 +40,7 @@ def index(request):
 
     if request.is_ajax():
         data = [{'event_date': donqlick.event_date, 'notes': donqlick.notes, 'country': donqlick.country, 'type': donqlick.event_type,
-                 'main-actor': donqlick.actor1, 'source': donqlick.source, 'fatalities': donqlick.fatalities} for donqlick in doneqlick]
+                 'main-actor': donqlick.actor1, 'source': donqlick.source, 'fatalities': donqlick.fatalities,'year':donqlick.year,'sub_event_type':donqlick.sub_event_type,'id':donqlick.id} for donqlick in doneqlick]
         return JsonResponse(data, safe=False)
 
 

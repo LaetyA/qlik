@@ -11,61 +11,82 @@
 
 <div class="content">
 	<div class="panel-header bg-primary-gradient">
-		<div class="page-inner py-5">
+		<div class="page-inner py-5" style="height: 100px;">
 			<div class="container mt-5">
 				<div class="row">
-					<div class="col my-2">
-						<div class="dropdown dropdown-custom">
+					<div class="col my-2 ">						
+						<div class="dropdown dropdown-custom" style="bottom:70px;">
 							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
-								id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-								Actors
-							</button>
-							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-								<li><a class="dropdown-item" href="#">Main Actor</a></li>
-								<li><a class="dropdown-item" href="#">Main Actor Type</a></li>
-								<li><a class="dropdown-item" href="#">Counterparty</a></li>
+								id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Actor</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<li><a class="dropdown-item" href="#" id="popupTriggerMainActor">main actor</a></li>
+							
+							  <li><a class="dropdown-item" href="#" id="popupTriggerActor">main actor type</a></li>
+							
+							  <li><a class="dropdown-item" href="#">Counterparty</a></li>
 							</ul>
+					 	</div>  
+  						<div id="popupContentActor" class="alert alert-info" style="display: none;"></div>					
+						<div id="popupContentMainActor" class="alert alert-info" style="display: none;">
+							<p style="margin:0;">contenu</p>
 						</div>
 					</div>
 					<div class="col my-2">
-						<div class="dropdown dropdown-custom">
+						<div class="dropdown dropdown-custom" style="bottom:70px;">
 							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
 								id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">Time</button>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-								<li><a class="dropdown-item" href="#">Event Period</a></li>
-								<li><a class="dropdown-item" href="#">Event Year</a></li>
-								<li><a class="dropdown-item" href="#">Event Date</a></li>
+								<li><a class="dropdown-item" href="#"id="popupTriggerEventPeriod">Event Period</a></li>
+								<li><a class="dropdown-item" href="#" id="popupTriggerEventYear">Event Year</a></li>
+								<li><a class="dropdown-item" href="#" id="popupTriggerEventDate">Event Date</a></li>
 							</ul>
+						</div>
+						<div id="popupContentEventYear" class="alert alert-info" style="display: none;" autoOpen="false">
+							<p>contenu</p>
+						</div>
+						<div id="popupContentEventDate" class="alert alert-info" style="display: none;" autoOpen="false">
+							<p>contenu</p>
+						</div>
+						<div id="popupContentEventPeriod" class="alert alert-info" style="display: none;" autoOpen="false">
+							<p>contenu</p>
 						</div>
 					</div>
 					<div class="col my-2">
-						<div class="dropdown dropdown-custom">
+						<div class="dropdown dropdown-custom" style="bottom:70px;">
 							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
 								id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">Events</button>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-								<li><a class="dropdown-item" href="#">Event Type</a></li>
-								<li><a class="dropdown-item" href="#">Event Subtype</a></li>
-								<li><a class="dropdown-item" href="#">Event Source</a></li>
+								<li><a class="dropdown-item" href="#" id="popupTriggerEventType">Event Type</a></li>
+								<li><a class="dropdown-item" href="#" id="popupTriggerEventSubtype">Event Subtype</a></li>
+								<li><a class="dropdown-item" href="#" id="popupTriggerEventSource">Event Source</a></li>
 							</ul>
+						</div>
+						<div id="popupContentEventType"  class="alert alert-info" style="display: none;" autoOpen="false">
+						<p>contenu</p></div>
+						<div id="popupContentEventSource"  class="alert alert-info" style="display: none;" autoOpen="false">
+							<p>contenu</p>
+						</div>
+						<div id="popupContentEventSubtype"  class="alert alert-info" style="display: none;" autoOpen="false">
+							<p>contenu</p>
 						</div>
 					</div>
 					<div class="col my-2">
-						<div class="dropdown dropdown-custom">
+						<div class="dropdown" style="bottom:70px;">
 							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
-								id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">Time</button>
+							id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: white;	width: 150px;">Time</button>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-								<li><a class="dropdown-item" href="#">Last Day</a></li>
-								<li><a class="dropdown-item" href="#">Last 6 Days</a></li>
-								<li><a class="dropdown-item" href="#">Last 30Days</a></li>
+								<li><a class="dropdown-item" href="#" id="popupTriggerLastDay">Last Day</a></li>
+								<li><a class="dropdown-item" href="#">Last 5 Days</a></li>
+								<li><a class="dropdown-item" href="#">Last 30 Days</a></li>
 								<li><a class="dropdown-item" href="#">Last 90 Days</a></li>
-								<li><a class="dropdown-item" href="#">Last Year</a></li>
-								<li><a class="dropdown-item" href="#">All Dates</a></li>
-								<li><a class="dropdown-item" href="#" id="openModal">Custom Date</a></li>
+								<li><a class="dropdown-item" href="#">Last 100 Days</a></li>
+								<li><a class="dropdown-item" href="#">Last All Days</a></li>
+								<li><a class="dropdown-item" href="#" id="popupTrigger">Custom Date</a></li>
 							</ul>
-						</div>
+						</div>						  		
 					</div>
 					<div class="col my-2">
-						<div class="dropdown dropdown-custom">
+						<div class="dropdown dropdown-custom" style="bottom:70px;">
 							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
 								id="dropdownMenuButton4" data-bs-toggle="dropdown"
 								aria-expanded="false">Measure</button>
@@ -76,7 +97,7 @@
 						</div>
 					</div>
 					<div class="col my-2">
-						<div class="dropdown dropdown-custom">
+						<div class="dropdown dropdown-custom" style="bottom:70px;">
 							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
 								id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-expanded="false">Point Type
 							</button>
@@ -86,62 +107,68 @@
 							</ul>
 						</div>
 					</div>
-					<div class="col my-2">
-						<div class="dropdown dropdown-custom">
-							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
-								id="dropdownMenuButton6" data-bs-toggle="dropdown" aria-expanded="false">Map Type
+					<!-- <div class="col my-2">
+						<div class="dropdown dropdown-custom"style="bottom:70px;">
+							<button class="btn btn-ligth dropdown-toggle text-dark" type="button" id="dropdownMenuButton6" data-bs-toggle="dropdown" aria-expanded="false">Map Type
 							</button>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton6">
 								<li><a class="dropdown-item" href="#">Default</a></li>
 								<li><a class="dropdown-item" href="#">Satellite</a></li>
 							</ul>
 						</div>
-					</div>
-					<div class="col my-2 ">
-						<div class="dropdown dropdown-custom">
-							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
-								id="dropdownMenuButton7" data-bs-toggle="dropdown" aria-expanded="false">Last
-								Available</button>
-							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton7">
-								<li><a class="dropdown-item" href="#">02/08/2023</a></li>
+					</div> -->
+					<div class="col my-2">
+						<div class="dropdown dropdown-custom" style="bottom:70px;">
+							<button class="btn btn-light dropdown-toggle text-dark" type="button" id="dropdownMenuButton7" data-bs-toggle="dropdown" aria-expanded="false">Last Available</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton7" id="eventDatesDropdown">
+								<!-- Dropdown items seront ajoutés ici par js -->
 							</ul>
 						</div>
-					</div>
+					</div>					
 				</div>
 
 				<!-- popup -->
 
-				<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
-					sty>
-					<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-						<div class="modal-content">
-							<div class="modal-header" style="color: black;">
-								<h5 class="modal-title" id="myModalLabel">Select date range :</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal"
-									aria-label="Fermer"></button>
+				
+		<div id="popupContent" class="alert alert-info" style="display: none; width: 500px;">					
+			<div class="modal-content">
+				<div class="modal-header" style="color: black;">
+					<h5 class="modal-title" id="myModalLabel">Select date range :</h5>
+					<!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button> -->
+				</div>
+				<div class="modal-body" style="color: black;">
+					<div class="row">
+						<div class="col">
+							<div class="input-group">
+								<span class="input-group-text" style="font-size: x-small;" >Start Date</span>
+								<input type="text" id="dateRangePicker1" class="form-control datepicker-input" />
 							</div>
-							<div class="modal-body" style="color: black;">
-								<div class="row">
-									<div class="col">
-										<h5>start</h5>
-										<input type="text" id="dateRangePicker1"
-											class="form-control datepicker-input" />
-									</div>
-									<div class="col">
-										<h5>end</h5>
-										<input type="text" id="dateRangePicker2"
-											class="form-control datepicker-input" />
-									</div>
-								</div>
+							<!-- Calendrier pour la date de début -->
+							<div id="calendarStart" class="datepicker-calendar">
 							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-primary" id="btnApply">Appliquer</button>
-								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+						</div>
+						<div class="col">
+							<div class="input-group">
+								<span class="input-group-text" style="font-size:  x-small;">End Date</span>
+								<input type="text" id="dateRangePicker2" class="form-control datepicker-input"/>
 							</div>
+							<!-- Calendrier pour la date de fin -->
+							<div id="calendarEnd" class="datepicker-calendar"></div>
 						</div>
 					</div>
 				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="btnApply">Apply</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnClose">Close</button>
+					<div id="confirmationMessage" style="display: none;">
+						Date validée
+					</div>
+				</div>
+
 			</div>
+		</div>
+	</div>
+
 		</div>
 	</div>
 	<div class="row row-card-no-pd">
@@ -358,8 +385,6 @@
 											<div class="dropdown-menu" aria-labelledby="search-bar">
 												<div id="dropdown-options"></div>
 											</div>
-
-
 										</div>
 									</div>
 								</div>
@@ -375,13 +400,11 @@
 						</div>
 					</div>
 				</div>
-				<div id="replace">
-
+				<div id="replace"></div>
+				<div id="events_information"></div>
+				<div id="div-main-actor"></div>
 				</div>
-
-
-
-			</div>
+		
 			<div class="col-md-6">
 				<div class="card full-height">
 					<div class="card-header">
@@ -469,17 +492,37 @@
 <script src="/static/assets/js/demo.js"></script>
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js"></script>
 <script src="https://unpkg.com/mapbox-gl@2.4.1/dist/mapbox-gl.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
 
 
 
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://unpkg.com/mapbox-gl@2.4.1/dist/mapbox-gl.css" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+
 
 
 <style>
+	.back-button {
+  background: transparent;
+  border: none; /* Supprime les bordures du bouton si elles existent */
+  padding: 0; /* Supprime le rembourrage du bouton pour qu'il n'ait pas d'espace autour de l'icône */
+  font-size: 20px; /* Ajustez la taille de la police selon vos besoins */
+  color: #333; /* Couleur de l'icône (par exemple, noir) */
+  cursor: pointer; /* Change le curseur lorsqu'il survole le bouton */
+}
+
+.back-button i {
+  margin-right: 5px; /* Ajoute un espacement à droite de l'icône si nécessaire */
+}
+
 	/* CSS personnalisé pour afficher la liste des pays en dessous du bouton */
 	.dropdown-menu {
 		max-height: 200px;
@@ -626,9 +669,217 @@
 	.dropdown.show .dropdown-menu {
 		width: 100% !important;
 	}
+
+
+	/* -----------------------integration ----------------- */
+	
+    #popupContent {
+		top: 135px;
+		left: 350px;
+        position: absolute;
+        background-color: white;        
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        z-index: 1000; /* Assure que le popup soit au-dessus des autres éléments */
+    }
+    #popupContentActor {
+		top: -30px;
+        width:190px;
+		display: none;
+		height:300px;
+        position: absolute;
+        background-color: white;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        z-index: 1000; /* Assure que le popup soit au-dessus des autres éléments */
+        overflow: auto;
+    }
+    #popupContentMainActor{	
+		top: -30px;
+		display: none;
+        width:190px;
+		height:300px;
+		position:absolute;
+		background-color: white;
+		box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+		z-index:1000;
+		overflow:auto;
+	}
+    /* Style du message "Aucun résultat trouvé" */
+    /* #noResultsMessage {
+        color: red; 
+        font-style: italic;
+    } */
+    
+    #searchBar {
+        padding: 5px;
+        width: 150px; /* Ajustez la largeur selon vos préférences */
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+    /* Style de la barre de recherche */
+    #searchBarActor {
+        padding: 5px;
+        width: 150px; /* Ajustez la largeur selon vos préférences */
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    } 
+	#popupContentEventType{
+		top: -30px;
+		display: none;
+		width: 190px;
+		height: 300px;
+		position: absolute;
+		background-color: white;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+		z-index: 1000;
+		overflow:auto;
+	}
+	#searchBarEventType{
+		padding: 5px;
+		width:150px;
+		border:1px solid #ccc;
+		border-radius : 4px;
+		margin-bottom : 10px;
+	}
+	#popupContentEventYear{
+		top: -30px;
+		display: none;
+		width: 190px;
+		height: 120px;
+		position: absolute;
+		background-color: white;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+		z-index: 1000;
+		/* overflow:auto; */
+	}
+	#searchBarEventYear{
+		padding: 5px;
+		width:150px;
+		border:1px solid #ccc;
+		border-radius : 4px;
+		margin-bottom : 10px;
+	}
+	#popupContentEventSource{
+		top: -30px;
+		display: none;
+		width: 190px;
+		height: 300px;
+		position: absolute;
+		background-color: white;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+		z-index: 1000;
+		overflow:auto;
+	}
+	#searchBarEventSource{
+		padding: 5px;
+		width:150px;
+		border:1px solid #ccc;
+		border-radius : 4px;
+		margin-bottom : 10px;
+	}
+	#popupContentEventDate{
+		top: -30px;
+		display: none;
+		width: 190px;
+		height: 300px;
+		position: absolute;
+		background-color: white;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+		z-index: 1000;
+		overflow:auto;
+	}
+	#searchBarEventDate{
+		padding: 5px;
+		width:150px;
+		border:1px solid #ccc;
+		border-radius : 4px;
+		margin-bottom : 10px;
+	}
+	#popupContentEventPeriod{
+		top: -30px;
+		display: none;
+		width: 190px;
+		height: 300px;
+		position: absolute;
+		background-color: white;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+		z-index: 1000;
+		overflow:auto;
+	}
+	#searchBarEventPeriod{
+		padding: 5px;
+		width:150px;
+		border:1px solid #ccc;
+		border-radius : 4px;
+		margin-bottom : 10px;
+	}
+	#popupContentEventSubtype{
+		top: -30px;
+		display: none;
+		width: 190px;
+		height: 300px;
+		position: absolute;
+		background-color: white;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+		z-index: 1000;
+		overflow:auto;
+	}
+	#searchBarEventSubtype{
+		padding: 5px;
+		width:150px;
+		border:1px solid #ccc;
+		border-radius : 4px;
+		margin-bottom : 10px;
+	}
+	.hide {
+    display: none;
+	}
+
 </style>
 
 <script>
+
+
+
+	
+document.addEventListener("DOMContentLoaded", function() {
+    const popupts = [
+        { trigger: "popupTrigger", content: "popupContent" },
+        { trigger: "popupTriggerActor", content: "popupContentActor" },
+        { trigger: "popupTriggerMainActor", content: "popupContentMainActor" },
+        { trigger: "popupTriggerEventType", content: "popupContentEventType" },
+		{ trigger : "popupTriggerEventYear", content: "popupContentEventYear"	},
+		{ trigger : "popupTriggerEventSource", content: "popupContentEventSource"	},
+		{ trigger : "popupTriggerEventDate", content: "popupContentEventDate"	},
+		{ trigger : "popupTriggerEventPeriod", content: "popupContentEventPeriod"	},
+		{ trigger : "popupTriggerEventSubtype", content: "popupContentEventSubtype"	},
+    ];
+	
+		// Masquer les popups au chargement initial
+		popupts.forEach(function(popup) {
+        const popupContent = document.getElementById(popup.content);
+        popupContent.style.display = "none";
+	
+    });
+	 
+    popupts.forEach(function(popup) {
+        const popupTrigger = document.getElementById(popup.trigger);
+        const popupContent = document.getElementById(popup.content);
+
+        popupTrigger.addEventListener("click", function(event) {
+            event.stopPropagation();
+            popupContent.style.display = "block";			
+        });
+
+        document.addEventListener("click", function(event) {
+            if (!popupContent.contains(event.target) && event.target !== popupTrigger) {
+                popupContent.style.display = "none";
+            }
+        });
+    });
+});
+
 	Circles.create({
 		id: 'circles-1',
 		radius: 45,
@@ -806,13 +1057,21 @@
 
 
 	mapboxgl.accessToken = 'pk.eyJ1IjoidHJpZ2dlcnMiLCJhIjoiY2wxMjNxYmkwMDM2ZjNpbXZvMXNqaXRwcyJ9.CPlAR38urDrvZeJOIUERIw';
+	// var map = new mapboxgl.Map({
+	// 	container: 'map',
+	// 	style: 'mapbox://styles/mapbox/streets-v11',
+	// 	center: [-5.5471, 7.5468545], // Remplacez par les coordonnées du centre de votre carte
+	// 	zoom: 5,// Niveau de zoom initial
+	// 	maxZoom: 15
+	// });
 	var map = new mapboxgl.Map({
-		container: 'map',
-		style: 'mapbox://styles/mapbox/streets-v11',
-		center: [-5.5471, 7.5468545], // Remplacez par les coordonnées du centre de votre carte
-		zoom: 5,// Niveau de zoom initial
-		maxZoom: 15
-	});
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [0, 0], // Centre de la carte au milieu de l'océan Atlantique
+    zoom: 2, // Zoom pour afficher tous les continents
+    maxZoom: 15
+});
+
 
 
 	var heatmapMap = new mapboxgl.Map({
@@ -959,7 +1218,7 @@
 	function updateCountryCard(data, countryName) {
 		// Trouvez l'entrée correspondante dans les données
 		const entry = data.find(entry => entry.country === countryName);
-		console.log("maco",data)
+		// console.log("maco",data)
 
 		if (entry) {
 			// Sélectionnez les éléments HTML correspondants par leurs identifiants
@@ -999,7 +1258,7 @@
 	// Utilisez la fonction loadJSON pour récupérer les données JSON
 	loadJSON(function (data) {
 		// Ici, vous pouvez utiliser les données JSON récupérées
-		console.log(data);
+		// console.log(data);
 
 		// Placez le reste de votre code ici, en utilisant les données JSON
 
@@ -1348,7 +1607,7 @@
 		})
 			.then(response => response.json())
 			.then(data => {
-				console.log(data.message);
+				// console.log(data.message);
 
 				// Mettez à jour la liste des commentaires dans l'interface utilisateur
 				const commentsContainer = document.querySelector(".card-body.comment");
@@ -1429,7 +1688,7 @@
 			commentsContainer.innerHTML = filteredCommentsHTML;
 		}
 
-		console.log("Je t'aime Ruru");
+		// console.log("Je t'aime Ruru");
 	});
 
 	// Réinitialiser les commentaires à leur état initial
@@ -1685,7 +1944,7 @@
         data: { selectedCountries: selectedCountries },
         dataType: "json",
         success: function (data) {
-            console.log("enfin", data);
+            // console.log("enfin", data);
             // Les données des événements sont disponibles dans la variable "data"
 
             // Créez un tableau pour stocker toutes les valeurs, y compris les nulles
@@ -1736,7 +1995,7 @@
                 data: { selectedCountries: selectedCountries },
                 dataType: "json",
                 success: function (periodData) {
-					console.log("periodData",periodData)
+					// console.log("periodData",periodData)
 
 					  // Obtenez les données de l'événement depuis periodData
 					  var eventCounts = periodData.map(function (item) {
@@ -1761,7 +2020,7 @@
 						data: { selectedCountries: selectedCountries },
 						dataType: "json",
 						success: function (typeData) {
-							console.log("typeData",typeData)
+							// console.log("typeData",typeData)
 
 							
 							var allCategories = [
@@ -1839,7 +2098,7 @@
 									if (filteredData.length > 0) {
 										// Récupérez les coordonnées pour la catégorie sélectionnée
 										var coordinates = filteredData[0].coordinates;
-										console.log("coordonnée:", coordinates);
+										// console.log("coordonnée:", coordinates);
 
 										// Ajoutez de nouveaux marqueurs avec l'emoji comme icône
 										coordinates.forEach(function (coordinate) {
@@ -1960,6 +2219,87 @@ function OKButtonClick(selectedCountries, mapes, myBarChart) {
 	
 
 	}*/
+	function fetchACLEDDataset(apiKey, userName, callback) {
+  // Définissez l'URL de l'API ACLED
+  const apiUrl = 'https://api.acleddata.com/acled/read?terms=accept';
+
+  // Définissez les paramètres de la requête POST (dans cet exemple, nous n'avons pas de paramètres spécifiques)
+  const requestData = {
+    // Vous pouvez ajouter des paramètres de requête ici si nécessaire
+  };
+
+  // Effectuez la requête à l'API ACLED en utilisant la clé API fournie
+  fetch(apiUrl, {
+    method: 'POST',
+    body: JSON.stringify(requestData),
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`, // Utilisez la clé API fournie
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // Une fois que les données sont récupérées, appelez la fonction de rappel (callback) avec les données
+      callback(data);
+    })
+    .catch((error) => {
+      console.error("Erreur lors de la requête API ACLED:", error);
+      callback(null); // En cas d'erreur, appelez la fonction de rappel avec null
+    });
+}
+// Utilisation de la fonction pour récupérer toutes les données d'ACLED
+const votreCleAPI = "a0kZXycyBAkilS3e23wW"; // Remplacez VOTRE_CLE_API par votre clé API ACLED
+const nomUtilisateur = 'Alexia4401$$'; // Remplacez NomUtilisateur par le nom d'utilisateur souhaité
+fetchACLEDDataset(votreCleAPI, nomUtilisateur, (data) => {
+  if (data !== null) {
+    // Traitez les données ici
+    // console.log(data);
+  } else {
+    console.error("Échec de la récupération des données ACLED.");
+  }
+});
+
+// 	function fetchACLEDDataset(apiKey, callback) {
+//   // Définissez l'URL de l'API ACLED
+//   const apiUrl = 'https://api.acleddata.com/acled/read?terms=accept';
+
+//   // Définissez les paramètres de la requête POST (dans cet exemple, nous n'avons pas de paramètres spécifiques)
+//   const requestData = {
+//     // Vous pouvez ajouter des paramètres de requête ici si nécessaire
+//   };
+
+//   // Effectuez la requête à l'API ACLED en utilisant la clé API fournie
+//   fetch(apiUrl, {
+//     method: 'POST',
+//     body: JSON.stringify(requestData),
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Authorization': `Bearer ${"a0kZXycyBAkilS3e23wW"}`, // Utilisez la clé API fournie
+	 
+// 	},
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       // Une fois que les données sont récupérées, appelez la fonction de rappel (callback) avec les données
+//       callback(data);
+//     })
+//     .catch((error) => {
+//       console.error("Erreur lors de la requête API ACLED:", error);
+//       callback(null); // En cas d'erreur, appelez la fonction de rappel avec null
+//     });
+// }
+// console.log("milieu")
+// // Utilisation de la fonction pour récupérer toutes les données d'ACLED
+// const votreCleAPI = "a0kZXycyBAkilS3e23wW"; // Remplacez VOTRE_CLE_API par votre clé API ACLED
+// const nomUtilisateur = 'Alexia4401$$'; // Remplacez NomUtilisateur par le nom d'utilisateur souhaité
+// fetchACLEDDataset(votreCleAPI, nomUtilisateur, (data) => {
+//   if (data !== null) {
+//     // Traitez les données ici
+//     console.log(data);
+//   } else {
+//     console.error("Échec de la récupération des données ACLED.");
+//   }
+// });
 
 	var markers = [];
 
@@ -1975,7 +2315,7 @@ function OKButtonClick(selectedCountries, mapes, myBarChart) {
 
 		 // Réinitialisez la liste des pays sélectionnés
 		 selectedCountries.length = 0;
-		 console.log(selectedCountries);
+		//  console.log(selectedCountries);
 
 		// Fermez le popup pour chaque carte en utilisant l'objet popups
 		mapes.forEach(function (map) {
@@ -2097,7 +2437,7 @@ function OKButtonClick(selectedCountries, mapes, myBarChart) {
 			}
 		});
 
-		console.log('Interaction de clic configurée pour la carte ' + mapName);
+		// console.log('Interaction de clic configurée pour la carte ' + mapName);
 
 	}
 
@@ -2122,222 +2462,67 @@ function OKButtonClick(selectedCountries, mapes, myBarChart) {
 
 	/*--------------------------------------CODE--TANIA----------------------------------------------------*/
 
-
-	const barCanvas = document.getElementById("barCanvas");
-
-	const barChart3 = new Chart(barCanvas,
-		{
-			type: "bar",
-			data: {
-				labels: ["202207", "202208", "202209", "202210", "202211", "202212", "202301", "202302", "202303", "202304", "202305", "202306", "202307"],
-				datasets: [
-					{
-						label: 'Total Events',
-						data: [282, 794, 990, 1061, 790, 720, 1029, 911, 1225, 1109, 997, 1001, 587],
-						backgroundColor: [
-							"#FEFEE0",//ecru
-							"#FEFEE0",//ecru
-							"#FEFEE0",//ecru
-							"#FEFEE0",//ecru
-							"#FEFEE0",//ecru
-							"#FEFEE0",//ecru
-							"#FEFEE0",//ecru
-							"#FEFEE0",//ecru
-							"#FEFEE0",//ecru
-							"#FEFEE0",//ecru
-							"#FEFEE0",//ecru
-							"#FEFEE0",//ecru
-							"#FEFEE0",//ecru
-							"#FEFEE0",//ecru
-							"#FEFEE0",//ecru
-						]
-					}
-				]
-			},
-			options: {
-				scales: {
-					y: {
-						title: {
-							display: true,
-							text: 'Total Events'
-
-						},
-						suggestedMax: 1300,
-					},
-					x: {
-						ticks: {
-							font: {
-								style: "italic"
-							},
-							maxRotation: 45, // Angle d'inclinaison, ajustez selon vos besoins
-							minRotation: 45
-
-						}
-					}
-				}
-			}
-		})
-
-
-
-
-	const EventTypeCanvas = document.getElementById("EventTypeCanvas");
-
-	function ValeurWithK(value) {
-		if (value > 1000) {
-			return (value / 1000) + 'k';
-		} else {
-			return value;
-		}
-	}
-
-	function getEventTypeLabel(context) {
-		var labelIndex = context.dataIndex;
-		var labels = context.chart.data.labels;
-		return 'Event type: ' + labels[labelIndex];
-	}
-
-	function getTotalEventLabel(context) {
-		var value = context.parsed.y || 0;
-		return 'Total events: ' + value;
-	}
-
-	const options = {
-		plugins: {
-			tooltip: {
-				callbacks: {
-					label: function (context) {
-						return [getEventTypeLabel(context), getTotalEventLabel(context)];
-					}
-				}
-			},
-		},
-		scales: {
-			y: {
-				title: {
-					display: true,
-					text: 'Total Events'
-				},
-				suggestedMax: 800000,
-				ticks: {
-					callback: function (value) {
-						return ValeurWithK(value);
-					}
-				}
-			},
-			x: {
-				title: {
-					display: true,
-					text: 'Event Type(icon)'
-				},
-				ticks: {
-					callback: function (value) {
-						let label = this.getLabelForValue(value);
-						if (label.length > 11) {
-							return label.substr(0, 11) + "...";
-						} else {
-							return label;
-						}
-					}
-				},
-			},
-		},
-	};
-
-	const barChart2 = new Chart(EventTypeCanvas, {
-		type: "bar",
-		data: {
-			labels: ["\u{1F4E2}|Protests", "\u{1F4A5}|Battles", "\u{1F4A3}|Explosions/remote violences", "\u{1F469}|Violence against civilians", "\u{1F680}|Strategic developments", "\u{270A}|Riots"],
-			datasets: [{
-				label: "Events per Type & Subtype",
-				data: [282010, 794000, 990000, 1061000, 790000, 720010],
-				backgroundColor: [
-					"#00FFFF",
-					"#FFFF00",
-					"#D473D4",
-					"#FFC961",
-					"#7A238A",
-					"#FA8072",
-				],
-				hoverBackgroundColor: [
-					"#00CCCC",
-					"#FFD700",
-					"#C25CC2",
-					"#E6B035",
-					"#641B6B",
-					"#E9967A",
-				],
-				borderColor: [], // Leave this empty for default border color
-				borderWidth: 1, // Initial border width
-			}],
-		},
-		options: options,
-	});
-
-	var selectedBars = []; // Tableau pour stocker les indices des barres sélectionnées
-	const originalBackgroundColor = barChart2.data.datasets[0].backgroundColor.slice();
-	const originalBorderColor = barChart2.data.datasets[0].borderColor.slice();
-
-	EventTypeCanvas.onclick = function (event) {
-		const activeBars = barChart2.getElementsAtEventForMode(event, 'index', { intersect: true });
-
-		if (activeBars.length > 0) {
-			const clickedIndex = activeBars[0].index;
-
-			// Vérifier si la barre est déjà sélectionnée
-			const selectedIndex = selectedBars.indexOf(clickedIndex);
-			if (selectedIndex !== -1) {
-				// La barre est déjà sélectionnée, donc la désélectionner
-				selectedBars.splice(selectedIndex, 1);
-			} else {
-				// La barre n'est pas déjà sélectionnée, donc l'ajouter à la sélection
-				selectedBars.push(clickedIndex);
-			}
-
-			// Mettre à jour les couleurs et les bordures en fonction des barres sélectionnées
-			for (let i = 0; i < barChart2.data.datasets[0].backgroundColor.length; i++) {
-				if (selectedBars.includes(i)) {
-					barChart2.data.datasets[0].backgroundColor[i] = originalBackgroundColor[i];
-					barChart2.data.datasets[0].borderColor[i] = "#000000"; // Black border for selected bar
-					barChart2.data.datasets[0].borderWidth[i] = 3;
-				} else {
-					barChart2.data.datasets[0].backgroundColor[i] = lightenColor(originalBackgroundColor[i], 40);
-					barChart2.data.datasets[0].borderColor[i] = originalBackgroundColor[i]; // Reset border color for unselected bar
-					barChart2.data.datasets[0].borderWidth[i] = 1; // Reset border width
-				}
-			}
-
-			barChart2.update();
-		}
-	};
-
-	document.addEventListener('click', function (event) {
-		if (!EventTypeCanvas.contains(event.target)) {
-			selectedBars = []; // Réinitialiser la sélection
-			for (let i = 0; i < barChart2.data.datasets[0].backgroundColor.length; i++) {
-				barChart2.data.datasets[0].backgroundColor[i] = originalBackgroundColor[i];
-				barChart2.data.datasets[0].borderColor[i] = originalBackgroundColor[i]; // Reset border color
-				barChart2.data.datasets[0].borderWidth[i] = 1; // Reset border width
-			}
-
-			barChart2.update();
-		}
-	});
-
-	// Fonction pour rendre une couleur plus claire
-	function lightenColor(color, percent) {
-		const num = parseInt(color.slice(1), 16);
-		const amt = Math.round(2.55 * percent);
-		const R = (num >> 16) + amt;
-		const G = (num >> 8 & 0x00FF) + amt;
-		const B = (num & 0x0000FF) + amt;
-		return `#${(0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 + (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 + (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1)}`;
-	}
-
-
 	
 	$(document).ready(function () {
+		
+    // Récupérez la date actuelle
+    var dateActuelle = new Date();
+    var jourActuel = dateActuelle.getDate();
+    var moisActuel = dateActuelle.getMonth();
+    var anneeActuelle = dateActuelle.getFullYear();
 
+    // Initialisation des calendriers dans les divs correspondantes
+    $('#calendarStart').datepicker({
+        format: 'dd/mm/yyyy',
+        autoclose: true,
+        todayHighlight: true,
+        endDate: new Date(anneeActuelle, moisActuel, jourActuel),
+    });
+
+    $('#calendarEnd').datepicker({
+        format: 'dd/mm/yyyy',
+        autoclose: true,
+        todayHighlight: true,
+        endDate: new Date(anneeActuelle, moisActuel, jourActuel),
+    });
+
+    $('#btnApply').click(function () {
+        var startDate = $('#dateRangePicker1').val('');
+        var endDate = $('#dateRangePicker2').val('');
+        // Afficher le message de confirmation
+        $('#confirmationMessage').show();
+        setTimeout(function () {
+            $('#confirmationMessage').hide();
+        }, 2000); // Masquer le message après 2 secondes
+    });
+
+    $('#btnClose').click(function () {
+        // Réinitialiser les champs d'entrée lorsque la fenêtre modale est fermée
+        $('#dateRangePicker1, #dateRangePicker2').val('');
+        // Fermer la fenêtre modale
+        $('#popupContent').modal('hide');
+        // Cacher la div du popup
+        $('#popupContent').hide();
+    });
+
+    // Écouteur d'événement de sélection de date pour le calendrier de début
+    $('#calendarStart').on('changeDate', function (e) {
+        var selectedStartDate = e.date;
+        $('#dateRangePicker1').val(e.format()); // Mettre à jour la valeur de l'input avec la date sélectionnée
+        // Mettre à jour la date maximale dans le calendrier de fin
+        $('#calendarEnd').datepicker('setStartDate', selectedStartDate);
+    });
+
+    // Écouteur d'événement de sélection de date pour le calendrier de fin
+    $('#calendarEnd').on('changeDate', function (e) {
+        var selectedEndDate = e.date;
+        $('#dateRangePicker2').val(e.format()); // Mettre à jour la valeur de l'input avec la date sélectionnée
+        // Mettre à jour la date minimale dans le calendrier de début
+        $('#calendarStart').datepicker('setEndDate', selectedEndDate);
+    });
+
+
+// // -------------------------------------------------------------
 var dropdownContainer = $('#dropdown-options');
 var searchBar = $('#search-bar');
 searchBar.on('input', function () {
@@ -2373,87 +2558,106 @@ function formatEventDate(rawDate) {
 }
 
 function applySearchFilter(query, data) {
-	return data.filter(function (item) {
-		return item.notes.includes(query);
-	});
+    return data.filter(function (item) {
+        // Vérifier si item.notes n'est pas null ou indéfini avant d'utiliser includes
+        return item.notes && item.notes.includes(query);
+    });
 }
+
 
 var activityFeed = $('#activity-feed');
 var searchInput = $('#search-input');
 
+// Fonction pour gérer la requête AJAX et la logique principale
+function fetchDataAndProcess() {
+	$.ajax({
+		url: window.location.href,
+		method: 'GET',
+		dataType: 'json',
+		success: function(data) {
+			$('#popupTriggerMainActor').on('click', function() {
+        	processMainActors(data);
+    });
+	$('#popupTriggerActor').on('click', function() {
+		processActorTypes(data);;
+    });
+	$('#popupTriggerEventYear').on('click', function() {
+		processEventYear(data);
+    });
+	$('#popupTriggerEventSource').on('click', function() {
+		processEventSource(data);
+    });
+	$('#popupTriggerEventSubtype').on('click', function() {
+		processEventSubtype(data);
+    });
+	$('#popupTriggerEventPeriod').on('click', function() {
+		processEventPeriod(data)
+	});
+	$('#popupTriggerEventDate').on('click', function() {
+		processEventTimeDate(data);
+    });
+	$('#popupTriggerEventType').on('click', function() {
+		// processEventTypes(data);
+		processEventData(data);
+    });
+	processEventDates(data);
 
-$.ajax({
-	url: window.location.href,
-	method: 'GET',
-	dataType: 'json',
-	success: function (data) {
-		var dropdownContainer = $('#dropdown-options'); // Sélectionner le conteneur spécifique
-
-		// Générer les éléments de la liste déroulante à partir des données reçues
-		data.forEach(function (item) {
-			var optionLink = $('<a>', {
-				// href: '#',
-				class: 'dropdown-item',
-				css: {
-					color: 'black',
-					overflow: 'hidden',
-					whiteSpace: 'normal', // Permettre au texte de passer à la ligne
-					wordWrap: 'break-word', // Permettre le passage à la ligne
-					maxWidth: '100%' // Limiter la largeur pour éviter que le texte dépasse le conteneur
-				},
-				text: item.notes
-			});
-			optionLink.on('click', function () {
-				$('#event-card').hide(); // Masquer la div avec l'identifiant event-card
-
-				// Insère le nouveau contenu dans le conteneur "replace"
-				var newContent = `
-						<div class="card full-height" id="replace">
-							<!-- Le contenu de la nouvelle div ici -->
-								<div class="card-header">
-									<div class="card-title">
-										<div class="card-title">
-											<div class="row align-items-center">
-												<div class="col-md-10">
-													<span style="font-weight: bold;">Event Description</span>
-												</div>
-												<div class="col-md-2">
-													<button id="transparent-button" class="btn btn-default">Last Event</button>
-
-												</div>
-
-											</div>
-										</div>
-
-									</div>
-									<div class="card-body-scroll">
-										<div class="container mt-5" >
-											<div style="color: white;">	
-												${item.notes}<br>
-												<br>
-												<span style="font-weight: bold;">date: </span>${item.event_date}<br>
-												<br>
-												<span style="font-weight: bold;">Country: </span>${item.country}<br>
-												<br>
-												<span style="font-weight: bold;">type: </span>${item.type}<br>
-												<br>
-												<span style="font-weight: bold;">source: </span>${item.source}<br>
-												<br>
-												<span style="font-weight: bold;">fatalities: </span>${item.fatalities}<br>
-												<br>
-											</div>
-										</div>
-									</div>
-								</div>
-							`;
-
-				$('#replace').html(newContent);
-
-				// Ajoutez la gestion d'événement de clic pour le bouton transparent
-				$('#transparent-button').on('click', function () {
-					showCard(); // Réapparition de la div
+	var dropdownContainer = $('#dropdown-options'); // Sélectionner le conteneur spécifique
+					
+	// Générer les éléments de la liste déroulante à partir des données reçues
+	data.forEach(function (item) {
+		var optionLink = $('<a>', {							
+			class: 'dropdown-item',
+			css: {
+				color: 'black',
+				overflow: 'hidden',
+				whiteSpace: 'normal', // Permettre au texte de passer à la ligne
+				wordWrap: 'break-word', // Permettre le passage à la ligne
+				maxWidth: '100%' // Limiter la largeur pour éviter que le texte dépasse le conteneur
+			},
+			text: item.notes
+		});
+		optionLink.on('click', function () {
+			$('#event-card').hide(); 
+			$('#replace').show(); 							
+			var newContentDropdown = `
+				<div class="card full-height" id="">
+					<div class="card-header">
+						<div class="card-title">
+							<div class="row align-items-center">
+							<div class="col-md-10">
+								<span style="font-weight: bold;">Event Description</span>
+							</div>
+							<div class="col-md-2">
+								<button id="transparent-button-newContentDropdown" class="btn btn-default">Last Event</button>
+							</div>
+						</div>
+					</div>
+					</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5" >
+							<div style="color: white;">	
+								${item.notes}<br>
+								<br>
+								<span style="font-weight: bold;">date: </span>${item.event_date}<br>
+								<br>
+								<span style="font-weight: bold;">Country: </span>${item.country}<br>
+								<br>
+								<span style="font-weight: bold;">type: </span>${item.type}<br>
+								<br>
+								<span style="font-weight: bold;">source: </span>${item.source}<br>
+								<br>
+								<span style="font-weight: bold;">fatalities: </span>${item.fatalities}<br>
+								<br>
+							</div>
+						</div>
+					</div>
+				</div>`;
+				$('#replace').html(newContentDropdown);
+				$('#transparent-button-newContentDropdown').on('click', function () {
+  					showCard(); // Afficher la div "event-card"
+  					$('#replace').hide(); // Masquer la div "replace"
 				});
-
 			});
 			dropdownContainer.append(optionLink);
 		});
@@ -2461,71 +2665,788 @@ $.ajax({
 		dropdownContainer.css({
 			width: '450px',
 			height: '300px',
-			overflow: 'auto'
+			// overflow: 'auto'
 		});
 
-		var types = ['success', 'info', 'warning', 'danger'];
+		////////// partie historique initial : all historique 
 
+		var types = ['success', 'info', 'warning', 'danger'];
+								
 		function updateFeed(query) {
 			activityFeed.empty();
-
 			var filteredData = applySearchFilter(query, data);
-
+				
 			for (var i = 0; i < filteredData.length; i++) {
 				if (filteredData[i].notes.trim() === '') {
 					continue;
 				}
+			var listItem = $('<li></li>').addClass('feed-item').addClass('feed-item-' + types[i % types.length]);
 
-				var listItem = $('<li></li>').addClass('feed-item').addClass('feed-item-' + types[i % types.length]);
+			var formattedDate = formatEventDate(filteredData[i].event_date);
+			var time = $('<time class="date"></time>').text(formattedDate);
+			listItem.append(time);
+					
+			var text_id = filteredData[i].id;
+			var text = filteredData[i].notes;
+			var span = $('<span class="text" style="color:white"></span>').text(text);
+			span.attr('data-text-id', text_id);  // Définir l'attribut de données pour l'ID
 
-				var formattedDate = formatEventDate(filteredData[i].event_date);
-				var time = $('<time class="date"></time>').text(formattedDate);
-				listItem.append(time);
+        	$('span').click(function() {
+    			var clickedId = $(this).data('text-id');
+    
+			// Recherchez l'élément dans le tableau data en fonction de l'ID cliqué
+			var clickedItem = data.find(item => item.id === clickedId);
+			// console.log(clickedItem)
 
-				var text = filteredData[i].notes;
-				var span = $('<span class="text" style="color:white"></span>').text(text);
-				listItem.append(span);
-				activityFeed.append(listItem);
-			}
+			if (clickedItem) {
+				$('#event-card').hide(); // Masquer la div 	
+				$('#events_information').show(); // Afficher la div "replace"
+				
+
+			var newContent_informations = `
+				<div class="card full-height" id="events_information">
+					<div class="card-header">
+					<div class="card-title">
+						<div class="row align-items-center">
+							<div class="col-md-10">
+								<span style="font-weight: bold;">Event Description</span>
+							</div>
+							<div class="col-md-2">
+								<button id="transparent-button-events-informations" class="btn btn-default">Last Event</button>
+							</div>
+						</div>
+					</div>
+				</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<div style="color: white;">
+								
+								${clickedItem.notes}<br>
+								<br>
+								<span style="font-weight: bold;">Country: </span>${clickedItem.country}<br>
+								<br>
+								<span style="font-weight: bold;">Date: </span>${clickedItem.event_date}<br>
+								<br>
+								<span style="font-weight: bold;">Type: </span>${clickedItem.type}<br>
+								<br>
+								<span style="font-weight: bold;">Source: </span>${clickedItem.source}<br>
+								<br>
+								<span style="font-weight: bold;">Fatalities: </span>${clickedItem.fatalities}<br>
+								<br>
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+			$('#events_information').html(newContent_informations);
+		// console.log(newContent_informations)
+
+							
+		$('#transparent-button-events-informations').on('click', function () {
+  			showCard(); // Afficher la div "event-card"
+  			$('#events_information').hide(); 
+		});		
+    }
+	});
+        listItem.append(span);
+        activityFeed.append(listItem);
+    }
+}
+				updateFeed('');
+
+				searchInput.on('input', function () {
+					var query = $(this).val();
+					updateFeed(query);
+				});
+            },
+            error: function(error) {
+                console.log('Une erreur s\'est produite :', error);
+            }
+        });
+    }
+    fetchDataAndProcess();
+
+    function processMainActors(data) {
+		var popupContent = $("#popupContentMainActor");
+		var contentHtml = "";
+		// Utiliser un ensemble (Set) pour stocker les acteurs uniques
+		var uniqueActors = new Set();
+		var IdActor ;
+
+		
+			data.forEach(function(item, index) {
+        // Vérifiez si l'acteur a déjà été ajouté
+        var mainActorName = item['main-actor'];
+		// console.log(item)
+        var IdActor = item['id']; // Cherchez l'ID de l'acteur principal dans la base de données
+        // console.log('Main Actor:', mainActorName, 'ID:', IdActor);
+        if (!uniqueActors.has(mainActorName)) {
+            contentHtml += "<p id='main-actor-" + index + "'>" + mainActorName + "</p>";
+            uniqueActors.add(mainActorName); // Ajouter l'acteur à l'ensemble
+        }
+    });
+
+	
+		// Ajouter la barre de recherche
+		contentHtml = '<input type="text" id="searchBar" placeholder="search...">' + contentHtml;
+				
+		contentHtml += '<p id="noResultsMessage" style="display: none;">Aucun résultat trouvé.</p>';
+
+		
+		popupContent.html(contentHtml);
+		popupContent.show();
+		// Sélectionner la barre de recherche et le message "Aucun résultat trouvé"
+		var searchBar = $("#searchBar");
+		var noResultsMessage = $("#noResultsMessage");
+		// Écouter l'événement d'entrée
+		searchBar.on("input", function() {
+    	var searchText = searchBar.val().toLowerCase();
+    	var items = popupContent.find("p"); // Sélectionner les éléments <p> dans la div
+		var anyResults = false; // Pour garder une trace si des résultats sont trouvés
+    	items.each(function(index, item) {
+        	var itemText = $(item).text().toLowerCase();
+        	if (itemText.includes(searchText)) {
+            	$(item).show();
+            	anyResults = true;
+        	} 
+			else {
+           		$(item).hide();
+        	}
+    	});
+    	// Afficher ou masquer le message "Aucun résultat trouvé" en fonction des résultats
+    	if (!anyResults) {
+			noResultsMessage.show();
+			// Réduire la hauteur de la div à 150px
+			$("#popupContentMainActor").css("height", "150px");
+		} 
+		else {
+			noResultsMessage.hide();
+			// Rétablir la hauteur par défaut
+			$("#popupContentMainActor").css("height", "300px");
 		}
-
-		updateFeed('');
-
-		searchInput.on('input', function () {
-			var query = $(this).val();
-			updateFeed(query);
 		});
-	},
+				
+		$("p[id^='main-actor']").click(function() {
+		var typesColor = ['success', 'info', 'warning', 'danger'];
 
-	error: function (error) {
-		console.log('Une erreur s\'est produite :', error);
+    var paragraphText = $(this).text();
+    var count = 0;
+    var notesList = $('<ol>').addClass('activity-feed'); // Ajoutez la classe activity-feed à la liste
+
+    for (var i = 0; i < data.length; i++) {
+        var mainActorContent = data[i]['main-actor'];
+
+        if (mainActorContent && mainActorContent.includes(paragraphText)) {
+            count++;
+            var notes = data[i]['notes'];
+            if (notes !== null) {
+                // Créez un élément <li> avec la classe feed-item pour chaque note
+                var listItem = $('<li>').addClass('feed-item').addClass('feed-item-' + typesColor[i % typesColor.length]);;
+				var date = $('<div class="date"></div>').text(formatEventDate(data[i]['event_date']));
+				var text = $('<div class="text" style="color:white"></div>').text(notes);
+
+                listItem.append(date, text); // Ajoutez la date et le texte à l'élément <li>
+                notesList.append(listItem); // Ajoutez l'élément <li> à la liste
+            }
+        }
+    }
+	$('text').click(function() {
+		alert("click")
+	})
+
+    $('html, body').animate({
+        scrollTop: '+=2500'
+    }, 1000);
+
+    var newContent = `
+        <div class="card full-height" id="div-main-actor">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="row align-items-center">
+                        <div class="col-md-9">
+                            <span style="font-weight: bold;">Event Description</span>
+                        </div>
+                        <div class="col-md-3">
+                            <button id="transparent-button" class="btn btn-default">All Last Events</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body-scroll">
+                <div class="container mt-5">
+                    <div class="activity-feed">
+                        ${notesList.prop('outerHTML')} <!-- Insérez la liste dans le contenu -->
+                    </div>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>`;
+
+    $('#event-card').hide();
+    $('#div-main-actor').html(newContent).show();
+    $('#transparent-button').on('click', function() {
+        showCard();
+        $('#div-main-actor').hide();
+    });
+
+
+// $("p[id^='main-actor']").click(function() {
+	
+//     var paragraphText = $(this).text(); 
+//     var count = 0;
+//     var notesString = ''; // Initialisez une chaîne pour stocker les notes
+
+//     for (var i = 0; i < data.length; i++) {
+//         var mainActorContent = data[i]['main-actor']; // Obtenez le contenu de 'main-actor'
+
+//         if (mainActorContent && mainActorContent.includes(paragraphText)) {
+//             count++;
+//             var notes = data[i]['notes'];
+// 			var country = data[i]['country'];
+// 			var date = data[i]['event_date'];
+// 			var type = data[i]['type'];
+// 			var source = data[i]['source'];
+// 			var fatalities= data[i]['fatalities'];
+
+
+
+//             // console.log(notes);
+// 			if(notes!==null){
+// 				notesString += '<div>'+ notes+'</div>' ;
+// 				notesString += `<div class="note"><span>${notes}</span></div>`;
+// 			// 	var listItem = $('<li></li>').addClass('feed-item').addClass('feed-item-' + types[i % types.length]);
+
+// 			// var formattedDate = formatEventDate(filteredData[i].event_date);
+// 			// var time = $('<time class="date"></time>').text(formattedDate);
+// 			// listItem.append(time);
+					
+// 			// var text_id = filteredData[i].id;
+// 			// var text = filteredData[i].notes;
+// 			// var span = $('<span class="text" style="color:white"></span>').text(text);
+// 			// span.attr('data-text-id', text_id);  // Définir l'attribut de données pour l'ID
+
+// 			}
+//         }
+		
+//     }
+	
+// 	$('html, body').animate({
+// 		scrollTop: '+=2500'
+//     }, 1000); 
+	
+	
+// 							var newContent = `
+// 								<div class="card full-height" id="replace">
+// 								<!-- Le contenu de la nouvelle div ici -->
+// 								<div class="card-header">
+// 									<div class="card-title">
+// 										<div class="row align-items-center">
+// 										<div class="col-md-9">
+// 											<span style="font-weight: bold;">Event Description</span>
+// 										</div>
+// 										<div class="col-md-3">
+// 											<button id="transparent-button" class="btn btn-default">All Last Events </button>
+// 										</div>
+// 									</div>
+// 								</div>
+// 								</div>
+// 								<div class="card-body-scroll">
+// 									<div class="container mt-5" >
+// 										<div style="color: white;">	
+// 											<span>${notesString}</span>
+// 											<br>
+// 											<br>
+// 									</div>
+// 								</div>
+// 							</div>`;
+							
+
+//     $('#event-card').hide(); 
+//     $('#replace').html(newContent).show(); 
+//     $('#transparent-button').on('click', function () {
+//         showCard(); 
+//         $('#replace').hide(); 
+//     });
+	$('.note').on('click', function () {
+      
+		var newContentSpan = `<div class="card full-height" id="div-main-actor">
+								<!-- Le contenu de la nouvelle div ici -->
+								<div class="card-header">
+									<div class="card-title">
+										<div class="row align-items-center">
+										<div class="col-md-2">
+											<button class="btn btn-default" id="button-go_back">
+												<i class="fas fa-arrow-left"  style="font-size:18px"></i> go back
+											</button>
+
+
+										</div>
+										<div class="col-md-8">
+											<span style ="font-weight : bold ; display:block;text-align :center;margin : 0 auto;">Event Description </span>											
+										</div>
+										<div class="col-md-2">
+											<button id="transparent-button-newContentSpan" class="btn btn-default">Last Event</button>
+										</div>
+									</div>
+								</div>
+								</div>
+								<div class="card-body-scroll">
+									<div class="container mt-5" >
+										<div style="color: white;">	
+									
+											${notes}<br>
+							<br>
+                            <span style="font-weight: bold;">Country: </span>${country}<br>
+							<br>
+                            <span style="font-weight: bold;">Date: </span>${date}<br>
+							<br>
+                            <span style="font-weight: bold;">Type: </span>${type}<br>
+							<br>
+                            <span style="font-weight: bold;">Source: </span>${source}<br>
+							<br>
+                            <span style="font-weight: bold;">Fatalities: </span>${fatalities}<br>
+							<br>
+									</div>
+								</div>
+							</div>`;
+							
+
+    $('#event-card').hide();
+    $('#div-main-actor').html(newContentSpan).show(); 
+	    
+	$('#transparent-button-newContentSpan').on('click', function () {
+         showCard(); // Afficher la div "event-card"
+
+        $('#div-main-actor').hide(); // Masquer la div "replace"
+		// $('#replace').html(newContent).show(); // Afficher la div "replace"
+
+
+    });
+	
+    });
+});
+
+// $("p[id^='main-actor']").click(function() {
+//     var paragraphText = $(this).text(); // Obtenez le contenu du paragraphe cliqué
+
+//     // Initialisez un compteur pour le nombre d'occurrences
+//     var count = 0;
+
+//     // Initialisez une chaîne pour stocker les notes
+//     var notesString = "";
+
+//     // Parcourez le tableau data pour trouver les correspondances
+//     for (var i = 0; i < data.length; i++) {
+//         var mainActorContent = data[i]['main-actor']; // Obtenez le contenu de 'main-actor'
+
+//         if (mainActorContent && mainActorContent.includes(paragraphText)) {
+//             // Une correspondance est trouvée, incrémente le compteur
+//             count++;
+
+//             // Récupérez les notes associées à cette occurrence
+//             var notes = data[i]['notes'];
+
+//             // Ajoutez les notes à la chaîne de notes
+//             if (notesString !== "") {
+//                 notesString += "\n\n"; // Ajoutez un saut de ligne entre les notes
+//             }
+//             notesString += "Notes associées à l'occurrence " + count + " : " + notes;
+//         }
+//     }
+
+//     // Affichez le nombre total d'occurrences et les notes associées dans l'alerte
+//     var alertMessage = "Vous avez cliqué sur l'acteur principal avec le contenu : \"" + paragraphText + "\".\n\nNombre d'occurrences : " + count + "\n\n" + notesString;
+//     alert(alertMessage);
+// });
+
+
+    }
+
+    function processEventTypes(data) {
+        
+		var popupContentEventType = $("#popupContentEventType");
+		var contentHtml ="";
+		var uniqueEventType = new Set();
+		data.forEach(function(item,index){
+			if(!uniqueEventType.has(item['type'])){
+				contentHtml += "<p id='type-" + index + "'>" + item['type'] +"</p>";
+				uniqueEventType.add(item['type']);
+			}
+		})
+		contentHtml = '<input type ="text" id="searchBarEventType" placeholder="search ...">'+contentHtml;
+		contentHtml += '<p id="noResultsMessageEventType" style="display:none;">Aucun resultat trouvé .</p>';
+
+		popupContentEventType.html(contentHtml);
+		popupContentEventType.show();
+
+		var searchBarEventType =$("#searchBarEventType");
+		var noResultsMessageEventType =  $("#noResultsMessageEventType");
+
+		searchBarEventType.on("input",function(){
+			var searchTextEventType = searchBarEventType.val().toLowerCase();
+			var itemsEventType = popupContentEventType.find("p");
+			var anyResultsEventType = false ;
+
+			itemsEventType.each(function(index,item){
+				var itemTextEventType = $(item).text().toLowerCase();
+				if(itemTextEventType.includes(searchTextEventType)){
+					$(item).show();
+					anyResultsEventType =true;
+				}
+				else{
+					$(item).hide();
+				}
+			})
+			if (!anyResults) {
+				noResultsMessage.show();
+			} else {
+				noResultsMessage.hide();
+			}
+		});
+    }
+
+    function processEventDates(data) {
+		var dropdown = $('#eventDatesDropdown');
+        dropdown.empty(); // Vide les éléments existants s'il y en a
+
+        // Récupère la première date et l'ajoute au dropdown
+        if (data.length > 0) {
+            var firstDate = data[0].event_date;
+            dropdown.append('<li><a class="dropdown-item" href="#">' + firstDate + '</a></li>');
+        }
+    }
+	function processEventData(data){
+		// ---------------------------------------------------------------------------------------------
+		// recuperation de données event type 
+		var popupContentEventType = $("#popupContentEventType");
+		var contentHtml ="";
+		var uniqueEventType = new Set();
+		data.forEach(function(item,index){
+			if(!uniqueEventType.has(item['type'])){
+				contentHtml += "<p id='type-" + index + "'>" + item['type'] +"</p>";
+				uniqueEventType.add(item['type']);
+			}
+		})
+		contentHtml = '<input type ="text" id="searchBarEventType" placeholder="search ...">'+contentHtml;
+		contentHtml += '<p id="noResultsMessageEventType" style="display:none;">Aucun resultat trouvé .</p>';
+
+		popupContentEventType.html(contentHtml);
+		popupContentEventType.show();
+
+		var searchBarEventType =$("#searchBarEventType");
+		var noResultsMessageEventType =  $("#noResultsMessageEventType");
+
+		searchBarEventType.on("input",function(){
+			var searchTextEventType = searchBarEventType.val().toLowerCase();
+			var itemsEventType = popupContentEventType.find("p");
+			var anyResultsEventType = false ;
+
+			itemsEventType.each(function(index,item){
+				var itemTextEventType = $(item).text().toLowerCase();
+				if(itemTextEventType.includes(searchTextEventType)){
+					$(item).show();
+					anyResultsEventType =true;
+				}
+				else{
+					$(item).hide();
+				}
+			})
+			if(!anyResultsEventType){
+				noResultsMessageEventType.show();
+				$("#popupContentEventType").css("height","130px")
+			}
+			else{
+				noResultsMessageEventType.hide();
+				$("#popupContentEventType").css("height","300px")
+			}
+		})
 	}
-});
+	function processActorTypes(data) {
+        var popupContentActor = $("#popupContentActor");
+        var contentHtmlActor = "";
 
-});
+        // Construire le contenu HTML de la div
+        contentHtmlActor += '<input type="text" id="searchBarActor" placeholder="search...">';
+        contentHtmlActor += '<div id="searchResultsActor"></div>';
+        contentHtmlActor += '<p style="margin: 0;">Civilians</p>';
+        contentHtmlActor += '<p style="margin: 0;">External/Other Forces</p>';
+        contentHtmlActor += '<p style="margin: 0;">CIdentity Militias</p>';
+        contentHtmlActor += '<p style="margin: 0;">Political Militias</p>';
+        contentHtmlActor += '<p style="margin: 0;">Protesters</p>';
+        contentHtmlActor += '<p style="margin: 0;">Rebel Forces</p>';
+        contentHtmlActor += '<p style="margin: 0;">Rioters</p>';
+        contentHtmlActor += '<p style="margin: 0;">State Forces</p>';
+        contentHtmlActor += '<p id="popupContentActorNoResultsMessage" class="hide">Aucun résultat trouvé.</p>';
+
+        popupContentActor.html(contentHtmlActor);
+        popupContentActor.show();
+		searchFilter("popupContentActor", "searchBarActor", "searchResultsActor");
+	}
+	function searchFilter(containerId, searchBarId, resultsContainerId) {
+    var container = $("#" + containerId);
+    var searchBar = $("#" + searchBarId);
+    var resultsContainer = $("#" + resultsContainerId);
+
+    searchBar.on("input", function() {
+        var searchText = searchBar.val().toLowerCase();
+        var items = container.find("p"); 
+
+        var anyResults = false; 
+
+        items.each(function(index, item) {
+            var itemText = $(item).text().toLowerCase();
+            if (itemText.includes(searchText)) {
+                $(item).show();
+                anyResults = true;
+            } else {
+                $(item).hide();
+            }
+        });
+
+        var noResultsMessage = $("#" + containerId + "NoResultsMessage");
+		if (!anyResults) {
+			noResultsMessage.show();
+			// Réduire la hauteur de la div à 150px
+			$("#popupContentActor").css("height", "130px");
+			} else {
+				noResultsMessage.hide()
+				// Rétablir la hauteur par défaut
+				$("#popupContentActor").css("height", "300px");
+			}
+    	});
+	}
+
+	function processEventYear(data){
+		var popupContentEventYear = $("#popupContentEventYear");
+		var contentHtml = "";
+		var uniqueEventYear = new Set();
+
+		data.forEach(function(item, index) {
+		    if (!uniqueEventYear.has(item['year'])) {
+ 		       contentHtml += "<p id='year-" + index + "'>" + item['year'] + "</p>";
+		        uniqueEventYear.add(item['year']);
+		    }
+		});
+
+	contentHtml = '<input type="text" id="searchBarEventYear" placeholder="Rechercher...">' + contentHtml;
+	contentHtml += '<p id="noResultsMessageEventYear" style="display: none;">Aucun résultat trouvé.</p>';
+
+	popupContentEventYear.html(contentHtml);
+	popupContentEventYear.show();
+
+	var searchBarEventYear = $("#searchBarEventYear");
+	var noResultsMessageEventYear = $("#noResultsMessageEventYear");
+
+	searchBarEventYear.on("input", function() {
+		var searchTextEventYear = searchBarEventYear.val().toLowerCase();
+		var itemsEventYear = popupContentEventYear.find("p");
+		var anyResultsEventYear = false;
+
+		itemsEventYear.each(function(index, item) {
+			var itemTextEventYear = $(item).text().toLowerCase();
+			if (itemTextEventYear.includes(searchTextEventYear)) {
+				$(item).show();
+				anyResultsEventYear = true;
+			} else {
+				$(item).hide();
+			}
+		});
+
+		if (!anyResultsEventYear) {
+			noResultsMessageEventYear.show();
+		} else {
+			noResultsMessageEventYear.hide();
+		}
+	});
+	}
+	function processEventSource(data){
+		var popupContentEventSource = $("#popupContentEventSource");
+		var contentHtml ="";
+		var uniqueEventSource = new Set();
+		data.forEach(function(item,index){
+			if(!uniqueEventSource.has(item['source'])){
+				contentHtml += "<p id='source-" + index + "'>" + item['source'] +"</p>";
+				uniqueEventSource.add(item['source']);
+			}
+		})
+		contentHtml = '<input type ="text" id="searchBarEventSource" placeholder="search ...">'+contentHtml;
+		contentHtml += '<p id="noResultsMessageEventSource" style="display:none;">Aucun resultat trouvé .</p>';
+
+		popupContentEventSource .html(contentHtml);
+		popupContentEventSource .show();
+
+		var searchBarEventSource =$("#searchBarEventSource");
+		var noResultsMessageEventSource =  $("#noResultsMessageEventSource");
+
+		searchBarEventSource.on("input",function(){
+			var searchTextEventSource = searchBarEventSource.val().toLowerCase();
+			var itemsEventSource = popupContentEventSource .find("p");
+			var anyResultsEventSource = false ;
+
+			itemsEventSource.each(function(index,item){
+				var itemTextEventSource = $(item).text().toLowerCase();
+				if(itemTextEventSource.includes(searchTextEventSource)){
+					$(item).show();
+					anyResultsEventSource =true;
+				}
+				else{
+					$(item).hide();
+				}
+			})
+			if(!anyResultsEventSource){
+				noResultsMessageEventSource.show();
+				$("#popupContentEventSource").css("height","130px")
+			}
+			else{
+				noResultsMessageEventSource.hide();
+				$("#popupContentEventSource").css("height","300px")
+			}
+		})
+	}
+	
+	function processEventPeriod(data) {		
+		
+		var popupContentEventPeriod = $("#popupContentEventPeriod");
+		var contentHtml = "";
+		var uniqueEventPeriod = new Set();
+		data.forEach(function (item, index) {
+			var eventDateParts = (item['event_date'] ?? '').split('-');
+			
+			var formattedDate = eventDateParts[0] + eventDateParts[1]; // Combine year and month
+			if (!uniqueEventPeriod.has(formattedDate)) {
+				contentHtml += "<p class='event-date' id='event_date-" + index + "'>" + formattedDate + "</p>";
+				uniqueEventPeriod.add(formattedDate);
+			}
+		});
 
 
 
-// Fonction pour afficher directement le calendrier dès que la fenêtre modale s'affiche
-$('#myModal').on('shown.bs.modal', function () {
-$('#dateRangePicker1, #dateRangePicker2').datepicker({
-	format: 'dd/mm/yyyy',
-	autoclose: true,
-	todayHighlight: true,
-});
-});
+		contentHtml = '<input type="text" id="searchBarEventPeriod" placeholder="Rechercher...">' + contentHtml;
+		contentHtml += '<p id="noResultsMessageEventPeriod" style="display:none;">Aucun résultat trouvé.</p>';
 
-// Ouvrir la fenêtre modale lors du clic sur l'élément "Option 3"
-$('#openModal').click(function () {
-$('#myModal').modal('show');
-// Vider les valeurs des inputs du calendrier lors de l'ouverture de la fenêtre modale
-$('#dateRangePicker1, #dateRangePicker2').val('');
-});
+		popupContentEventPeriod.html(contentHtml);
+		popupContentEventPeriod.show();
 
-// Fonction pour enregistrer les dates sélectionnées lorsque le bouton "Appliquer" est cliqué
-$('#btnApply').click(function () {
-var startDate = $('#dateRangePicker1').datepicker('getDate');
-var endDate = $('#dateRangePicker2').datepicker('getDate');
+		var searchBarEventPeriod = $("#searchBarEventPeriod");
+		var noResultsMessageEventPeriod = $("#noResultsMessageEventPeriod");
+		var eventDateElements = $(".event-date");
+
+		searchBarEventPeriod.on("input", function () {
+			var searchTextEventPeriod = searchBarEventPeriod.val().toLowerCase();
+			var anyResultsEventPeriod = false;
+
+			eventDateElements.each(function (index, item) {
+				var itemTextEventPeriod = $(item).text().toLowerCase();
+				if (itemTextEventPeriod.includes(searchTextEventPeriod)) {
+					$(item).show();
+					anyResultsEventPeriod = true;
+				} else {
+					$(item).hide();
+				}
+			});
+			
+			if (!anyResultsEventPeriod) {
+				noResultsMessageEventPeriod.show();
+				$("#popupContentEventPeriod").css("height", "130px");
+			} else {
+				noResultsMessageEventPeriod.hide();
+				$("#popupContentEventPeriod").css("height", "300px");
+
+			}
+    });
+	}
+
+	function processEventTimeDate(data){
+		var popupContentEventDate = $("#popupContentEventDate");
+		var contentHtml ="";
+		var uniqueEventDate = new Set();
+		data.forEach(function(item,index){
+			if(!uniqueEventDate.has(item['event_date'])){
+				contentHtml += "<p id='event_date-" + index + "'>" + item['event_date'] +"</p>";
+				uniqueEventDate.add(item['event_date']);
+			}
+		})
+		contentHtml = '<input type ="text" id="searchBarEventDate" placeholder="search ...">'+contentHtml;
+		contentHtml += '<p id="noResultsMessageEventDate" style="display:none;">Aucun resultat trouvé .</p>';
+
+		popupContentEventDate .html(contentHtml);
+		popupContentEventDate .show();
+
+		var searchBarEventDate =$("#searchBarEventDate");
+		var noResultsMessageEventDate =  $("#noResultsMessageEventDate");
+
+		searchBarEventDate.on("input",function(){
+			var searchTextEventDate = searchBarEventDate.val().toLowerCase();
+			var itemsEventDate = popupContentEventDate .find("p");
+			var anyResultsEventDate = false ;
+
+			itemsEventDate.each(function(index,item){
+				var itemTextEventDate = $(item).text().toLowerCase();
+				if(itemTextEventDate.includes(searchTextEventDate)){
+					$(item).show();
+					anyResultsEventDate =true;
+				}
+				else{
+					$(item).hide();
+				}
+			})
+			if(!anyResultsEventDate){
+				noResultsMessageEventDate.show();
+				$("#popupContentEventDate").css("height","130px");
+			}
+			else{
+				noResultsMessageEventDate.hide();
+				$("#popupContentEventDate").css("height","300px");
+			}
+		})
+	}
+
+	function processEventSubtype(data){
+		var popupContentEventSubtype = $("#popupContentEventSubtype");
+		var contentHtml ="";
+		var uniqueEventSubtype = new Set();
+		data.forEach(function(item,index){
+			if(!uniqueEventSubtype.has(item['sub_event_type'])){
+				contentHtml += "<p id='sub_event_type-" + index + "'>" + item['sub_event_type'] +"</p>";
+				uniqueEventSubtype.add(item['sub_event_type']);
+			}
+		})
+		contentHtml = '<input type ="text" id="searchBarEventSubtype" placeholder="search ...">'+contentHtml;
+		contentHtml += '<p id="noResultsMessageEventSubtype" style="display:none;">Aucun resultat trouvé .</p>';
+
+		popupContentEventSubtype .html(contentHtml);
+		popupContentEventSubtype .show();
+
+		var searchBarEventSubtype =$("#searchBarEventSubtype");
+		var noResultsMessageEventSubtype =  $("#noResultsMessageEventSubtype");
+
+		searchBarEventSubtype.on("input",function(){
+			var searchTextEventSubtype = searchBarEventSubtype.val().toLowerCase()			
+			var itemsEventSubtype = popupContentEventSubtype .find("p");
+			var anyResultsEventSubtype = false ;
+
+			itemsEventSubtype.each(function(index,item){
+				var itemTextEventSubtype = $(item).text().toLowerCase();
+				if(itemTextEventSubtype.includes(searchTextEventSubtype)){
+					$(item).show();
+					anyResultsEventSubtype =true;
+				}
+				else{
+					$(item).hide();
+				}
+			})
+			if(!anyResultsEventSubtype){
+				noResultsMessageEventSubtype.show();
+				$("#popupContentEventSubtype").css("height","130px")
+			}
+			else{
+				noResultsMessageEventSubtype.hide();
+				$("#popupContentEventSubtype").css("height","300px")
+			}
+		})
+	}
+
 });
 
 
