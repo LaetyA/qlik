@@ -2840,13 +2840,25 @@ function fetchDataAndProcess() {
                 var notes = data[i]['notes'];
 
                 if (notes !== null) {
-                    // Créez un élément <li> avec la classe feed-item pour chaque note
-                    var listItem = $('<li>').addClass('feed-item').addClass('feed-item-' + typesColor[i % typesColor.length]);;
-                    var date = $('<div class="date"></div>').text(formatEventDate(data[i]['event_date']));
-                    var text = $('<div class="text" style="color:white"></div>').text(notes);
+                    // // Créez un élément <li> avec la classe feed-item pour chaque note
+                    // var listItem = $('<li>').addClass('feed-item').addClass('feed-item-' + typesColor[i % typesColor.length]);;
+                    // var date = $('<div class="date"></div>').text(formatEventDate(data[i]['event_date']));
+                    // var text = $('<div class="text" style="color:white"></div>').text(notes);
 
-                    listItem.append(date, text); // Ajoutez la date et le texte à l'élément <li>
-                    notesList.append(listItem); // Ajoutez l'élément <li> à la liste
+                    // listItem.append(date, text); // Ajoutez la date et le texte à l'élément <li>
+                    // notesList.append(listItem); // Ajoutez l'élément <li> à la liste
+						// ...
+var listItem = $('<li>').addClass('feed-item').addClass('feed-item-' + typesColor[i % typesColor.length]);
+var date = $('<div class="date"></div>').text(formatEventDate(data[i]['event_date']));
+var text = $('<div class="text" style="color:white"></div>').text(notes);
+
+// Ajoutez un attribut data-id avec la valeur de l'ID à chaque élément de note
+listItem.attr('data-id', data[i]['id']); // Supposons que l'ID soit stocké dans data[i]['id']
+
+listItem.append(date, text);
+notesList.append(listItem);
+// ...
+
                 }
             }
         }
@@ -2890,16 +2902,30 @@ function fetchDataAndProcess() {
 		// Ajoutez un gestionnaire d'événements "click" aux éléments de note
 // Ajoutez un gestionnaire d'événements "click" aux éléments de note
 $('#div-main-actor .feed-item').on('click', function() {
-    var noteText = $(this).find('.text').text();
-    // alert('Note: ' + noteText);
+    // var noteText = $(this).find('.text').text();
+    // // alert('Note: ' + noteText);
+	// var eventId =$(this).data('id')
+	// alert(eventId)
+	var noteText = $(this).find('.text').text();
+    var eventId = $(this).data('id'); // Maintenant, vous pouvez extraire l'ID
+    alert(eventId);
+	// var event = data[$(this).index()]; // Obtenez l'objet de données correspondant à l'élément cliqué
+    // var country = event['country'];
+    // var date = event['event_date'];
+    // var type = event['type'];
+    // var source = event['source'];
+    // var fatalities = event['fatalities'];
+	
+    // Recherchez l'objet de données correspondant dans le tableau data en utilisant l'ID
+    var event = data.find(item => item.id === eventId);
 
-	var event = data[$(this).index()]; // Obtenez l'objet de données correspondant à l'élément cliqué
-	console.log($(this).index())
-    var country = event['country'];
-    var date = event['event_date'];
-    var type = event['type'];
-    var source = event['source'];
-    var fatalities = event['fatalities'];
+   
+        var country = event['country'];
+        var date = event['event_date'];
+        var type = event['type'];
+        var source = event['source'];
+        var fatalities = event['fatalities'];
+
 	
     var newContentDescribeMainActor = `
         <div class="card full-height" id="div-main-actor-description">
@@ -3291,7 +3317,7 @@ $('#div-main-actor .feed-item').on('click', function() {
         contentHtmlActor += '<div id="searchResultsActor"></div>';
         contentHtmlActor += '<p style="margin: 0;">Civilians</p>';
         contentHtmlActor += '<p style="margin: 0;">External/Other Forces</p>';
-        contentHtmlActor += '<p style="margin: 0;">CIdentity Militias</p>';
+        contentHtmlActor += '<p style="margin: 0;">Identity Militias</p>';
         contentHtmlActor += '<p style="margin: 0;">Political Militias</p>';
         contentHtmlActor += '<p style="margin: 0;">Protesters</p>';
         contentHtmlActor += '<p style="margin: 0;">Rebel Forces</p>';
