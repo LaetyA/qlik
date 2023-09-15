@@ -403,6 +403,8 @@
 				<div id="replace"></div>
 				<div id="events_information"></div>
 				<div id="div-main-actor"></div>
+				<div id="div-event-type"></div>
+				<div id="div-event-type-description"></div>
 				<div id="div-main-actor-description"></div>
 				</div>
 		
@@ -2839,25 +2841,18 @@ function fetchDataAndProcess() {
                 count++;
                 var notes = data[i]['notes'];
 
-                if (notes !== null) {
-                    // // Créez un élément <li> avec la classe feed-item pour chaque note
-                    // var listItem = $('<li>').addClass('feed-item').addClass('feed-item-' + typesColor[i % typesColor.length]);;
-                    // var date = $('<div class="date"></div>').text(formatEventDate(data[i]['event_date']));
-                    // var text = $('<div class="text" style="color:white"></div>').text(notes);
+                if (notes !== null && notes!== '') {
+				
+					var listItem = $('<li>').addClass('feed-item').addClass('feed-item-' + typesColor[i % typesColor.length]);
+					var date = $('<div class="date"></div>').text(formatEventDate(data[i]['event_date']));
+					var text = $('<div class="text" style="color:white"></div>').text(notes);
 
-                    // listItem.append(date, text); // Ajoutez la date et le texte à l'élément <li>
-                    // notesList.append(listItem); // Ajoutez l'élément <li> à la liste
-						// ...
-var listItem = $('<li>').addClass('feed-item').addClass('feed-item-' + typesColor[i % typesColor.length]);
-var date = $('<div class="date"></div>').text(formatEventDate(data[i]['event_date']));
-var text = $('<div class="text" style="color:white"></div>').text(notes);
+					// Ajoutez un attribut data-id avec la valeur de l'ID à chaque élément de note
+					listItem.attr('data-id', data[i]['id']); // Supposons que l'ID soit stocké dans data[i]['id']
 
-// Ajoutez un attribut data-id avec la valeur de l'ID à chaque élément de note
-listItem.attr('data-id', data[i]['id']); // Supposons que l'ID soit stocké dans data[i]['id']
-
-listItem.append(date, text);
-notesList.append(listItem);
-// ...
+					listItem.append(date, text);
+					notesList.append(listItem);
+					
 
                 }
             }
@@ -2899,8 +2894,6 @@ notesList.append(listItem);
             showCard();
             $('#div-main-actor').hide();
         });
-		// Ajoutez un gestionnaire d'événements "click" aux éléments de note
-// Ajoutez un gestionnaire d'événements "click" aux éléments de note
 $('#div-main-actor .feed-item').on('click', function() {
     // var noteText = $(this).find('.text').text();
     // // alert('Note: ' + noteText);
@@ -2908,15 +2901,7 @@ $('#div-main-actor .feed-item').on('click', function() {
 	// alert(eventId)
 	var noteText = $(this).find('.text').text();
     var eventId = $(this).data('id'); // Maintenant, vous pouvez extraire l'ID
-    // alert(eventId);
-	// var event = data[$(this).index()]; // Obtenez l'objet de données correspondant à l'élément cliqué
-    // var country = event['country'];
-    // var date = event['event_date'];
-    // var type = event['type'];
-    // var source = event['source'];
-    // var fatalities = event['fatalities'];
-	
-    // Recherchez l'objet de données correspondant dans le tableau data en utilisant l'ID
+
     var event = data.find(item => item.id === eventId);
 
    
@@ -2982,232 +2967,6 @@ $('#div-main-actor .feed-item').on('click', function() {
   
 }
 
-
-//     function processMainActors(data) {
-// 		var popupContent = $("#popupContentMainActor");
-// 		var contentHtml = "";
-// 		// Utiliser un ensemble (Set) pour stocker les acteurs uniques
-// 		var uniqueActors = new Set();
-// 		var IdActor ;
-
-		
-// 			data.forEach(function(item, index) {
-//         // Vérifiez si l'acteur a déjà été ajouté
-//         var mainActorName = item['main-actor'];
-// 		// console.log(item)
-//         var IdActor = item['id']; // Cherchez l'ID de l'acteur principal dans la base de données
-//         // console.log('Main Actor:', mainActorName, 'ID:', IdActor);
-//         if (!uniqueActors.has(mainActorName)) {
-//             contentHtml += "<p id='main-actor-" + index + "'>" + mainActorName + "</p>";
-//             uniqueActors.add(mainActorName); // Ajouter l'acteur à l'ensemble
-//         }
-//     });
-
-	
-// 		// Ajouter la barre de recherche
-// 		contentHtml = '<input type="text" id="searchBar" placeholder="search...">' + contentHtml;
-				
-// 		contentHtml += '<p id="noResultsMessage" style="display: none;">Aucun résultat trouvé.</p>';
-
-		
-// 		popupContent.html(contentHtml);
-// 		popupContent.show();
-// 		// Sélectionner la barre de recherche et le message "Aucun résultat trouvé"
-// 		var searchBar = $("#searchBar");
-// 		var noResultsMessage = $("#noResultsMessage");
-// 		// Écouter l'événement d'entrée
-// 		searchBar.on("input", function() {
-//     	var searchText = searchBar.val().toLowerCase();
-//     	var items = popupContent.find("p"); // Sélectionner les éléments <p> dans la div
-// 		var anyResults = false; // Pour garder une trace si des résultats sont trouvés
-//     	items.each(function(index, item) {
-//         	var itemText = $(item).text().toLowerCase();
-//         	if (itemText.includes(searchText)) {
-//             	$(item).show();
-//             	anyResults = true;
-//         	} 
-// 			else {
-//            		$(item).hide();
-//         	}
-//     	});
-//     	// Afficher ou masquer le message "Aucun résultat trouvé" en fonction des résultats
-//     	if (!anyResults) {
-// 			noResultsMessage.show();
-// 			// Réduire la hauteur de la div à 150px
-// 			$("#popupContentMainActor").css("height", "150px");
-// 		} 
-// 		else {
-// 			noResultsMessage.hide();
-// 			// Rétablir la hauteur par défaut
-// 			$("#popupContentMainActor").css("height", "300px");
-// 		}
-// 		});
-				
-// 		$("p[id^='main-actor']").click(function() {
-// 			var typesColor = ['success', 'info', 'warning', 'danger'];
-
-// 			var count = 0;
-// 			var notesList = $('<ol>').addClass('activity-feed'); // Ajoutez la classe activity-feed à la liste	
-// 			var paragraphText = $(this).text();
-// 			for (var i = 0; i < data.length; i++) {
-// 				var mainActorContent = data[i]['main-actor'];
-
-// 				if (mainActorContent && mainActorContent.includes(paragraphText)) {
-// 					count++;
-// 					var notes = data[i]['notes'];
-
-// 					if (notes !== null) {
-// 						// Créez un élément <li> avec la classe feed-item pour chaque note
-// 						var listItem = $('<li>').addClass('feed-item').addClass('feed-item-' + typesColor[i % typesColor.length]);;
-// 						var date = $('<div class="date"></div>').text(formatEventDate(data[i]['event_date']));
-// 						var text = $('<div class="text" style="color:white"></div>').text(notes);
-						
-// 						listItem.append(date, text); // Ajoutez la date et le texte à l'élément <li>
-// 						notesList.append(listItem); // Ajoutez l'élément <li> à la liste
-// 					}
-// 				}
-// 			}
-			
-
-// 			$('html, body').animate({
-// 				scrollTop: '+=2500'
-// 			}, 1000);
-
-//     var newContent = `
-//         <div class="card full-height" id="div-main-actor">
-//             <div class="card-header">
-//                 <div class="card-title">
-//                     <div class="row align-items-center">
-//                         <div class="col-md-9">
-//                             <span style="font-weight: bold;">Event Description</span>
-//                         </div>
-//                         <div class="col-md-3">
-//                             <button id="transparent-button" class="btn btn-default">All Last Events</button>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//             <div class="card-body-scroll">
-//                 <div class="container mt-5">
-//                     <div class="activity-feed">
-//                         ${notesList.prop('outerHTML')} <!-- Insérez la liste dans le contenu -->
-//                     </div>
-//                     <br>
-//                     <br>
-//                 </div>
-//             </div>
-//         </div>`;
-		
-//     $('#event-card').hide();
-//     // $('#div-main-actor').html(newContent).show();
-// 	// Après avoir ajouté newContent au DOM
-// $('#div-main-actor').html(newContent).show();
-
-
-
-//     $('#transparent-button').on('click', function() {
-//         showCard();
-//         $('#div-main-actor').hide();
-//     });
-// // Ajoutez un gestionnaire d'événements "click" aux éléments de note
-// $('#div-main-actor .feed-item').on('click', function() {
-//     var noteText = $(this).find('.text').text();
-//     alert('Note: ' + noteText);
-// 	var newContentDescribeMainActor = `
-// 		<div class="card full-height" id="div-main-actor-description">
-// 			<div class="card-header">
-// 				<div class="card-title">
-// 					<div class="row align-items-center">
-// 						<div class="col-md-2">
-// 							<button class="btn btn-default" id="button-goBack">
-// 								<i class="fas fa-arrow-left" style="font-size:18px"></i>go back
-// 							</button>
-// 						</div>
-// 						<div class="col-md-8">
-// 							<span style ="font-weight:bold ; display:block;text-align:center;margin:0 auto;">Event Description</span>
-// 						</div>
-// 						<div class="col-md-2">
-// 							<button id="transparent-button-newContentDescribeMainActor" class="btn btn-default">Last Event</button>
-// 						</div>
-// 					</div>
-// 				</div>
-// 				<div class="card-body-scroll">
-// 					<div class="container mt-5">
-// 						<div style="color:white;">${notes}<br>
-// 						<br>
-// 						<span style="font-weight:bold">Country:</span>${country}<br>
-// 						<br>
-// 						<span style="font-weight:bold">Date:</span>${date}<br>
-// 						<br>
-// 						<span style="font-weight:bold">Type:</span>${type}<br>
-// 						<br>
-// 						<span style="font-weight:bold">source:</span>${source}<br>
-// 						<br>
-// 						<span style="font-weight:bold">fatalities:</span>${fatalities}<br>
-// 						<br>
-// 					</div>
-// 				</div>
-// 			</div>
-
-// 						 `
-// 		})
-// });
-
-// 	// $('.note').on('click', function () {
-      
-// 	// 	var newContentSpan = `<div class="card full-height" id="div-main-actor">
-// 	// 							<!-- Le contenu de la nouvelle div ici -->
-// 	// 							<div class="card-header">
-// 	// 								<div class="card-title">
-// 	// 									<div class="row align-items-center">
-// 	// 									<div class="col-md-2">
-// 	// 										<button class="btn btn-default" id="button-go_back">
-// 	// 											<i class="fas fa-arrow-left"  style="font-size:18px"></i> go back
-// 	// 										</button>
-// 	// 									</div>
-// 	// 									<div class="col-md-8">
-// 	// 										<span style ="font-weight : bold ; display:block;text-align :center;margin : 0 auto;">Event Description </span>											
-// 	// 									</div>
-// 	// 									<div class="col-md-2">
-// 	// 										<button id="transparent-button-newContentSpan" class="btn btn-default">Last Event</button>
-// 	// 									</div>
-// 	// 								</div>
-// 	// 							</div>
-// 	// 							</div>
-// 	// 							<div class="card-body-scroll">
-// 	// 								<div class="container mt-5" >
-// 	// 									<div style="color: white;">	
-									
-// 	// 										${notes}<br>
-// 	// 						<br>
-//     //                         <span style="font-weight: bold;">Country: </span>${country}<br>
-// 	// 						<br>
-//     //                         <span style="font-weight: bold;">Date: </span>${date}<br>
-// 	// 						<br>
-//     //                         <span style="font-weight: bold;">Type: </span>${type}<br>
-// 	// 						<br>
-//     //                         <span style="font-weight: bold;">Source: </span>${source}<br>
-// 	// 						<br>
-//     //                         <span style="font-weight: bold;">Fatalities: </span>${fatalities}<br>
-// 	// 						<br>
-// 	// 								</div>
-// 	// 							</div>
-// 	// 						</div>`;
-							
-
-//     $('#event-card').hide();
-//     $('#div-main-actor').html(newContentSpan).show(); 
-	    
-// 	$('#transparent-button-newContentSpan').on('click', function () {
-//          showCard(); 
-//         $('#div-main-actor').hide(); 
-// 		// $('#replace').html(newContent).show(); // Afficher la div "replace"
-//     });
-	
-//     });
-// });
-
-//     }
 
     function processEventTypes(data) {
         
@@ -3306,6 +3065,135 @@ $('#div-main-actor .feed-item').on('click', function() {
 				noResultsMessageEventType.hide();
 				$("#popupContentEventType").css("height","300px")
 			}
+		})
+		$("p[id^='type']").click(function(){
+			var colorsType =['success','info','warning','danger'];
+			var count = 0;
+			var notesEventTypeList = $('<ol>').addClass('activity-feed'); 
+			var paragraphTextEventType = $(this).text();
+			for (var i = 0; i<data.length;i++){
+				var eventTypeContent = data[i]['type'];
+				if(eventTypeContent&&eventTypeContent.includes(paragraphTextEventType)){
+					count ++;
+					var notes=data[i]['notes'];
+					if(notes!=null && notes!==''){
+						var listItemEventType = $('<li>').addClass('feed-item').addClass('feed-item-'+ colorsType[i% colorsType.length]);
+						var date =$('<div class="date"></div>').text(formatEventDate(data[i]['event_date']));
+						var text = $('<div class="text" style="color:white"></div>').text(notes);
+
+						listItemEventType.attr('data-id',data[i]['id']);
+
+						listItemEventType.append(date,text);
+						notesEventTypeList.append(listItemEventType)
+
+					}
+				}
+			}
+			
+			$('html,body').animate({
+				scrollTop:'+=2500'
+			},1000);
+			var newContentEventType =`
+				<div class="card full-height" id="div-event-type">
+					<div class="card-header">
+						<div class="card-title">
+							<div class="row align-items-center">
+							
+								<div class="col-md-9">
+									<span style="font-weight:bold;">Event Description</span>
+								</div>
+								<div class="col-md-3">
+									<button id="transparent-button" class="btn btn-default">All Last Events</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<div class="activity-feed">
+								${notesEventTypeList.prop('outerHTML')}
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+			$('#event-card').hide();
+			$('#div-event-type').html(newContentEventType).show();
+			$("#transparent-button").on('click',function(){
+				showCard();
+				$("#div-event-type").hide();
+			})
+			$("#div-event-type .feed-item").on('click',function(){
+				var noteTextEventType = $(this).find('.text').text();
+				var eventTypeId = $(this).data('id');
+				var eventType = data.find(item => item.id === eventTypeId);
+				var countryEvent_type = eventType['country'];
+				var dateEvent_type = eventType['event_date'];
+				var typeEvent_type = eventType['type'];
+				var sourceEvent_type = eventType['source'];
+				var fatalitiesEvent_type = eventType['fatalities']
+				alert(noteTextEventType)
+				var newContentdescribeEventType =  `
+        <div class="card full-height" id="div-event-type-description">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="row align-items-center">
+                        <div class="col-md-2">
+                            <button class="btn btn-default" id="button_goBack">
+                                <i class="fas fa-arrow-left" style="font-size:18px"></i>go back
+                            </button>
+                        </div>
+                        <div class="col-md-7">
+                            <span style ="font-weight:bold ; display:block;text-align:center;margin:0 auto;">Event Description</span>
+                        </div>
+                        <div class="col-md-3">
+                            <button id="transparent-button-newContentDescribeEventType" class="btn btn-default"> All Last Event</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body-scroll">
+                    <div class="container mt-5">
+                        <div style="color:white;">
+                            ${noteTextEventType}<br>
+                            <br>
+                            <span style="font-weight:bold">Country:</span>${countryEvent_type}<br>
+                            <br>
+                            <span style="font-weight:bold">Date:</span>${dateEvent_type}<br>
+                            <br>
+                            <span style="font-weight:bold">Type:</span>${typeEvent_type}<br>
+                            <br>
+                            <span style="font-weight:bold">source:</span>${sourceEvent_type}<br>
+                            <br>
+                            <span style="font-weight:bold">fatalities:</span>${fatalitiesEvent_type}<br>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+
+		 $("#div-event-type").hide();
+        $("#div-event-type-description").html(newContentdescribeEventType).show();
+		$("#transparent-button-newContentDescribeEventType").on("click",function(){
+		$('#div-event-type-description').hide();
+		showCard()
+	})
+	$("#button_goBack").on("click",function(){
+		$("#div-event-type-description").hide();
+		$("#div-event-type").show()
+	})
+
+        // $("#transparent-button-newContentDescribeEventType").on("click", function () {
+        //     $("#div-event-type-description").hide();
+        //     showCard();
+        // });
+
+        // $("#button_goBack").on("click", function () {
+        //     $("#div-event-type-description").hide();
+        //     $("#div-event-type").show();
+        // });
+			})
 		})
 	}
 	function processActorTypes(data) {
@@ -3500,7 +3388,8 @@ $('#div-main-actor .feed-item').on('click', function() {
 				$("#popupContentEventPeriod").css("height", "300px");
 
 			}
-    });
+   		});
+	
 	}
 
 	function processEventTimeDate(data){
