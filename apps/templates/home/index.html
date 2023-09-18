@@ -14,7 +14,7 @@
 		<div class="page-inner py-5" style="height: 100px;">
 			<div class="container mt-5">
 				<div class="row">
-					<div class="col my-2 ">						
+					<div class="col  ">						
 						<div class="dropdown dropdown-custom" style="bottom:70px;">
 							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
 								id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Actor</button>
@@ -31,10 +31,10 @@
 							<p style="margin:0;">contenu</p>
 						</div>
 					</div>
-					<div class="col my-2">
+					<div class="col">
 						<div class="dropdown dropdown-custom" style="bottom:70px;">
 							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
-								id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">Time</button>
+								id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">Timeframe</button>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
 								<li><a class="dropdown-item" href="#"id="popupTriggerEventPeriod">Event Period</a></li>
 								<li><a class="dropdown-item" href="#" id="popupTriggerEventYear">Event Year</a></li>
@@ -51,7 +51,7 @@
 							<p>contenu</p>
 						</div>
 					</div>
-					<div class="col my-2">
+					<div class="col ">
 						<div class="dropdown dropdown-custom" style="bottom:70px;">
 							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
 								id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">Events</button>
@@ -70,10 +70,10 @@
 							<p>contenu</p>
 						</div>
 					</div>
-					<div class="col my-2">
+					<div class="col ">
 						<div class="dropdown" style="bottom:70px;">
 							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
-							id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: white;	width: 150px;">Time</button>
+							id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: white;	width: 150px;">Time Range</button>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 								<li><a class="dropdown-item" href="#" id="popupTriggerLastDay">Last Day</a></li>
 								<li><a class="dropdown-item" href="#">Last 5 Days</a></li>
@@ -85,7 +85,8 @@
 							</ul>
 						</div>						  		
 					</div>
-					<div class="col my-2">
+					<!-- measure pas utilisé -->
+					<!-- <div class="col my-2">
 						<div class="dropdown dropdown-custom" style="bottom:70px;">
 							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
 								id="dropdownMenuButton4" data-bs-toggle="dropdown"
@@ -95,8 +96,9 @@
 								<li><a class="dropdown-item" href="#">Fatalities</a></li>
 							</ul>
 						</div>
-					</div>
-					<div class="col my-2">
+					</div> -->
+					<!-- point type pas utilisé -->
+					<!-- <div class="col my-2">
 						<div class="dropdown dropdown-custom" style="bottom:70px;">
 							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
 								id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-expanded="false">Point Type
@@ -106,7 +108,7 @@
 								<li><a class="dropdown-item" href="#">Point</a></li>
 							</ul>
 						</div>
-					</div>
+					</div> -->
 					<!-- <div class="col my-2">
 						<div class="dropdown dropdown-custom"style="bottom:70px;">
 							<button class="btn btn-ligth dropdown-toggle text-dark" type="button" id="dropdownMenuButton6" data-bs-toggle="dropdown" aria-expanded="false">Map Type
@@ -117,7 +119,7 @@
 							</ul>
 						</div>
 					</div> -->
-					<div class="col my-2">
+					<div class="col ">
 						<div class="dropdown dropdown-custom" style="bottom:70px;">
 							<button class="btn btn-light dropdown-toggle text-dark" type="button" id="dropdownMenuButton7" data-bs-toggle="dropdown" aria-expanded="false">Last Available</button>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton7" id="eventDatesDropdown">
@@ -376,7 +378,7 @@
 								<div class="col-md-9">
 									<div class="input-group">
 										<input type="text" class="form-control" id="search-bar"
-											placeholder="Rechercher..." aria-haspopup="true" aria-expanded="false"
+											placeholder="Search..." aria-haspopup="true" aria-expanded="false"
 											data-toggle="dropdown">
 										<div class="input-group-append">
 											<button class="btn btn-outline-secondary dropdown-toggle" type="button"
@@ -406,7 +408,17 @@
 				<div id="div-event-type"></div>
 				<div id="div-event-type-description"></div>
 				<div id="div-main-actor-description"></div>
-				</div>
+				<div id="div-sub-event"></div>
+				<div id="div-sub-event-description"></div>
+				<div id="div-event-source"></div>
+				<div id="div-event-source-description"></div>
+				<div id="div-year"></div>
+				<div id="div-year-description"></div>
+				<div id="div-event-date"></div>
+				<div id="div-event-date-description"></div>
+
+
+			</div>
 		
 			<div class="col-md-6">
 				<div class="card full-height">
@@ -2950,7 +2962,7 @@ $('#div-main-actor .feed-item').on('click', function() {
                 </div>
             </div>
         </div>`;
-
+	$("#even-card").hide();
     $('#div-main-actor').hide();
     $('#div-main-actor-description').html(newContentDescribeMainActor).show();
 	$("#transparent-button-newContentDescribeMainActor").on("click",function(){
@@ -3132,7 +3144,7 @@ $('#div-main-actor .feed-item').on('click', function() {
 				var typeEvent_type = eventType['type'];
 				var sourceEvent_type = eventType['source'];
 				var fatalitiesEvent_type = eventType['fatalities']
-				alert(noteTextEventType)
+				// alert(noteTextEventType)
 				var newContentdescribeEventType =  `
         <div class="card full-height" id="div-event-type-description">
             <div class="card-header">
@@ -3172,8 +3184,8 @@ $('#div-main-actor .feed-item').on('click', function() {
             </div>
         </div>`;
 
-
-		 $("#div-event-type").hide();
+		$("#event-card").hide()
+		$("#div-event-type").hide();
         $("#div-event-type-description").html(newContentdescribeEventType).show();
 		$("#transparent-button-newContentDescribeEventType").on("click",function(){
 		$('#div-event-type-description').hide();
@@ -3263,7 +3275,7 @@ $('#div-main-actor .feed-item').on('click', function() {
 		    }
 		});
 
-	contentHtml = '<input type="text" id="searchBarEventYear" placeholder="Rechercher...">' + contentHtml;
+	contentHtml = '<input type="text" id="searchBarEventYear" placeholder="Search...">' + contentHtml;
 	contentHtml += '<p id="noResultsMessageEventYear" style="display: none;">Aucun résultat trouvé.</p>';
 
 	popupContentEventYear.html(contentHtml);
@@ -3291,9 +3303,145 @@ $('#div-main-actor .feed-item').on('click', function() {
 			noResultsMessageEventYear.show();
 		} else {
 			noResultsMessageEventYear.hide();
-		}
+		}		
 	});
+	$("p[id^='year']").click(function(){
+			
+			var colors =['success','info','warning','danger'];
+			var count = 0;
+			var notesYearList = $('<ol>').addClass('activity-feed'); 
+			var paragraphTextYear = $(this).text();
+			for (var i = 0; i<data.length;i++){
+
+				var yearContent = data[i]['year'];
+			
+				// if(yearContent&&yearContent.includes(paragraphTextYear)){
+			
+					if(yearContent){
+			
+					count ++;
+				
+					var notes=data[i]['notes'];
+			
+					if(notes!=null && notes!==''){
+						var listItemYear = $('<li>').addClass('feed-item').addClass('feed-item-'+ colors[i% colors.length]);
+						var date =$('<div class="date"></div>').text(formatEventDate(data[i]['event_date']));
+			
+						var text = $('<div class="text" style="color:white"></div>').text(notes);
+			
+
+						listItemYear.attr('data-id',data[i]['id']);
+		
+
+						listItemYear.append(date,text);
+						notesYearList.append(listItemYear)
+				
+
+					}
+				}
+			}			
+			$('html,body').animate({
+				scrollTop:'+=2500'
+			},1000);
+			var newContentYear =`
+				<div class="card full-height" id="div-year">
+					<div class="card-header">
+						<div class="card-title">
+							<div class="row align-items-center">
+							
+								<div class="col-md-9">
+									<span style="font-weight:bold;">Last Events</span>
+								</div>
+								<div class="col-md-3">
+									<button id="transparent-button" class="btn btn-default">All Last Events</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<div class="activity-feed">
+								${notesYearList.prop('outerHTML')}
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+			
+			$('#event-card').hide();
+			$('#div-year').html(newContentYear).show();
+			$("#transparent-button").on('click',function(){
+				showCard();
+				$("#div-year").hide();
+			})
+			alert("ok")
+			$("#div-year .feed-item").on('click',function(){
+				
+				var noteTextYear = $(this).find('.text').text();
+				var yearId = $(this).data('id');
+				var yearData = data.find(item => item.id === yearId);
+				var countryYear = yearData['country'];
+				var dateYear = yearData['event_date'];
+				var typeYear= yearData['type'];
+				var sourceYear = yearData['source'];
+				var fatalitiesYear= yearData['fatalities']
+				
+				var newContentdescribeYear =  `
+        <div class="card full-height" id="div-year-description">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="row align-items-center">
+                        <div class="col-md-2">
+                            <button class="btn btn-default" id="button_goBack">
+                                <i class="fas fa-arrow-left" style="font-size:18px"></i>go back
+                            </button>
+                        </div>
+                        <div class="col-md-7">
+                            <span style ="font-weight:bold ; display:block;text-align:center;margin:0 auto;">Event Description</span>
+                        </div>
+                        <div class="col-md-3">
+                            <button id="transparent-button-newContentDescribeEventType" class="btn btn-default"> All Last Event</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body-scroll">
+                    <div class="container mt-5">
+                        <div style="color:white;">
+                            ${noteTextYear}<br>
+                            <br>
+                            <span style="font-weight:bold">Country:</span>${countryYear}<br>
+                            <br>
+                            <span style="font-weight:bold">Date:</span>${dateYear}<br>
+                            <br>
+                            <span style="font-weight:bold">Type:</span>${typeYear}<br>
+                            <br>
+                            <span style="font-weight:bold">source:</span>${sourceYear}<br>
+                            <br>
+                            <span style="font-weight:bold">fatalities:</span>${fatalitiesYear}<br>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+		$("#event-card").hide()
+		$("#div-year").hide();
+        $("#div-year-description").html(newContentdescribeYear).show();
+		$("#transparent-button-newContentDescribeYear").on("click",function(){
+		$('#div-year-description').hide();
+		showCard()
+	})
+	$("#button_goBack").on("click",function(){
+		$("#div-year-description").hide();
+		$("#div-year").show()
+	})
+			})
+		})
+
 	}
+
+
 	function processEventSource(data){
 		var popupContentEventSource = $("#popupContentEventSource");
 		var contentHtml ="";
@@ -3337,60 +3485,370 @@ $('#div-main-actor .feed-item').on('click', function() {
 				$("#popupContentEventSource").css("height","300px")
 			}
 		})
-	}
-	
-	function processEventPeriod(data) {		
-		
-		var popupContentEventPeriod = $("#popupContentEventPeriod");
-		var contentHtml = "";
-		var uniqueEventPeriod = new Set();
-		data.forEach(function (item, index) {
-			var eventDateParts = (item['event_date'] ?? '').split('-');
-			
-			var formattedDate = eventDateParts[0] + eventDateParts[1]; // Combine year and month
-			if (!uniqueEventPeriod.has(formattedDate)) {
-				contentHtml += "<p class='event-date' id='event_date-" + index + "'>" + formattedDate + "</p>";
-				uniqueEventPeriod.add(formattedDate);
-			}
-		});
+		$("p[id^='source']").click(function(){
+			var colorsType =['success','info','warning','danger'];
+			var count = 0;
+			var notesEventSourceList = $('<ol>').addClass('activity-feed'); 
+			var paragraphTextEventSource = $(this).text();
+			for (var i = 0; i<data.length;i++){
+				var EventSourceContent = data[i]['source'];
+				if(EventSourceContent&&EventSourceContent.includes(paragraphTextEventSource)){
+					count ++;
+					var notes=data[i]['notes'];
+					if(notes!=null && notes!==''){
+						var listItemEventSource = $('<li>').addClass('feed-item').addClass('feed-item-'+ colorsType[i% colorsType.length]);
+						var date =$('<div class="date"></div>').text(formatEventDate(data[i]['event_date']));
+						var text = $('<div class="text" style="color:white"></div>').text(notes);
 
+						listItemEventSource.attr('data-id',data[i]['id']);
 
+						listItemEventSource.append(date,text);
+						notesEventSourceList.append(listItemEventSource)
 
-		contentHtml = '<input type="text" id="searchBarEventPeriod" placeholder="Rechercher...">' + contentHtml;
-		contentHtml += '<p id="noResultsMessageEventPeriod" style="display:none;">Aucun résultat trouvé.</p>';
-
-		popupContentEventPeriod.html(contentHtml);
-		popupContentEventPeriod.show();
-
-		var searchBarEventPeriod = $("#searchBarEventPeriod");
-		var noResultsMessageEventPeriod = $("#noResultsMessageEventPeriod");
-		var eventDateElements = $(".event-date");
-
-		searchBarEventPeriod.on("input", function () {
-			var searchTextEventPeriod = searchBarEventPeriod.val().toLowerCase();
-			var anyResultsEventPeriod = false;
-
-			eventDateElements.each(function (index, item) {
-				var itemTextEventPeriod = $(item).text().toLowerCase();
-				if (itemTextEventPeriod.includes(searchTextEventPeriod)) {
-					$(item).show();
-					anyResultsEventPeriod = true;
-				} else {
-					$(item).hide();
+					}
 				}
-			});
-			
-			if (!anyResultsEventPeriod) {
-				noResultsMessageEventPeriod.show();
-				$("#popupContentEventPeriod").css("height", "130px");
-			} else {
-				noResultsMessageEventPeriod.hide();
-				$("#popupContentEventPeriod").css("height", "300px");
-
 			}
-   		});
-	
+			
+			$('html,body').animate({
+				scrollTop:'+=2500'
+			},1000);
+			var newContentEventSource =`
+				<div class="card full-height" id="div-event-type">
+					<div class="card-header">
+						<div class="card-title">
+							<div class="row align-items-center">
+							
+								<div class="col-md-9">
+									<span style="font-weight:bold;">Event Description</span>
+								</div>
+								<div class="col-md-3">
+									<button id="transparent-button" class="btn btn-default">All Last Events</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<div class="activity-feed">
+								${notesEventSourceList.prop('outerHTML')}
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+			$('#event-card').hide();
+			$('#div-event-type').html(newContentEventSource).show();
+			$("#transparent-button").on('click',function(){
+				showCard();
+				$("#div-event-type").hide();
+			})
+			$("#div-event-type .feed-item").on('click',function(){
+				var noteTextEventSource = $(this).find('.text').text();
+				var EventSourceId = $(this).data('id');
+				var EventSource = data.find(item => item.id === EventSourceId);
+				var countryEvent_type = EventSource['country'];
+				var dateEvent_type = EventSource['event_date'];
+				var typeEvent_type = EventSource['type'];
+				var sourceEvent_type = EventSource['source'];
+				var fatalitiesEvent_type = EventSource['fatalities']
+				// alert(noteTextEventSource)
+				var newContentdescribeEventSource =  `
+        <div class="card full-height" id="div-event-type-description">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="row align-items-center">
+                        <div class="col-md-2">
+                            <button class="btn btn-default" id="button_goBack">
+                                <i class="fas fa-arrow-left" style="font-size:18px"></i>go back
+                            </button>
+                        </div>
+                        <div class="col-md-7">
+                            <span style ="font-weight:bold ; display:block;text-align:center;margin:0 auto;">Event Description</span>
+                        </div>
+                        <div class="col-md-3">
+                            <button id="transparent-button-newContentDescribeEventSource" class="btn btn-default"> All Last Event</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body-scroll">
+                    <div class="container mt-5">
+                        <div style="color:white;">
+                            ${noteTextEventSource}<br>
+                            <br>
+                            <span style="font-weight:bold">Country:</span>${countryEvent_type}<br>
+                            <br>
+                            <span style="font-weight:bold">Date:</span>${dateEvent_type}<br>
+                            <br>
+                            <span style="font-weight:bold">Type:</span>${typeEvent_type}<br>
+                            <br>
+                            <span style="font-weight:bold">source:</span>${sourceEvent_type}<br>
+                            <br>
+                            <span style="font-weight:bold">fatalities:</span>${fatalitiesEvent_type}<br>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+		$("#event-card").hide()
+		$("#div-event-type").hide();
+        $("#div-event-type-description").html(newContentdescribeEventSource).show();
+		$("#transparent-button-newContentDescribeEventSource").on("click",function(){
+		$('#div-event-type-description').hide();
+		showCard()
+	})
+	$("#button_goBack").on("click",function(){
+		$("#div-event-type-description").hide();
+		$("#div-event-type").show()
+	})
+
+        // $("#transparent-button-newContentDescribeEventType").on("click", function () {
+        //     $("#div-event-type-description").hide();
+        //     showCard();
+        // });
+
+        // $("#button_goBack").on("click", function () {
+        //     $("#div-event-type-description").hide();
+        //     $("#div-event-type").show();
+        // });
+			})
+		})
 	}
+	
+	// function processEventPeriod(data) {		
+		
+	// 	var popupContentEventPeriod = $("#popupContentEventPeriod");
+	// 	var contentHtml = "";
+	// 	var uniqueEventPeriod = new Set();
+	// 	data.forEach(function (item, index) {
+		
+	// 		var eventDateParts = (item['event_date'] ?? '').split('-');
+			
+	// 		var formattedDate = eventDateParts[0] + eventDateParts[1]; // Combine year and month
+	// 		if (!uniqueEventPeriod.has(formattedDate)) {
+	// 			contentHtml += "<p class='event-date' id='event_date-" + index + "'>" + formattedDate + "</p>";
+	// 			uniqueEventPeriod.add(formattedDate);
+	// 		}		
+	// 	});
+		
+
+
+	// 	contentHtml = '<input type="text" id="searchBarEventPeriod" placeholder="Search...">' + contentHtml;
+	// 	contentHtml += '<p id="noResultsMessageEventPeriod" style="display:none;">Aucun résultat trouvé.</p>';
+
+	// 	popupContentEventPeriod.html(contentHtml);
+	// 	popupContentEventPeriod.show();
+
+	// 	var searchBarEventPeriod = $("#searchBarEventPeriod");
+	// 	var noResultsMessageEventPeriod = $("#noResultsMessageEventPeriod");
+	// 	var eventDateElements = $(".event-date");
+
+	// 	searchBarEventPeriod.on("input", function () {
+	// 		var searchTextEventPeriod = searchBarEventPeriod.val().toLowerCase();
+	// 		var anyResultsEventPeriod = false;
+
+	// 		eventDateElements.each(function (index, item) {
+	// 			var itemTextEventPeriod = $(item).text().toLowerCase();
+	// 			if (itemTextEventPeriod.includes(searchTextEventPeriod)) {
+	// 				$(item).show();
+	// 				anyResultsEventPeriod = true;
+	// 			} else {
+	// 				$(item).hide();
+	// 			}
+	// 		});
+			
+	// 		if (!anyResultsEventPeriod) {
+	// 			noResultsMessageEventPeriod.show();
+	// 			$("#popupContentEventPeriod").css("height", "130px");
+	// 		} else {
+	// 			noResultsMessageEventPeriod.hide();
+	// 			$("#popupContentEventPeriod").css("height", "300px");
+
+	// 		}
+			
+   	// 	});
+	
+	// }
+
+	function processEventPeriod(data) {		
+    var popupContentEventPeriod = $("#popupContentEventPeriod");
+    var contentHtml = "";
+    var uniqueEventPeriod = new Set();
+
+    data.forEach(function (item, index) {
+        var eventDateParts = (item['event_date'] ?? '').split('-');
+        var formattedDate = eventDateParts[0] + eventDateParts[1]; // Combine year and month
+
+        if (!uniqueEventPeriod.has(formattedDate)) {
+            // Add a click event listener to the <p> element
+            contentHtml += "<p class='event-period' id='event_period-" + index + "'>" + formattedDate + "</p>";
+            uniqueEventPeriod.add(formattedDate);
+        }		
+    });
+
+    contentHtml = '<input type="text" id="searchBarEventPeriod" placeholder="Search...">' + contentHtml;
+    contentHtml += '<p id="noResultsMessageEventPeriod" style="display:none;">Aucun résultat trouvé.</p>';
+
+    popupContentEventPeriod.html(contentHtml);
+    popupContentEventPeriod.show();
+
+    var searchBarEventPeriod = $("#searchBarEventPeriod");
+    var noResultsMessageEventPeriod = $("#noResultsMessageEventPeriod");
+
+    searchBarEventPeriod.on("input", function () {
+        var searchTextEventPeriod = searchBarEventPeriod.val().toLowerCase();
+        var anyResultsEventPeriod = false;
+
+        eventDateElements.each(function (index, item) {
+            var itemTextEventPeriod = $(item).text().toLowerCase();
+            if (itemTextEventPeriod.includes(searchTextEventPeriod)) {
+                $(item).show();
+                anyResultsEventPeriod = true;
+            } else {
+                $(item).hide();
+            }
+        });
+
+        if (!anyResultsEventPeriod) {
+            noResultsMessageEventPeriod.show();
+            $("#popupContentEventPeriod").css("height", "130px");
+        } else {
+            noResultsMessageEventPeriod.hide();
+            $("#popupContentEventPeriod").css("height", "300px");
+        }
+    });
+	$("p[id^='event_period']").click(function(){
+	
+		var paragraphTextEventPeriod = $(this).text();
+		
+		newParagraphTextEventPeriod = paragraphTextEventPeriod.substring(0,4)+'-'+paragraphTextEventPeriod.substring(4);
+		
+		
+		
+		var colorsType =['success','info','warning','danger'];
+			var count = 0;
+			var notesEventDateList = $('<ol>').addClass('activity-feed'); 
+			var paragraphTextEventDate = $(this).text();
+			for (var i = 0; i<data.length;i++){
+				var EventDateContent = data[i]['event_date'];
+				var newEventDateContent = EventDateContent.substring(0,7)
+				if(EventDateContent&&EventDateContent.includes(newParagraphTextEventPeriod)){
+					count ++;
+					var notes=data[i]['notes'];
+					if(notes!=null && notes!==''){
+						var listItemEventDate = $('<li>').addClass('feed-item').addClass('feed-item-'+ colorsType[i% colorsType.length]);
+						var date =$('<div class="date"></div>').text(formatEventDate(data[i]['event_date']));
+						var text = $('<div class="text" style="color:white"></div>').text(notes);
+
+						listItemEventDate.attr('data-id',data[i]['id']);
+
+						listItemEventDate.append(date,text);
+						notesEventDateList.append(listItemEventDate)
+
+					}
+				}
+			}
+			
+			$('html,body').animate({
+				scrollTop:'+=2500'
+			},1000);
+			var newContentEventDate =`
+				<div class="card full-height" id="div-event-date">
+					<div class="card-header">
+						<div class="card-title">
+							<div class="row align-items-center">
+							
+								<div class="col-md-9">
+									<span style="font-weight:bold;">Event Description</span>
+								</div>
+								<div class="col-md-3">
+									<button id="transparent-button" class="btn btn-default">All Last Events</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<div class="activity-feed">
+								${notesEventDateList.prop('outerHTML')}
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+			$('#event-card').hide();
+			$('#div-event-date').html(newContentEventDate).show();
+			$("#transparent-button").on('click',function(){
+				showCard();
+				$("#div-event-date").hide();
+			})
+			$("#div-event-date .feed-item").on('click',function(){
+				var noteTextEventDate = $(this).find('.text').text();
+				var EventDateId = $(this).data('id');
+				var EventDate = data.find(item => item.id === EventDateId);
+				var countryEventDate = EventDate['country'];
+				var dateEventDate = EventDate['event_date'];
+				var typeEventDate = EventDate['type'];
+				var sourceEventDate = EventDate['source'];
+				var fatalitiesEventDate = EventDate['fatalities']
+				// alert(noteTextEventSource)
+				var newContentdescribeEventDate =  `
+        <div class="card full-height" id="div-event-date-description">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="row align-items-center">
+                        <div class="col-md-2">
+                            <button class="btn btn-default" id="button_goBack">
+                                <i class="fas fa-arrow-left" style="font-size:18px"></i>go back
+                            </button>
+                        </div>
+                        <div class="col-md-7">
+                            <span style ="font-weight:bold ; display:block;text-align:center;margin:0 auto;">Event Description</span>
+                        </div>
+                        <div class="col-md-3">
+                            <button id="transparent-button-newContentDescribeEventDate" class="btn btn-default"> All Last Event</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body-scroll">
+                    <div class="container mt-5">
+                        <div style="color:white;">
+                            ${noteTextEventDate}<br>
+                            <br>
+                            <span style="font-weight:bold">Country:</span>${countryEventDate}<br>
+                            <br>
+                            <span style="font-weight:bold">Date:</span>${dateEventDate}<br>
+                            <br>
+                            <span style="font-weight:bold">Type:</span>${typeEventDate}<br>
+                            <br>
+                            <span style="font-weight:bold">source:</span>${sourceEventDate}<br>
+                            <br>
+                            <span style="font-weight:bold">fatalities:</span>${fatalitiesEventDate}<br>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+		$("#event-card").hide()
+		$("#div-event-date").hide();
+        $("#div-event-date-description").html(newContentdescribeEventDate).show();
+		$("#transparent-button-newContentDescribeEventDate").on("click",function(){
+		$('#div-event-date-description').hide();
+		showCard()
+	})
+	$("#button_goBack").on("click",function(){
+		$("#div-event-date-description").hide();
+		$("#div-event-date").show()
+	})
+
+       
+			})
+	})
+}
+
 
 	function processEventTimeDate(data){
 		var popupContentEventDate = $("#popupContentEventDate");
@@ -3434,6 +3892,128 @@ $('#div-main-actor .feed-item').on('click', function() {
 				noResultsMessageEventDate.hide();
 				$("#popupContentEventDate").css("height","300px");
 			}
+		})
+		$("p[id^='event_date']").click(function(){
+			
+			var colorsType =['success','info','warning','danger'];
+			var count = 0;
+			var notesEventDateList = $('<ol>').addClass('activity-feed'); 
+			var paragraphTextEventDate = $(this).text();
+			for (var i = 0; i<data.length;i++){
+				var EventDateContent = data[i]['event_date'];
+				if(EventDateContent&&EventDateContent.includes(paragraphTextEventDate)){
+					count ++;
+					var notes=data[i]['notes'];
+					if(notes!=null && notes!==''){
+						var listItemEventDate = $('<li>').addClass('feed-item').addClass('feed-item-'+ colorsType[i% colorsType.length]);
+						var date =$('<div class="date"></div>').text(formatEventDate(data[i]['event_date']));
+						var text = $('<div class="text" style="color:white"></div>').text(notes);
+
+						listItemEventDate.attr('data-id',data[i]['id']);
+
+						listItemEventDate.append(date,text);
+						notesEventDateList.append(listItemEventDate)
+
+					}
+				}
+			}
+			
+			$('html,body').animate({
+				scrollTop:'+=2500'
+			},1000);
+			var newContentEventDate =`
+				<div class="card full-height" id="div-event-date">
+					<div class="card-header">
+						<div class="card-title">
+							<div class="row align-items-center">
+							
+								<div class="col-md-9">
+									<span style="font-weight:bold;">Event Description</span>
+								</div>
+								<div class="col-md-3">
+									<button id="transparent-button" class="btn btn-default">All Last Events</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<div class="activity-feed">
+								${notesEventDateList.prop('outerHTML')}
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+			$('#event-card').hide();
+			$('#div-event-date').html(newContentEventDate).show();
+			$("#transparent-button").on('click',function(){
+				showCard();
+				$("#div-event-date").hide();
+			})
+			$("#div-event-date .feed-item").on('click',function(){
+				var noteTextEventDate = $(this).find('.text').text();
+				var EventDateId = $(this).data('id');
+				var EventDate = data.find(item => item.id === EventDateId);
+				var countryEventDate = EventDate['country'];
+				var dateEventDate = EventDate['event_date'];
+				var typeEventDate = EventDate['type'];
+				var sourceEventDate = EventDate['source'];
+				var fatalitiesEventDate = EventDate['fatalities']
+				// alert(noteTextEventSource)
+				var newContentdescribeEventDate =  `
+        <div class="card full-height" id="div-event-date-description">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="row align-items-center">
+                        <div class="col-md-2">
+                            <button class="btn btn-default" id="button_goBack">
+                                <i class="fas fa-arrow-left" style="font-size:18px"></i>go back
+                            </button>
+                        </div>
+                        <div class="col-md-7">
+                            <span style ="font-weight:bold ; display:block;text-align:center;margin:0 auto;">Event Description</span>
+                        </div>
+                        <div class="col-md-3">
+                            <button id="transparent-button-newContentDescribeEventDate" class="btn btn-default"> All Last Event</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body-scroll">
+                    <div class="container mt-5">
+                        <div style="color:white;">
+                            ${noteTextEventDate}<br>
+                            <br>
+                            <span style="font-weight:bold">Country:</span>${countryEventDate}<br>
+                            <br>
+                            <span style="font-weight:bold">Date:</span>${dateEventDate}<br>
+                            <br>
+                            <span style="font-weight:bold">Type:</span>${typeEventDate}<br>
+                            <br>
+                            <span style="font-weight:bold">source:</span>${sourceEventDate}<br>
+                            <br>
+                            <span style="font-weight:bold">fatalities:</span>${fatalitiesEventDate}<br>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+		$("#event-card").hide()
+		$("#div-event-date").hide();
+        $("#div-event-date-description").html(newContentdescribeEventDate).show();
+		$("#transparent-button-newContentDescribeEventDate").on("click",function(){
+		$('#div-event-date-description').hide();
+		showCard()
+	})
+	$("#button_goBack").on("click",function(){
+		$("#div-event-date-description").hide();
+		$("#div-event-date").show()
+	})
+
+       
+			})
 		})
 	}
 
@@ -3480,26 +4060,132 @@ $('#div-main-actor .feed-item').on('click', function() {
 				$("#popupContentEventSubtype").css("height","300px")
 			}
 		})
+		$("p[id^='sub_event_type']").click(function(){
+			var colorSubEvent = ['success','info','warning','danger'];
+			var count = 0;
+			var noteSubEvent = $('<ol>').addClass('activity-feed');
+			var paragraphTextSubEvent = $(this).text();
+			for(var i = 0;i<data.length;i++){
+				var subEventContent = data[i]['sub_event_type'];
+				if(subEventContent&&subEventContent.includes(paragraphTextSubEvent)){
+					count ++;
+					var notes = data[i]['notes'];
+					if(notes!=null && notes !==''){
+						var listItemSubEvent = $('<li>').addClass('feed-item').addClass('feed-item-'+colorSubEvent[i%colorSubEvent.length]);
+						var date =$('<div class="date"></div>').text(formatEventDate(data[i]['event_date']));
+						var text = $('<div class="text" style="color:white"></div>').text(notes);
+						console.log(date,text)
+						listItemSubEvent.attr('data-id',data[i]['id']);
+
+						listItemSubEvent.append(date,text);
+						noteSubEvent.append(listItemSubEvent)
+					}
+				}
+			}
+			$('html,body').animate({
+				scrollTop:'+2500'
+			},1000);
+			var newContentSubEvent =`
+			<div class="card full-height" id="div-sub-event">
+					<div class="card-header">
+						<div class="card-title">
+							<div class="row align-items-center">
+							
+								<div class="col-md-9">
+									<span style="font-weight:bold;">Last Event</span>
+								</div>
+								<div class="col-md-3">
+									<button id="transparent-button-sub" class="btn btn-default">All Last Events</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<div class="activity-feed">
+								${noteSubEvent.prop('outerHTML')}
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+			$('#event-card').hide();
+			$('#div-sub-event').html(newContentSubEvent).show();
+			$("#transparent-button-sub").on('click',function(){
+				showCard();
+				$("#div-sub-event").hide();
+			})
+			$("#div-sub-event .feed-item").on("click",function(){
+				
+				var noteTextSubEvent = $(this).find('.text').text();
+				var subEVentId = $(this).data('id');
+				var subEvent = data.find(item => item.id === subEVentId );
+				var countrySubEvent = subEvent['country'];
+				var dateSubEvent = subEvent['event_date'];
+				var typeSubEVent = subEvent['type'];
+				var sourceSubEvent = subEvent['source']
+				var fatalitiesSubEvent = subEvent['fatalities']
+
+				var newContentdescribeSubEvent =`
+				<div class="card full-height" id="div-sub-event-description">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="row align-items-center">
+                        <div class="col-md-2">
+                            <button class="btn btn-default" id="button_goBack">
+                                <i class="fas fa-arrow-left" style="font-size:18px"></i>go back
+                            </button>
+                        </div>
+                        <div class="col-md-7">
+                            <span style ="font-weight:bold ; display:block;text-align:center;margin:0 auto;">Event Description</span>
+                        </div>
+                        <div class="col-md-3">
+                            <button id="transparent-button-newContentDescribeSubEvent" class="btn btn-default"> All Last Event</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body-scroll">
+                    <div class="container mt-5">
+                        <div style="color:white;">
+                            ${noteTextSubEvent}<br>
+                            <br>
+                            <span style="font-weight:bold">Country:</span>${countrySubEvent}<br>
+                            <br>
+                            <span style="font-weight:bold">Date:</span>${dateSubEvent}<br>
+                            <br>
+                            <span style="font-weight:bold">Type:</span>${typeSubEVent}<br>
+                            <br>
+                            <span style="font-weight:bold">source:</span>${sourceSubEvent}<br>
+                            <br>
+                            <span style="font-weight:bold">fatalities:</span>${fatalitiesSubEvent}<br>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+				`;
+				$("#event-card").hide();
+				$("#div-sub-event").hide();
+				$("#div-sub-event-description").html(newContentdescribeSubEvent).show();
+				$("#transparent-button-newContentDescribeSubEvent").on("click",function(){
+							
+					$('#div-sub-event-description').hide();
+					showCard();
+							})
+				
+				$("#button_goBack").on("click",function(){
+					$("#div-sub-event-description").hide();
+					$("#div-sub-event").show()
+				})
+
+
+			})
+
+		})
 	}
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
