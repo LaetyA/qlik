@@ -2792,38 +2792,6 @@ function fetchDataAndProcess() {
 			scrollTop:'+2500'
 		},1000);
 		$("#event-card").hide();
-	
-// 		var premiereDate = null; // Variable pour stocker la première date
-// var idPremiereDate = null; // Variable pour stocker l'ID associé à la première date
-
-// data.forEach(function(item, index) {
-//     // Vérifiez si l'acteur a déjà été ajouté
-//     var EventDateItem = item['event_date'];
-//     var IdEventDate = item['id']; // Cherchez l'ID de l'acteur principal dans la base de données
-
-//     // Si la première date n'a pas encore été trouvée, enregistrez-la
-//     if (premiereDate === null) {
-//         premiereDate = EventDateItem;
-//         idPremiereDate = IdEventDate;
-//     }
-// });
-
-// // Maintenant que nous avons la première date et son ID associé
-// // Parcourons à nouveau les données pour trouver les notes associées à cette date
-// var notesAssociees = [];
-
-// data.forEach(function(item, index) {
-//     var EventDateItem = item['event_date'];
-//     var note = item['notes']; // Supposons que 'note' est la clé qui contient les notes
-
-//     // Vérifiez si la date correspond à la première date trouvée
-//     if (EventDateItem === premiereDate) {
-//         notesAssociees.push(note);
-//     }
-// });
-
-// // Maintenant, 'notesAssociees' contient toutes les notes associées à la première date
-// console.log('Notes associées à la première date :', notesAssociees);
 
 
 var premiereDate = null; // Variable pour stocker la première date
@@ -2854,61 +2822,7 @@ data.forEach(function(item, index) {
         });
     }
 });
-// var colorsType =['success','info','warning','danger'];
-// var count = 0;
-// var notesLastDay= $('<ol>').addClass('activity-feed'); 
-		
-// var listItemLastDay =$('<li>').addClass('feed-item').addClass('feed-item-'+ colorsType[i% colorsType.length]);
-						
-// var date =$('<div class="date"></div>').text(formatEventDate(date));
-// var text = $('<div class="text" style="color:white"></div>').text(note);
-
-// listItemLastDay.attr('data-id',data[i]['id']);
-
-// listItemLastDay.append(date,text);
-// notesLastDay.append(listItemLastDay)
-
-// var newContentEventDate =`
-// 				<div class="card full-height" id="div-event-date">
-// 					<div class="card-header">
-// 						<div class="card-title">
-// 							<div class="row align-items-center">
-							
-// 								<div class="col-md-9">
-// 									<span style="font-weight:bold;">Event Description</span>
-// 								</div>
-// 								<div class="col-md-3">
-// 									<button id="transparent-button" class="btn btn-default">All Last Events</button>
-// 								</div>
-// 							</div>
-// 						</div>
-// 					</div>
-// 					<div class="card-body-scroll">
-// 						<div class="container mt-5">
-// 							<div class="activity-feed">
-// 								${notesLastDay.prop('outerHTML')}
-// 							</div>
-// 						</div>
-// 					</div>
-// 				</div>
-// 			`;
-// 			$('#event-card').hide();
-			
-// 			$('#div-main-actor').hide();
-// 		$("#events_information").hide();
-// 		$("#div-event-type").hide();
-// 		$("#div-event-type-description").hide();
-// 		$("#div-main-actor-description").hide();
-// 		$("#div-sub-event").hide();
-// 		$("#div-sub-event-description").hide();
-// 		$("#div-event-source").hide();
-// 		$("#div-event-source-description").hide();
-// 		$("#div-year").hide();
-// 		$("#div-year-description").hide();
-// 		$("#div-event-date-description").hide();
-
-// 			$('#div-event-date').html(newContentEventDate).show();
-			
+// Créez une chaîne HTML pour afficher les informations de la première date
 // Créez une chaîne HTML pour afficher les informations de la première date
 var premiereDateHTML = `
     <div class="card full-height" id="div-event-date">
@@ -2928,16 +2842,37 @@ var premiereDateHTML = `
             <div class="container mt-5">
                 <div class="activity-feed">
                     <ol class="activity-feed">
-                        <li class="feed-item">
-                            <div class="date">${premiereDateInfoArray[0].date}</div>
-                            <div class="text" style="color:white">${premiereDateInfoArray[0].note}</div>
-                        </li>
+                        ${premiereDateInfoArray.map(function (info, index) {
+                            // Couleurs disponibles
+                            var colorsType = ['success', 'info', 'warning', 'danger'];
+
+                            // Calculez l'index de la couleur en fonction de l'index de l'élément
+                            var colorIndex = index % colorsType.length;
+                            var colorClass = colorsType[colorIndex];
+
+                            // Vérifiez si la note est vide, si c'est le cas, sautez cet élément
+                            if (info.note === '') {
+                                return '';
+                            }
+                            return `
+                                <li class="feed-item feed-item-${colorClass}">
+                                    <div class="date">${info.date}</div>
+                                    <div class="text" style="color:white">${info.note}</div>
+                                </li>
+                            `;
+                        }).join('')}
                     </ol>
                 </div>
             </div>
         </div>
     </div>
 `;
+
+// Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
+$('#div-event-date').html(premiereDateHTML).show();
+
+// Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
+$('#div-event-date').html(premiereDateHTML).show();
 
 // Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
 $('#div-event-date').html(premiereDateHTML).show();
