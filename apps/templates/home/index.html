@@ -75,7 +75,7 @@
 							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
 							id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: white;	width: 150px;">Time Range</button>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-								<li><a class="dropdown-item" href="#" id="popupTriggerLastDay">Last Day</a></li>
+								<li><a class="dropdown-item" href="#" id="LastDay">Last Day</a></li>
 								<li><a class="dropdown-item" href="#">Last 5 Days</a></li>
 								<li><a class="dropdown-item" href="#">Last 30 Days</a></li>
 								<li><a class="dropdown-item" href="#">Last 90 Days</a></li>
@@ -2784,7 +2784,8 @@ function fetchDataAndProcess() {
         });
     }
     fetchDataAndProcess();
-
+	
+	
 	function processMainActors(data) {
     var popupContent = $("#popupContentMainActor");
     var contentHtml = "";
@@ -2880,7 +2881,7 @@ function fetchDataAndProcess() {
                     <div class="card-title">
                         <div class="row align-items-center">
                             <div class="col-md-9">
-                                <span style="font-weight: bold;">Event Description</span>
+                                <span style="font-weight: bold;">Last Events</span>
                             </div>
                             <div class="col-md-3">
                                 <button id="transparent-button" class="btn btn-default">All Last Events</button>
@@ -2900,6 +2901,19 @@ function fetchDataAndProcess() {
             </div>`;
 
         $('#event-card').hide();
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		$("#div-main-actor-description").hide();
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
         $('#div-main-actor').html(newContent).show();
 
         $('#transparent-button').on('click', function() {
@@ -2964,6 +2978,22 @@ $('#div-main-actor .feed-item').on('click', function() {
         </div>`;
 	$("#even-card").hide();
     $('#div-main-actor').hide();
+	
+	$('#event-card').hide();
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
+
     $('#div-main-actor-description').html(newContentDescribeMainActor).show();
 	$("#transparent-button-newContentDescribeMainActor").on("click",function(){
 		$('#div-main-actor-description').hide();
@@ -3129,7 +3159,20 @@ $('#div-main-actor .feed-item').on('click', function() {
 					</div>
 				</div>
 			`;
-			$('#event-card').hide();
+			$('#event-card').hide();			
+			$("#div-main-actor").hide();
+			$("#events_information").hide();		
+			$("#div-event-type-description").hide();
+			$("#div-main-actor-description").hide();
+			$("#div-sub-event").hide();
+			$("#div-sub-event-description").hide();
+			$("#div-event-source").hide();
+			$("#div-event-source-description").hide();
+			$("#div-year").hide();
+			$("#div-year-description").hide();
+			$("#div-event-date").hide();
+			$("#div-event-date-description").hide();
+
 			$('#div-event-type').html(newContentEventType).show();
 			$("#transparent-button").on('click',function(){
 				showCard();
@@ -3183,8 +3226,19 @@ $('#div-main-actor .feed-item').on('click', function() {
                 </div>
             </div>
         </div>`;
-
+		$("#div-main-actor").hide();
 		$("#event-card").hide()
+		$("#events_information").hide();
+		$("#div-main-actor-description").hide();
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
 		$("#div-event-type").hide();
         $("#div-event-type-description").html(newContentdescribeEventType).show();
 		$("#transparent-button-newContentDescribeEventType").on("click",function(){
@@ -3196,15 +3250,7 @@ $('#div-main-actor .feed-item').on('click', function() {
 		$("#div-event-type").show()
 	})
 
-        // $("#transparent-button-newContentDescribeEventType").on("click", function () {
-        //     $("#div-event-type-description").hide();
-        //     showCard();
-        // });
-
-        // $("#button_goBack").on("click", function () {
-        //     $("#div-event-type-description").hide();
-        //     $("#div-event-type").show();
-        // });
+        
 			})
 		})
 	}
@@ -3368,13 +3414,26 @@ $('#div-main-actor .feed-item').on('click', function() {
 				</div>
 			`;
 			
-			$('#event-card').hide();
+			$('#event-card').hide();			
+			$('#div-main-actor').hide();
+			$("#events_information").hide();
+			$("#div-event-type").hide();
+			$("#div-event-type-description").hide();
+			$("#div-main-actor-description").hide();
+			$("#div-sub-event").hide();
+			$("#div-sub-event-description").hide();
+			$("#div-event-source").hide();
+			$("#div-event-source-description").hide();
+			$("#div-year-description").hide();
+			$("#div-event-date").hide();
+			$("#div-event-date-description").hide();
+
 			$('#div-year').html(newContentYear).show();
 			$("#transparent-button").on('click',function(){
 				showCard();
 				$("#div-year").hide();
 			})
-			alert("ok")
+		
 			$("#div-year .feed-item").on('click',function(){
 				
 				var noteTextYear = $(this).find('.text').text();
@@ -3426,6 +3485,18 @@ $('#div-main-actor .feed-item').on('click', function() {
         </div>`;
 
 		$("#event-card").hide()
+        $('#div-main-actor').hide();
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		$("#div-main-actor-description").hide();
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();;
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
 		$("#div-year").hide();
         $("#div-year-description").html(newContentdescribeYear).show();
 		$("#transparent-button-newContentDescribeYear").on("click",function(){
@@ -3537,6 +3608,20 @@ $('#div-main-actor .feed-item').on('click', function() {
 				</div>
 			`;
 			$('#event-card').hide();
+			
+			$('#div-main-actor').hide();
+		$("#events_information").hide();
+		$("#div-event-type-description").hide();
+		$("#div-main-actor-description").hide();
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
 			$('#div-event-type').html(newContentEventSource).show();
 			$("#transparent-button").on('click',function(){
 				showCard();
@@ -3592,6 +3677,19 @@ $('#div-main-actor .feed-item').on('click', function() {
         </div>`;
 
 		$("#event-card").hide()
+		
+        $('#div-main-actor').hide();
+		$("#events_information").hide();
+		$("#div-main-actor-description").hide();
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
 		$("#div-event-type").hide();
         $("#div-event-type-description").html(newContentdescribeEventSource).show();
 		$("#transparent-button-newContentDescribeEventSource").on("click",function(){
@@ -3778,6 +3876,20 @@ $('#div-main-actor .feed-item').on('click', function() {
 				</div>
 			`;
 			$('#event-card').hide();
+			
+			$('#div-main-actor').hide();
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		$("#div-main-actor-description").hide();
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date-description").hide();
+
 			$('#div-event-date').html(newContentEventDate).show();
 			$("#transparent-button").on('click',function(){
 				showCard();
@@ -3946,6 +4058,19 @@ $('#div-main-actor .feed-item').on('click', function() {
 				</div>
 			`;
 			$('#event-card').hide();
+        $('#div-main-actor').hide();
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		$("#div-main-actor-description").hide();
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date-description").hide();
+
 			$('#div-event-date').html(newContentEventDate).show();
 			$("#transparent-button").on('click',function(){
 				showCard();
@@ -4001,6 +4126,19 @@ $('#div-main-actor .feed-item').on('click', function() {
         </div>`;
 
 		$("#event-card").hide()
+		
+        $('#div-main-actor').hide();
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		$("#div-main-actor-description").hide();
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+
 		$("#div-event-date").hide();
         $("#div-event-date-description").html(newContentdescribeEventDate).show();
 		$("#transparent-button-newContentDescribeEventDate").on("click",function(){
@@ -4085,6 +4223,7 @@ $('#div-main-actor .feed-item').on('click', function() {
 			$('html,body').animate({
 				scrollTop:'+2500'
 			},1000);
+
 			var newContentSubEvent =`
 			<div class="card full-height" id="div-sub-event">
 					<div class="card-header">
@@ -4110,6 +4249,20 @@ $('#div-main-actor .feed-item').on('click', function() {
 				</div>
 			`;
 			$('#event-card').hide();
+			
+			$('#div-main-actor').hide();
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		$("#div-main-actor-description").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
 			$('#div-sub-event').html(newContentSubEvent).show();
 			$("#transparent-button-sub").on('click',function(){
 				showCard();
@@ -4167,6 +4320,19 @@ $('#div-main-actor .feed-item').on('click', function() {
 				`;
 				$("#event-card").hide();
 				$("#div-sub-event").hide();
+				
+				$('#div-main-actor').hide();
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		$("#div-main-actor-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
 				$("#div-sub-event-description").html(newContentdescribeSubEvent).show();
 				$("#transparent-button-newContentDescribeSubEvent").on("click",function(){
 							
