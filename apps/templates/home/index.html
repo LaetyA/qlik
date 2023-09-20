@@ -76,7 +76,7 @@
 							id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: white;	width: 150px;">Time Range</button>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 								<li><a class="dropdown-item" href="#" id="LastDay">Last Day</a></li>
-								<li><a class="dropdown-item" href="#">Last 5 Days</a></li>
+								<li><a class="dropdown-item" href="#" id="Last5Days">Last 5 Days</a></li>
 								<li><a class="dropdown-item" href="#">Last 30 Days</a></li>
 								<li><a class="dropdown-item" href="#">Last 90 Days</a></li>
 								<li><a class="dropdown-item" href="#">Last 100 Days</a></li>
@@ -2593,7 +2593,10 @@ function fetchDataAndProcess() {
 		method: 'GET',
 		dataType: 'json',
 		success: function(data) 
-		{ LastDay(data)
+		{ 
+			LastDay(data)
+			Last5Days(data)
+
 			$('#popupTriggerMainActor').on('click', function() {
         	processMainActors(data);
     });
@@ -2805,12 +2808,16 @@ data.forEach(function(item, index) {
     var EventDateItem = item['event_date'];
     var IdEventDate = item['id']; // Cherchez l'ID de l'acteur principal dans la base de données
     var note = item['notes']; // Supposons que 'note' est la clé qui contient les notes
-
+	var country = item['country'];
+	var type = item['type'];
+	var source = item['source'];
+	var fatalities = item['fatalities']
     // Si la première date n'a pas encore été trouvée, enregistrez-la avec l'ID et la note associés
     if (premiereDate === null) {
         premiereDate = EventDateItem;
         idPremiereDate = IdEventDate;
         notePremiereDate = note;
+		countryPremiereDate = country;
     }
 
     // Si la date correspond à la première date, ajoutez ces informations au tableau
@@ -2818,7 +2825,11 @@ data.forEach(function(item, index) {
         premiereDateInfoArray.push({
             date: premiereDate,
             id: idPremiereDate,
-            note: note
+            note: note,
+			country:country,
+			type:type,
+			source:source,
+			fatalities:fatalities
         });
     }
 });
@@ -2830,7 +2841,7 @@ var premiereDateHTML = `
             <div class="card-title">
                 <div class="row align-items-center">
                     <div class="col-md-9">
-                        <span style="font-weight:bold;">Event Description</span>
+                        <span style="font-weight:bold;">Last Event</span>
                     </div>
                     <div class="col-md-3">
                         <button id="transparent-button" class="btn btn-default">All Last Events</button>
@@ -2850,12 +2861,16 @@ var premiereDateHTML = `
                             var colorIndex = index % colorsType.length;
                             var colorClass = colorsType[colorIndex];
 
+                            // Générez un identifiant unique pour chaque note
+                            var noteId = 'note-' + index;
+
                             // Vérifiez si la note est vide, si c'est le cas, sautez cet élément
                             if (info.note === '') {
                                 return '';
                             }
+
                             return `
-                                <li class="feed-item feed-item-${colorClass}">
+                                <li class="feed-item feed-item-${colorClass}" id="${noteId}">
                                     <div class="date">${info.date}</div>
                                     <div class="text" style="color:white">${info.note}</div>
                                 </li>
@@ -2871,11 +2886,64 @@ var premiereDateHTML = `
 // Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
 $('#div-event-date').html(premiereDateHTML).show();
 
-// Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
-$('#div-event-date').html(premiereDateHTML).show();
+// Ajoutez un gestionnaire d'événement de clic à chaque élément li
+premiereDateInfoArray.forEach(function (info, index) {
+    var noteId = 'note-' + index;
+    $('#' + noteId).click(function () {
+        // Récupérez la note correspondante à partir de premiereDateInfoArray
+		var dateContent = info.date;		
+		var noteContent = info.note;
+		var countryContent = info.country
+        var typeContent = info.type
+		var sourceContent = info.source
+		var fatalitiesContent = info.fatalities 
+        // Affichez la note dans une boîte de dialogue, un alert, ou tout autre élément de votre choix
+        // alert(countryContent);
+		// alert(sourceContent);
+		// alert(typeContent)
+		// alert(fatalitiesContent)
 
-// Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
-$('#div-event-date').html(premiereDateHTML).show();
+		var descriptionLastDayContent = `
+		<div class="card full-height" id="events_information">
+					<div class="card-header">
+					<div class="card-title">
+						<div class="row align-items-center">
+							<div class="col-md-10">
+								<span style="font-weight: bold;">Event Description</span>
+							</div>
+							<div class="col-md-2">
+								<button id="transparent-button-events-informations" class="btn btn-default">Last Event</button>
+							</div>
+						</div>
+					</div>
+				</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<div style="color: white;">
+								
+								${noteContent}<br>
+								<br>
+								<span style="font-weight: bold;">Country: </span>${countryContent}<br>
+								<br>
+								<span style="font-weight: bold;">Date: </span>${dateContent}<br>
+								<br>
+								<span style="font-weight: bold;">Type: </span>${typeContent}<br>
+								<br>
+								<span style="font-weight: bold;">Source: </span>${sourceContent}<br>
+								<br>
+								<span style="font-weight: bold;">Fatalities: </span>${fatalitiesContent}<br>
+								<br>
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+		$("#event-card").hide()
+		$('#events_information').html(descriptionLastDayContent);
+		// console.log(newContent_informations)
+
+    });
+});
 
 // Maintenant, 'premiereDateInfoArray' contient toutes les occurrences de la première date, de l'ID et de la note
 console.log('Informations associées à la première date :', premiereDateInfoArray);
@@ -2883,7 +2951,151 @@ console.log('Informations associées à la première date :', premiereDateInfoAr
 		})
 	}
 	
-	
+function Last5Days(data) {
+    $('#Last5Days').on('click', function () {
+        $('html,body').animate({
+            scrollTop: '+2500'
+        }, 1000);
+        $("#event-card").hide();
+        var allDates = []; // Tableau pour stocker toutes les dates
+        var uniqueDatesSet = new Set(); // Ensemble pour stocker les dates uniques
+        var uniqueDates = []; // Tableau pour stocker les dates uniques
+
+        // Parcourez les données pour obtenir les 5 premières dates uniques
+        for (var i = 0; i < data.length; i++) {
+            var EventDateItem = data[i]['event_date'];
+
+            // Vérifiez si la date n'est pas déjà présente dans uniqueDatesSet
+            if (!uniqueDatesSet.has(EventDateItem)) {
+                uniqueDatesSet.add(EventDateItem);
+                uniqueDates.push(EventDateItem);
+            }
+
+            // Si nous avons trouvé les 5 premières dates uniques, sortez de la boucle
+            if (uniqueDates.length === 5) {
+                break;
+            }
+        }
+
+        // Maintenant, uniqueDates contient les 5 premières dates uniques
+
+        // Obtenez toutes les notes associées aux 5 premières dates uniques
+        var notesOfFirst5Dates = [];
+
+        for (var i = 0; i < data.length; i++) {
+            var item = data[i];
+            var EventDateItem = item['event_date'];
+
+            // Vérifiez si la date est l'une des 5 premières dates uniques
+            if (uniqueDates.includes(EventDateItem)) {
+                var note = item['notes'];
+				var country = item['country'];
+				var type = item['type'];
+				var source = item['source'];
+				var fatalities = item['fatalities']
+                notesOfFirst5Dates.push(note);
+            }
+        }
+
+        // Créez le contenu HTML pour afficher les notes avec les dates
+ // ...
+
+// Déclaration du tableau de couleurs
+var colorsType = ['success', 'info', 'warning', 'danger'];
+
+// Créez le contenu HTML pour afficher chaque note dans un <li> distinct avec des couleurs successives
+var htmlContent = `
+    <div class="card full-height" id="div-event-date">
+        <div class="card-header">
+            <div class="card-title">
+                <div class="row align-items-center">
+                    <div class="col-md-9">
+                        <span style="font-weight:bold;">Last Event</span>
+                    </div>
+                    <div class="col-md-3">
+                        <button id="transparent-button" class="btn btn-default">All Last Events</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body-scroll">
+            <div class="container mt-5">
+                <div class="activity-feed">
+                    <ol class="activity-feed">
+                        ${uniqueDates.map(function (date, dateIndex) {
+                            return `
+                                ${notesOfFirst5Dates.map(function (note, noteIndex) {
+                                    // Calculez l'index de la couleur en fonction de l'index global de l'élément
+                                    var colorIndex = (dateIndex * notesOfFirst5Dates.length + noteIndex) % colorsType.length;
+                                    var colorClass = colorsType[colorIndex];
+
+                                    // Générez un identifiant unique pour chaque note
+                                    var noteId = 'note-' + dateIndex + '-' + noteIndex;
+
+                                    if (data[noteIndex]['event_date'] === date) {
+                                        if(note === ''){
+											return '';
+										}
+										
+										return `
+                                            <li class="feed-item feed-item-${colorClass}">
+                                                <div class="date">${date}</div>
+                                                <div class="text" style="color:white" id="${noteId}">${note}</div>
+                                            </li>
+                                        `;
+                                    } else {
+                                        return '';
+                                    }
+                                }).join('')}
+                            `;
+                        }).join('')}
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
+
+// Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
+$('#div-event-date').html(htmlContent).show();
+// $(document).ready(function () {
+//     $('li').on('click', function () {
+//         // Récupérez le contenu de la note cliquée
+//         var noteText = $(this).find('.text').text();
+        
+//         // Affichez une alerte avec le contenu de la note
+//         alert(noteText);
+//     });
+// });
+$(document).ready(function () {
+    $('li.feed-item').each(function () {
+        // Récupérez la classe de couleur de l'élément <li>
+        var colorClass = $(this).attr('class').split(' ').find(cls => cls.startsWith('feed-item-'));
+        
+        // Ajoutez un gestionnaire d'événements de clic uniquement si la classe de couleur existe
+        if (colorClass) {
+            $(this).on('click', function () {
+                // Récupérez le contenu de la note cliquée
+                var noteText = $(this).find('.text').text();
+				var country = item['country']; // Mettez ici la logique pour extraire le pays à partir de vos données
+                
+                // Affichez une alerte avec le contenu de la note
+                // alert(noteText);
+				alert(country)
+            });
+        }
+    });
+});
+
+        // Insérez le contenu HTML dans votre page
+        // Par exemple, si vous avez un élément avec l'id "container" où vous voulez ajouter ce contenu :
+        // document.getElementById('container').innerHTML = htmlContent;
+        // Assurez-vous d'ajuster l'endroit où vous souhaitez insérer le contenu.
+
+        // Vous pouvez également ajouter du CSS pour styliser le contenu en fonction de vos besoins.
+    });
+}
+
 	function processMainActors(data) {
     var popupContent = $("#popupContentMainActor");
     var contentHtml = "";
