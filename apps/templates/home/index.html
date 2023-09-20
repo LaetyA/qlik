@@ -3004,7 +3004,10 @@ function Last5Days(data) {
 var colorsType = ['success', 'info', 'warning', 'danger'];
 
 // Créez le contenu HTML pour afficher chaque note dans un <li> distinct avec des couleurs successives
-var htmlContent = `
+// ...
+
+// Créez le contenu HTML pour afficher chaque note dans un <li> distinct avec des couleurs successives
+	var htmlContent = `
     <div class="card full-height" id="div-event-date">
         <div class="card-header">
             <div class="card-title">
@@ -3031,14 +3034,19 @@ var htmlContent = `
 
                                     // Générez un identifiant unique pour chaque note
                                     var noteId = 'note-' + dateIndex + '-' + noteIndex;
-
+                                    var date = data[noteIndex]['event_date'];
+                                    var country = data[noteIndex]['country'];
+									var type = data[noteIndex]['type'];
+									var source = data[noteIndex]['source'];
+									var fatalities = data[noteIndex]['fatalities']
+							
                                     if (data[noteIndex]['event_date'] === date) {
-                                        if(note === ''){
-											return '';
-										}
-										
-										return `
-                                            <li class="feed-item feed-item-${colorClass}">
+                                        if (note === '') {
+                                            return '';
+                                        }
+
+                                        return `
+                                            <li class="feed-item feed-item-${colorClass}" data-date="${date}" data-country="${country}" data-type="${type}" data-source="${source}" data-fatalities= "${fatalities}">
                                                 <div class="date">${date}</div>
                                                 <div class="text" style="color:white" id="${noteId}">${note}</div>
                                             </li>
@@ -3058,15 +3066,7 @@ var htmlContent = `
 
 // Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
 $('#div-event-date').html(htmlContent).show();
-// $(document).ready(function () {
-//     $('li').on('click', function () {
-//         // Récupérez le contenu de la note cliquée
-//         var noteText = $(this).find('.text').text();
-        
-//         // Affichez une alerte avec le contenu de la note
-//         alert(noteText);
-//     });
-// });
+
 $(document).ready(function () {
     $('li.feed-item').each(function () {
         // Récupérez la classe de couleur de l'élément <li>
@@ -3077,22 +3077,60 @@ $(document).ready(function () {
             $(this).on('click', function () {
                 // Récupérez le contenu de la note cliquée
                 var noteText = $(this).find('.text').text();
-				var country = item['country']; // Mettez ici la logique pour extraire le pays à partir de vos données
-                
-                // Affichez une alerte avec le contenu de la note
-                // alert(noteText);
-				alert(country)
+                var date = $(this).data('date')
+                // Récupérez le pays associé à cette note à partir de l'attribut data-country
+                var country = $(this).data('country');
+				var type = $(this).data('type');
+				var source = $(this).data('source');
+				var fatalities = $(this).data('fatalities');
+
+                // Affichez une alerte avec le contenu de la note et le pays
+                alert('Note: ' + noteText + '\nCountry: ' + country +'\ntype'+ type+'\n'+date);
+				
+		var descriptionLastDayContent = `
+		<div class="card full-height" id="events_information">
+					<div class="card-header">
+					<div class="card-title">
+						<div class="row align-items-center">
+							<div class="col-md-10">
+								<span style="font-weight: bold;">Event Description</span>
+							</div>
+							<div class="col-md-2">
+								<button id="transparent-button-events-informations" class="btn btn-default">Last Event</button>
+							</div>
+						</div>
+					</div>
+				</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<div style="color: white;">
+								
+								${noteText}<br>
+								<br>
+								<span style="font-weight: bold;">Country: </span>${country}<br>
+								<br>
+								<span style="font-weight: bold;">Date: </span>${date}<br>
+								<br>
+								<span style="font-weight: bold;">Type: </span>${type}<br>
+								<br>
+								<span style="font-weight: bold;">Source: </span>${source}<br>
+								<br>
+								<span style="font-weight: bold;">Fatalities: </span>${fatalities}<br>
+								<br>
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+		$("#event-card").hide()
+		$('#events_information').html(descriptionLastDayContent);
+		// console.log(newContent_informations)
+
+
             });
         }
     });
 });
-
-        // Insérez le contenu HTML dans votre page
-        // Par exemple, si vous avez un élément avec l'id "container" où vous voulez ajouter ce contenu :
-        // document.getElementById('container').innerHTML = htmlContent;
-        // Assurez-vous d'ajuster l'endroit où vous souhaitez insérer le contenu.
-
-        // Vous pouvez également ajouter du CSS pour styliser le contenu en fonction de vos besoins.
     });
 }
 
