@@ -77,10 +77,10 @@
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 								<li><a class="dropdown-item" href="#" id="LastDay">Last Day</a></li>
 								<li><a class="dropdown-item" href="#" id="Last5Days">Last 5 Days</a></li>
-								<li><a class="dropdown-item" href="#">Last 30 Days</a></li>
-								<li><a class="dropdown-item" href="#">Last 90 Days</a></li>
-								<li><a class="dropdown-item" href="#">Last 100 Days</a></li>
-								<li><a class="dropdown-item" href="#">Last All Days</a></li>
+								<li><a class="dropdown-item" href="#" id="Last30Days">Last 30 Days</a></li>
+								<li><a class="dropdown-item" href="#" id="Last90Days">Last 90 Days</a></li>
+								<li><a class="dropdown-item" href="#" id="Last100Days">Last 100 Days</a></li>
+								<li><a class="dropdown-item" href="#" id="allDays">Last All Days</a></li>
 								<li><a class="dropdown-item" href="#" id="popupTrigger">Custom Date</a></li>
 							</ul>
 						</div>						  		
@@ -2596,6 +2596,9 @@ function fetchDataAndProcess() {
 		{ 
 			LastDay(data)
 			Last5Days(data)
+			Last30Days(data)
+			Last90Days(data)
+			Last100Days(data)
 
 			$('#popupTriggerMainActor').on('click', function() {
         	processMainActors(data);
@@ -2794,7 +2797,6 @@ function fetchDataAndProcess() {
 		$('html,body').animate({
 			scrollTop:'+2500'
 		},1000);
-		$("#event-card").hide();
 
 
 var premiereDate = null; // Variable pour stocker la première date
@@ -2833,8 +2835,7 @@ data.forEach(function(item, index) {
         });
     }
 });
-// Créez une chaîne HTML pour afficher les informations de la première date
-// Créez une chaîne HTML pour afficher les informations de la première date
+
 var premiereDateHTML = `
     <div class="card full-height" id="div-event-date">
         <div class="card-header">
@@ -2882,6 +2883,7 @@ var premiereDateHTML = `
         </div>
     </div>
 `;
+$("#event-card").hide();
 
 // Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
 $('#div-event-date').html(premiereDateHTML).show();
@@ -2939,13 +2941,24 @@ premiereDateInfoArray.forEach(function (info, index) {
 				</div>
 			`;
 		$("#event-card").hide()
+    	$('#div-main-actor').hide();	
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();		
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
 		$('#events_information').html(descriptionLastDayContent);
 		// console.log(newContent_informations)
 
     });
 });
 
-// Maintenant, 'premiereDateInfoArray' contient toutes les occurrences de la première date, de l'ID et de la note
 console.log('Informations associées à la première date :', premiereDateInfoArray);
 
 		})
@@ -2976,10 +2989,6 @@ function Last5Days(data) {
                 break;
             }
         }
-
-        // Maintenant, uniqueDates contient les 5 premières dates uniques
-
-        // Obtenez toutes les notes associées aux 5 premières dates uniques
         var notesOfFirst5Dates = [];
 
         for (var i = 0; i < data.length; i++) {
@@ -2997,16 +3006,7 @@ function Last5Days(data) {
             }
         }
 
-        // Créez le contenu HTML pour afficher les notes avec les dates
- // ...
-
-// Déclaration du tableau de couleurs
 var colorsType = ['success', 'info', 'warning', 'danger'];
-
-// Créez le contenu HTML pour afficher chaque note dans un <li> distinct avec des couleurs successives
-// ...
-
-// Créez le contenu HTML pour afficher chaque note dans un <li> distinct avec des couleurs successives
 	var htmlContent = `
     <div class="card full-height" id="div-event-date">
         <div class="card-header">
@@ -3063,6 +3063,20 @@ var colorsType = ['success', 'info', 'warning', 'danger'];
         </div>
     </div>
 `;
+		$("#event-card").hide();
+    	$('#div-main-actor').hide();
+	
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date-description").hide();
 
 // Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
 $('#div-event-date').html(htmlContent).show();
@@ -3084,9 +3098,6 @@ $(document).ready(function () {
 				var source = $(this).data('source');
 				var fatalities = $(this).data('fatalities');
 
-                // Affichez une alerte avec le contenu de la note et le pays
-                alert('Note: ' + noteText + '\nCountry: ' + country +'\ntype'+ type+'\n'+date);
-				
 		var descriptionLastDayContent = `
 		<div class="card full-height" id="events_information">
 					<div class="card-header">
@@ -3123,6 +3134,411 @@ $(document).ready(function () {
 				</div>
 			`;
 		$("#event-card").hide()
+    	$('#div-main-actor').hide();
+	
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
+		$('#events_information').html(descriptionLastDayContent);
+		
+            });
+        }
+    });
+});
+    });
+}
+
+	$("#allDays").on('click',function(){
+		$('html,body').animate({
+            scrollTop: '+2500'
+        }, 1000);
+	})
+	function Last30Days(data){
+		$('#Last30Days').on('click', function () {
+        $('html,body').animate({
+            scrollTop: '+2500'
+        }, 1000);
+        $("#event-card").hide();
+        var allDates = []; // Tableau pour stocker toutes les dates
+        var uniqueDatesSet = new Set(); // Ensemble pour stocker les dates uniques
+        var uniqueDates = []; // Tableau pour stocker les dates uniques
+
+        // Parcourez les données pour obtenir les 5 premières dates uniques
+        for (var i = 0; i < data.length; i++) {
+            var EventDateItem = data[i]['event_date'];
+
+            // Vérifiez si la date n'est pas déjà présente dans uniqueDatesSet
+            if (!uniqueDatesSet.has(EventDateItem)) {
+                uniqueDatesSet.add(EventDateItem);
+                uniqueDates.push(EventDateItem);
+            }
+
+            if (uniqueDates.length === 30) {
+                break;
+            }
+        }
+
+        var notesOfFirst5Dates = [];
+
+        for (var i = 0; i < data.length; i++) {
+            var item = data[i];
+            var EventDateItem = item['event_date'];
+
+            if (uniqueDates.includes(EventDateItem)) {
+                var note = item['notes'];
+				var country = item['country'];
+				var type = item['type'];
+				var source = item['source'];
+				var fatalities = item['fatalities']
+                notesOfFirst5Dates.push(note);
+            }
+        }
+var colorsType = ['success', 'info', 'warning', 'danger'];
+	var htmlContent = `
+    <div class="card full-height" id="div-event-date">
+        <div class="card-header">
+            <div class="card-title">
+                <div class="row align-items-center">
+                    <div class="col-md-9">
+                        <span style="font-weight:bold;">Last Event</span>
+                    </div>
+                    <div class="col-md-3">
+                        <button id="transparent-button" class="btn btn-default">All Last Events</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body-scroll">
+            <div class="container mt-5">
+                <div class="activity-feed">
+                    <ol class="activity-feed">
+                        ${uniqueDates.map(function (date, dateIndex) {
+                            return `
+                                ${notesOfFirst5Dates.map(function (note, noteIndex) {
+                                    // Calculez l'index de la couleur en fonction de l'index global de l'élément
+                                    var colorIndex = (dateIndex * notesOfFirst5Dates.length + noteIndex) % colorsType.length;
+                                    var colorClass = colorsType[colorIndex];
+
+                                    // Générez un identifiant unique pour chaque note
+                                    var noteId = 'note-' + dateIndex + '-' + noteIndex;
+                                    var date = data[noteIndex]['event_date'];
+                                    var country = data[noteIndex]['country'];
+									var type = data[noteIndex]['type'];
+									var source = data[noteIndex]['source'];
+									var fatalities = data[noteIndex]['fatalities']
+							
+                                    if (data[noteIndex]['event_date'] === date) {
+                                        if (note === '') {
+                                            return '';
+                                        }
+
+                                        return `
+                                            <li class="feed-item feed-item-${colorClass}" data-date="${date}" data-country="${country}" data-type="${type}" data-source="${source}" data-fatalities= "${fatalities}">
+                                                <div class="date">${date}</div>
+                                                <div class="text" style="color:white" id="${noteId}">${note}</div>
+                                            </li>
+                                        `;
+                                    } else {
+                                        return '';
+                                    }
+                                }).join('')}
+                            `;
+                        }).join('')}
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
+$("#event-card").hide();
+    $('#div-main-actor').hide();
+	
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date-description").hide();
+
+// Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
+$('#div-event-date').html(htmlContent).show();
+
+$(document).ready(function () {
+    $('li.feed-item').each(function () {
+        // Récupérez la classe de couleur de l'élément <li>
+        var colorClass = $(this).attr('class').split(' ').find(cls => cls.startsWith('feed-item-'));
+        
+        // Ajoutez un gestionnaire d'événements de clic uniquement si la classe de couleur existe
+        if (colorClass) {
+            $(this).on('click', function () {
+                // Récupérez le contenu de la note cliquée
+                var noteText = $(this).find('.text').text();
+                var date = $(this).data('date')
+                // Récupérez le pays associé à cette note à partir de l'attribut data-country
+                var country = $(this).data('country');
+				var type = $(this).data('type');
+				var source = $(this).data('source');
+				var fatalities = $(this).data('fatalities');
+
+		var descriptionLastDayContent = `
+		<div class="card full-height" id="events_information">
+					<div class="card-header">
+					<div class="card-title">
+						<div class="row align-items-center">
+							<div class="col-md-10">
+								<span style="font-weight: bold;">Event Description</span>
+							</div>
+							<div class="col-md-2">
+								<button id="transparent-button-events-informations" class="btn btn-default">Last Event</button>
+							</div>
+						</div>
+					</div>
+				</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<div style="color: white;">
+								
+								${noteText}<br>
+								<br>
+								<span style="font-weight: bold;">Country: </span>${country}<br>
+								<br>
+								<span style="font-weight: bold;">Date: </span>${date}<br>
+								<br>
+								<span style="font-weight: bold;">Type: </span>${type}<br>
+								<br>
+								<span style="font-weight: bold;">Source: </span>${source}<br>
+								<br>
+								<span style="font-weight: bold;">Fatalities: </span>${fatalities}<br>
+								<br>
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+		$("#event-card").hide()
+    $('#div-main-actor').hide();
+	
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
+		$('#events_information').html(descriptionLastDayContent);
+	
+
+            });
+        }
+    });
+});
+    });
+
+	}
+	
+	function Last90Days(data){
+		$('#Last90Days').on('click', function () {
+        $('html,body').animate({
+            scrollTop: '+2500'
+        }, 1000);
+        $("#event-card").hide();
+        var allDates = []; // Tableau pour stocker toutes les dates
+        var uniqueDatesSet = new Set(); // Ensemble pour stocker les dates uniques
+        var uniqueDates = []; // Tableau pour stocker les dates uniques
+
+        // Parcourez les données pour obtenir les 5 premières dates uniques
+        for (var i = 0; i < data.length; i++) {
+            var EventDateItem = data[i]['event_date'];
+
+            // Vérifiez si la date n'est pas déjà présente dans uniqueDatesSet
+            if (!uniqueDatesSet.has(EventDateItem)) {
+                uniqueDatesSet.add(EventDateItem);
+                uniqueDates.push(EventDateItem);
+            }
+
+            if (uniqueDates.length === 90) {
+                break;
+            }
+        }
+
+        var notesOfFirst5Dates = [];
+
+        for (var i = 0; i < data.length; i++) {
+            var item = data[i];
+            var EventDateItem = item['event_date'];
+
+            if (uniqueDates.includes(EventDateItem)) {
+                var note = item['notes'];
+				var country = item['country'];
+				var type = item['type'];
+				var source = item['source'];
+				var fatalities = item['fatalities']
+                notesOfFirst5Dates.push(note);
+            }
+        }
+
+var colorsType = ['success', 'info', 'warning', 'danger'];
+	var htmlContent = `
+    <div class="card full-height" id="div-event-date">
+        <div class="card-header">
+            <div class="card-title">
+                <div class="row align-items-center">
+                    <div class="col-md-9">
+                        <span style="font-weight:bold;">Last Event</span>
+                    </div>
+                    <div class="col-md-3">
+                        <button id="transparent-button" class="btn btn-default">All Last Events</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body-scroll">
+            <div class="container mt-5">
+                <div class="activity-feed">
+                    <ol class="activity-feed">
+                        ${uniqueDates.map(function (date, dateIndex) {
+                            return `
+                                ${notesOfFirst5Dates.map(function (note, noteIndex) {
+                                    // Calculez l'index de la couleur en fonction de l'index global de l'élément
+                                    var colorIndex = (dateIndex * notesOfFirst5Dates.length + noteIndex) % colorsType.length;
+                                    var colorClass = colorsType[colorIndex];
+
+                                    // Générez un identifiant unique pour chaque note
+                                    var noteId = 'note-' + dateIndex + '-' + noteIndex;
+                                    var date = data[noteIndex]['event_date'];
+                                    var country = data[noteIndex]['country'];
+									var type = data[noteIndex]['type'];
+									var source = data[noteIndex]['source'];
+									var fatalities = data[noteIndex]['fatalities']
+							
+                                    if (data[noteIndex]['event_date'] === date) {
+                                        if (note === '') {
+                                            return '';
+                                        }
+
+                                        return `
+                                            <li class="feed-item feed-item-${colorClass}" data-date="${date}" data-country="${country}" data-type="${type}" data-source="${source}" data-fatalities= "${fatalities}">
+                                                <div class="date">${date}</div>
+                                                <div class="text" style="color:white" id="${noteId}">${note}</div>
+                                            </li>
+                                        `;
+                                    } else {
+                                        return '';
+                                    }
+                                }).join('')}
+                            `;
+                        }).join('')}
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
+		$("#event-card").hide();
+    	$('#div-main-actor').hide();
+	
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date-description").hide();
+
+// Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
+$('#div-event-date').html(htmlContent).show();
+
+$(document).ready(function () {
+    $('li.feed-item').each(function () {
+        // Récupérez la classe de couleur de l'élément <li>
+        var colorClass = $(this).attr('class').split(' ').find(cls => cls.startsWith('feed-item-'));
+        
+        // Ajoutez un gestionnaire d'événements de clic uniquement si la classe de couleur existe
+        if (colorClass) {
+            $(this).on('click', function () {
+                // Récupérez le contenu de la note cliquée
+                var noteText = $(this).find('.text').text();
+                var date = $(this).data('date')
+                // Récupérez le pays associé à cette note à partir de l'attribut data-country
+                var country = $(this).data('country');
+				var type = $(this).data('type');
+				var source = $(this).data('source');
+				var fatalities = $(this).data('fatalities');
+
+		var descriptionLastDayContent = `
+		<div class="card full-height" id="events_information">
+					<div class="card-header">
+					<div class="card-title">
+						<div class="row align-items-center">
+							<div class="col-md-10">
+								<span style="font-weight: bold;">Event Description</span>
+							</div>
+							<div class="col-md-2">
+								<button id="transparent-button-events-informations" class="btn btn-default">Last Event</button>
+							</div>
+						</div>
+					</div>
+				</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<div style="color: white;">
+								
+								${noteText}<br>
+								<br>
+								<span style="font-weight: bold;">Country: </span>${country}<br>
+								<br>
+								<span style="font-weight: bold;">Date: </span>${date}<br>
+								<br>
+								<span style="font-weight: bold;">Type: </span>${type}<br>
+								<br>
+								<span style="font-weight: bold;">Source: </span>${source}<br>
+								<br>
+								<span style="font-weight: bold;">Fatalities: </span>${fatalities}<br>
+								<br>
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+		$("#event-card").hide()
+    	$('#div-main-actor').hide();
+	
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
 		$('#events_information').html(descriptionLastDayContent);
 		// console.log(newContent_informations)
 
@@ -3132,7 +3548,206 @@ $(document).ready(function () {
     });
 });
     });
-}
+
+	}
+	
+	function Last100Days(data){
+		$('#Last100Days').on('click', function () {
+        $('html,body').animate({
+            scrollTop: '+2500'
+        }, 1000);
+        $("#event-card").hide();
+        var allDates = []; // Tableau pour stocker toutes les dates
+        var uniqueDatesSet = new Set(); // Ensemble pour stocker les dates uniques
+        var uniqueDates = []; // Tableau pour stocker les dates uniques
+
+        // Parcourez les données pour obtenir les 5 premières dates uniques
+        for (var i = 0; i < data.length; i++) {
+            var EventDateItem = data[i]['event_date'];
+
+            // Vérifiez si la date n'est pas déjà présente dans uniqueDatesSet
+            if (!uniqueDatesSet.has(EventDateItem)) {
+                uniqueDatesSet.add(EventDateItem);
+                uniqueDates.push(EventDateItem);
+            }
+
+            if (uniqueDates.length === 100) {
+                break;
+            }
+        }
+
+        var notesOfFirst5Dates = [];
+
+        for (var i = 0; i < data.length; i++) {
+            var item = data[i];
+            var EventDateItem = item['event_date'];
+
+            if (uniqueDates.includes(EventDateItem)) {
+                var note = item['notes'];
+				var country = item['country'];
+				var type = item['type'];
+				var source = item['source'];
+				var fatalities = item['fatalities']
+                notesOfFirst5Dates.push(note);
+            }
+        }
+
+var colorsType = ['success', 'info', 'warning', 'danger'];
+
+	var htmlContent = `
+    <div class="card full-height" id="div-event-date">
+        <div class="card-header">
+            <div class="card-title">
+                <div class="row align-items-center">
+                    <div class="col-md-9">
+                        <span style="font-weight:bold;">Last Event</span>
+                    </div>
+                    <div class="col-md-3">
+                        <button id="transparent-button" class="btn btn-default">All Last Events</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body-scroll">
+            <div class="container mt-5">
+                <div class="activity-feed">
+                    <ol class="activity-feed">
+                        ${uniqueDates.map(function (date, dateIndex) {
+                            return `
+                                ${notesOfFirst5Dates.map(function (note, noteIndex) {
+                                    // Calculez l'index de la couleur en fonction de l'index global de l'élément
+                                    var colorIndex = (dateIndex * notesOfFirst5Dates.length + noteIndex) % colorsType.length;
+                                    var colorClass = colorsType[colorIndex];
+
+                                    // Générez un identifiant unique pour chaque note
+                                    var noteId = 'note-' + dateIndex + '-' + noteIndex;
+                                    var date = data[noteIndex]['event_date'];
+                                    var country = data[noteIndex]['country'];
+									var type = data[noteIndex]['type'];
+									var source = data[noteIndex]['source'];
+									var fatalities = data[noteIndex]['fatalities']
+							
+                                    if (data[noteIndex]['event_date'] === date) {
+                                        if (note === '') {
+                                            return '';
+                                        }
+
+                                        return `
+                                            <li class="feed-item feed-item-${colorClass}" data-date="${date}" data-country="${country}" data-type="${type}" data-source="${source}" data-fatalities= "${fatalities}">
+                                                <div class="date">${date}</div>
+                                                <div class="text" style="color:white" id="${noteId}">${note}</div>
+                                            </li>
+                                        `;
+                                    } else {
+                                        return '';
+                                    }
+                                }).join('')}
+                            `;
+                        }).join('')}
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
+		$("#event-card").hide();
+   		$('#div-main-actor').hide();
+	
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date-description").hide();
+
+
+// Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
+$('#div-event-date').html(htmlContent).show();
+
+$(document).ready(function () {
+    $('li.feed-item').each(function () {
+        // Récupérez la classe de couleur de l'élément <li>
+        var colorClass = $(this).attr('class').split(' ').find(cls => cls.startsWith('feed-item-'));
+        
+        // Ajoutez un gestionnaire d'événements de clic uniquement si la classe de couleur existe
+        if (colorClass) {
+            $(this).on('click', function () {
+                // Récupérez le contenu de la note cliquée
+                var noteText = $(this).find('.text').text();
+                var date = $(this).data('date')
+                // Récupérez le pays associé à cette note à partir de l'attribut data-country
+                var country = $(this).data('country');
+				var type = $(this).data('type');
+				var source = $(this).data('source');
+				var fatalities = $(this).data('fatalities');
+
+		var descriptionLastDayContent = `
+		<div class="card full-height" id="events_information">
+					<div class="card-header">
+					<div class="card-title">
+						<div class="row align-items-center">
+							<div class="col-md-10">
+								<span style="font-weight: bold;">Event Description</span>
+							</div>
+							<div class="col-md-2">
+								<button id="transparent-button-events-informations" class="btn btn-default">Last Event</button>
+							</div>
+						</div>
+					</div>
+				</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<div style="color: white;">
+								
+								${noteText}<br>
+								<br>
+								<span style="font-weight: bold;">Country: </span>${country}<br>
+								<br>
+								<span style="font-weight: bold;">Date: </span>${date}<br>
+								<br>
+								<span style="font-weight: bold;">Type: </span>${type}<br>
+								<br>
+								<span style="font-weight: bold;">Source: </span>${source}<br>
+								<br>
+								<span style="font-weight: bold;">Fatalities: </span>${fatalities}<br>
+								<br>
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+		$("#event-card").hide()
+
+    	$('#div-main-actor').hide();
+	
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
+		$('#events_information').html(descriptionLastDayContent);
+		// console.log(newContent_informations)
+
+
+            });
+        }
+    });
+});
+    });
+
+	}
 
 	function processMainActors(data) {
     var popupContent = $("#popupContentMainActor");
@@ -3327,7 +3942,6 @@ $('#div-main-actor .feed-item').on('click', function() {
 	$("#even-card").hide();
     $('#div-main-actor').hide();
 	
-	$('#event-card').hide();
 		$("#events_information").hide();
 		$("#div-event-type").hide();
 		$("#div-event-type-description").hide();
@@ -3709,8 +4323,6 @@ $('#div-main-actor .feed-item').on('click', function() {
 
 				var yearContent = data[i]['year'];
 			
-				// if(yearContent&&yearContent.includes(paragraphTextYear)){
-			
 					if(yearContent){
 			
 					count ++;
@@ -4049,74 +4661,11 @@ $('#div-main-actor .feed-item').on('click', function() {
 		$("#div-event-type").show()
 	})
 
-        // $("#transparent-button-newContentDescribeEventType").on("click", function () {
-        //     $("#div-event-type-description").hide();
-        //     showCard();
-        // });
-
-        // $("#button_goBack").on("click", function () {
-        //     $("#div-event-type-description").hide();
-        //     $("#div-event-type").show();
-        // });
 			})
 		})
 	}
 	
-	// function processEventPeriod(data) {		
-		
-	// 	var popupContentEventPeriod = $("#popupContentEventPeriod");
-	// 	var contentHtml = "";
-	// 	var uniqueEventPeriod = new Set();
-	// 	data.forEach(function (item, index) {
-		
-	// 		var eventDateParts = (item['event_date'] ?? '').split('-');
-			
-	// 		var formattedDate = eventDateParts[0] + eventDateParts[1]; // Combine year and month
-	// 		if (!uniqueEventPeriod.has(formattedDate)) {
-	// 			contentHtml += "<p class='event-date' id='event_date-" + index + "'>" + formattedDate + "</p>";
-	// 			uniqueEventPeriod.add(formattedDate);
-	// 		}		
-	// 	});
-		
-
-
-	// 	contentHtml = '<input type="text" id="searchBarEventPeriod" placeholder="Search...">' + contentHtml;
-	// 	contentHtml += '<p id="noResultsMessageEventPeriod" style="display:none;">Aucun résultat trouvé.</p>';
-
-	// 	popupContentEventPeriod.html(contentHtml);
-	// 	popupContentEventPeriod.show();
-
-	// 	var searchBarEventPeriod = $("#searchBarEventPeriod");
-	// 	var noResultsMessageEventPeriod = $("#noResultsMessageEventPeriod");
-	// 	var eventDateElements = $(".event-date");
-
-	// 	searchBarEventPeriod.on("input", function () {
-	// 		var searchTextEventPeriod = searchBarEventPeriod.val().toLowerCase();
-	// 		var anyResultsEventPeriod = false;
-
-	// 		eventDateElements.each(function (index, item) {
-	// 			var itemTextEventPeriod = $(item).text().toLowerCase();
-	// 			if (itemTextEventPeriod.includes(searchTextEventPeriod)) {
-	// 				$(item).show();
-	// 				anyResultsEventPeriod = true;
-	// 			} else {
-	// 				$(item).hide();
-	// 			}
-	// 		});
-			
-	// 		if (!anyResultsEventPeriod) {
-	// 			noResultsMessageEventPeriod.show();
-	// 			$("#popupContentEventPeriod").css("height", "130px");
-	// 		} else {
-	// 			noResultsMessageEventPeriod.hide();
-	// 			$("#popupContentEventPeriod").css("height", "300px");
-
-	// 		}
-			
-   	// 	});
 	
-	// }
-
 	function processEventPeriod(data) {		
     var popupContentEventPeriod = $("#popupContentEventPeriod");
     var contentHtml = "";
