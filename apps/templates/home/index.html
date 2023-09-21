@@ -2585,214 +2585,455 @@ function applySearchFilter(query, data) {
 
 var activityFeed = $('#activity-feed');
 var searchInput = $('#search-input');
+function fetchDataOK() {
+    $.ajax({
+        url: window.location.href,
+        method: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            processEventDates(data);
 
+            var dropdownContainer = $('#dropdown-options');
+
+            dropdownContainer.empty(); // Efface le contenu précédent
+
+            data.forEach(function (item) {
+                var optionLink = $('<a>', {
+                    class: 'dropdown-item',
+                    css: {
+                        color: 'black',
+                        overflow: 'hidden',
+                        whiteSpace: 'normal',
+                        wordWrap: 'break-word',
+                        maxWidth: '100%'
+                    },
+                    text: item.notes
+                });
+
+                optionLink.on('click', function () {
+                    $('#event-card').hide();
+                    $('#replace').show();
+
+                    var newContentDropdown = `
+                        <div class="card full-height" id="">
+                            <!-- ... (Contenu de la carte) ... -->
+                        </div>
+                    `;
+
+                    $('#replace').html(newContentDropdown);
+
+                    $('#transparent-button-newContentDropdown').on('click', function () {
+                        showCard();
+                        HideReplaceDropdown();
+                    });
+                });
+
+                dropdownContainer.append(optionLink);
+            });
+
+            dropdownContainer.css({
+                width: '450px',
+                height: '300px',
+            });
+
+            // Partie historique initial : all historique
+            var types = ['success', 'info', 'warning', 'danger'];
+            var activityFeed = $('#activity-feed'); // Assurez-vous que cette div existe dans votre HTML.
+            var searchInput = $('#search-input'); // Assurez-vous que cet élément existe dans votre HTML.
+
+            function updateFeed(query) {
+                activityFeed.empty();
+
+                var filteredData = applySearchFilter(query, data);
+
+                for (var i = 0; i < filteredData.length; i++) {
+                    if (filteredData[i].notes.trim() === '') {
+                        continue;
+                    }
+
+                    var listItem = $('<li></li>').addClass('feed-item').addClass('feed-item-' + types[i % types.length]);
+
+                    var formattedDate = formatEventDate(filteredData[i].event_date);
+                    var time = $('<time class="date"></time>').text(formattedDate);
+                    listItem.append(time);
+
+                    var text_id = filteredData[i].id;
+                    var text = filteredData[i].notes;
+                    var span = $('<span class="text" style="color:white"></span>').text(text);
+                    span.attr('data-text-id', text_id);
+
+                    span.on('click', function () {
+                        var clickedId = $(this).data('text-id');
+                        var clickedItem = data.find(item => item.id === clickedId);
+
+                        if (clickedItem) {
+                            $('#event-card').hide();
+                            $('#events_information').show();
+
+                            var newContent_informations = `
+                                <div class="card full-height" id="events_information">
+                                    <!-- ... (Contenu de la carte) ... -->
+                                </div>
+                            `;
+
+                            $('#events_information').html(newContent_informations);
+
+                            $('#transparent-button-events-informations').on('click', function () {
+                                showCard();
+                                $('#events_information').hide();
+                            });
+                        }
+                    });
+
+                    listItem.append(span);
+                    activityFeed.append(listItem);
+                }
+            }
+
+            updateFeed('');
+
+            searchInput.on('input', function () {
+                var query = $(this).val();
+                updateFeed(query);
+            });
+        },
+        error: function (error) {
+            console.log('Une erreur s\'est produite :', error);
+        }
+    });
+}
+
+fetchDataOK()
 // Fonction pour gérer la requête AJAX et la logique principale
-function fetchDataAndProcess() {
-	$.ajax({
-		url: window.location.href,
-		method: 'GET',
-		dataType: 'json',
-		success: function(data) 
-		{ 
-			LastDay(data)
-			Last5Days(data)
-			Last30Days(data)
-			Last90Days(data)
-			Last100Days(data)
+// function fetchDataAndProcess() {
+// 	$.ajax({
+// 		url: window.location.href,
+// 		method: 'GET',
+// 		dataType: 'json',
+// 		success: function(data) 
+// 		{ 
+// 			LastDay(data)
+// 			Last5Days(data)
+// 			Last30Days(data)
+// 			Last90Days(data)
+// 			Last100Days(data)
 
-			$('#popupTriggerMainActor').on('click', function() {
-        	processMainActors(data);
-    });
-	$('#popupTriggerActor').on('click', function() {
-		processActorTypes(data);;
-    });
-	$('#popupTriggerEventYear').on('click', function() {
-		processEventYear(data);
-    });
-	$('#popupTriggerEventSource').on('click', function() {
-		processEventSource(data);
-    });
-	$('#popupTriggerEventSubtype').on('click', function() {
-		processEventSubtype(data);
-    });
-	$('#popupTriggerEventPeriod').on('click', function() {
-		processEventPeriod(data)
-	});
-	$('#popupTriggerEventDate').on('click', function() {
-		processEventTimeDate(data);
-    });
-	$('#popupTriggerEventType').on('click', function() {
-		// processEventTypes(data);
-		processEventData(data);
-    });
-	processEventDates(data);
+// 			$('#popupTriggerMainActor').on('click', function() {
+//         	processMainActors(data);
+//     });
+// 	$('#popupTriggerActor').on('click', function() {
+// 		processActorTypes(data);;
+//     });
+// 	$('#popupTriggerEventYear').on('click', function() {
+// 		processEventYear(data);
+//     });
+// 	$('#popupTriggerEventSource').on('click', function() {
+// 		processEventSource(data);
+//     });
+// 	$('#popupTriggerEventSubtype').on('click', function() {
+// 		processEventSubtype(data);
+//     });
+// 	$('#popupTriggerEventPeriod').on('click', function() {
+// 		processEventPeriod(data)
+// 	});
+// 	$('#popupTriggerEventDate').on('click', function() {
+// 		processEventTimeDate(data);
+//     });
+// 	$('#popupTriggerEventType').on('click', function() {
+// 		// processEventTypes(data);
+// 		processEventData(data);
+//     });
+// 	processEventDates(data);
 
-	var dropdownContainer = $('#dropdown-options'); // Sélectionner le conteneur spécifique
+// 	var dropdownContainer = $('#dropdown-options'); // Sélectionner le conteneur spécifique
 					
-	// Générer les éléments de la liste déroulante à partir des données reçues
-	data.forEach(function (item) {
-		var optionLink = $('<a>', {							
-			class: 'dropdown-item',
-			css: {
-				color: 'black',
-				overflow: 'hidden',
-				whiteSpace: 'normal', // Permettre au texte de passer à la ligne
-				wordWrap: 'break-word', // Permettre le passage à la ligne
-				maxWidth: '100%' // Limiter la largeur pour éviter que le texte dépasse le conteneur
-			},
-			text: item.notes
-		});
-		optionLink.on('click', function () {
-			$('#event-card').hide(); 
-			$('#replace').show(); 							
-			var newContentDropdown = `
-				<div class="card full-height" id="">
-					<div class="card-header">
-						<div class="card-title">
-							<div class="row align-items-center">
-							<div class="col-md-9">
-								<span style="font-weight: bold;">Event Description</span>
-							</div>
-							<div class="col-md-3">
-								<button id="transparent-button-newContentDropdown" class="btn btn-default">Last Event</button>
-							</div>
-						</div>
-					</div>
-					</div>
-					<div class="card-body-scroll">
-						<div class="container mt-5" >
-							<div style="color: white;">	
-								${item.notes}<br>
-								<br>
-								<span style="font-weight: bold;">date: </span>${item.event_date}<br>
-								<br>
-								<span style="font-weight: bold;">Country: </span>${item.country}<br>
-								<br>
-								<span style="font-weight: bold;">type: </span>${item.type}<br>
-								<br>
-								<span style="font-weight: bold;">source: </span>${item.source}<br>
-								<br>
-								<span style="font-weight: bold;">fatalities: </span>${item.fatalities}<br>
-								<br>
-							</div>
-						</div>
-					</div>
-				</div>`;
-				$('#replace').html(newContentDropdown);
-				$('#transparent-button-newContentDropdown').on('click', function () {
-  					showCard(); // Afficher la div "event-card"
-					HideReplaceDropdown();
-  					// $('#replace').hide(); // Masquer la div "replace"
-				});
-			});
-			dropdownContainer.append(optionLink);
-		});
+// 	// Générer les éléments de la liste déroulante à partir des données reçues
+// 	data.forEach(function (item) {
+// 		var optionLink = $('<a>', {							
+// 			class: 'dropdown-item',
+// 			css: {
+// 				color: 'black',
+// 				overflow: 'hidden',
+// 				whiteSpace: 'normal', // Permettre au texte de passer à la ligne
+// 				wordWrap: 'break-word', // Permettre le passage à la ligne
+// 				maxWidth: '100%' // Limiter la largeur pour éviter que le texte dépasse le conteneur
+// 			},
+// 			text: item.notes
+// 		});
+// 		optionLink.on('click', function () {
+// 			$('#event-card').hide(); 
+// 			$('#replace').show(); 							
+// 			var newContentDropdown = `
+// 				<div class="card full-height" id="">
+// 					<div class="card-header">
+// 						<div class="card-title">
+// 							<div class="row align-items-center">
+// 							<div class="col-md-9">
+// 								<span style="font-weight: bold;">Event Description</span>
+// 							</div>
+// 							<div class="col-md-3">
+// 								<button id="transparent-button-newContentDropdown" class="btn btn-default">Last Event</button>
+// 							</div>
+// 						</div>
+// 					</div>
+// 					</div>
+// 					<div class="card-body-scroll">
+// 						<div class="container mt-5" >
+// 							<div style="color: white;">	
+// 								${item.notes}<br>
+// 								<br>
+// 								<span style="font-weight: bold;">date: </span>${item.event_date}<br>
+// 								<br>
+// 								<span style="font-weight: bold;">Country: </span>${item.country}<br>
+// 								<br>
+// 								<span style="font-weight: bold;">type: </span>${item.type}<br>
+// 								<br>
+// 								<span style="font-weight: bold;">source: </span>${item.source}<br>
+// 								<br>
+// 								<span style="font-weight: bold;">fatalities: </span>${item.fatalities}<br>
+// 								<br>
+// 							</div>
+// 						</div>
+// 					</div>
+// 				</div>`;
+// 				$('#replace').html(newContentDropdown);
+// 				$('#transparent-button-newContentDropdown').on('click', function () {
+//   					showCard(); // Afficher la div "event-card"
+// 					HideReplaceDropdown();
+//   					// $('#replace').hide(); // Masquer la div "replace"
+// 				});
+// 			});
+// 			dropdownContainer.append(optionLink);
+// 		});
 
-		dropdownContainer.css({
-			width: '450px',
-			height: '300px',
-			// overflow: 'auto'
-		});
+// 		dropdownContainer.css({
+// 			width: '450px',
+// 			height: '300px',
+// 			// overflow: 'auto'
+// 		});
 
-		////////// partie historique initial : all historique 
+// 		////////// partie historique initial : all historique 
 
-		var types = ['success', 'info', 'warning', 'danger'];
+// 		var types = ['success', 'info', 'warning', 'danger'];
 								
-		function updateFeed(query) {
-			activityFeed.empty();
-			var filteredData = applySearchFilter(query, data);
+// 		function updateFeed(query) {
+// 			activityFeed.empty();
+// 			var filteredData = applySearchFilter(query, data);
 				
-			for (var i = 0; i < filteredData.length; i++) {
-				if (filteredData[i].notes.trim() === '') {
-					continue;
-				}
-			var listItem = $('<li></li>').addClass('feed-item').addClass('feed-item-' + types[i % types.length]);
+// 			for (var i = 0; i < filteredData.length; i++) {
+// 				if (filteredData[i].notes.trim() === '') {
+// 					continue;
+// 				}
+// 			var listItem = $('<li></li>').addClass('feed-item').addClass('feed-item-' + types[i % types.length]);
 
-			var formattedDate = formatEventDate(filteredData[i].event_date);
-			var time = $('<time class="date"></time>').text(formattedDate);
-			listItem.append(time);
+// 			var formattedDate = formatEventDate(filteredData[i].event_date);
+// 			var time = $('<time class="date"></time>').text(formattedDate);
+// 			listItem.append(time);
 					
-			var text_id = filteredData[i].id;
-			var text = filteredData[i].notes;
-			var span = $('<span class="text" style="color:white"></span>').text(text);
-			span.attr('data-text-id', text_id);  // Définir l'attribut de données pour l'ID
+// 			var text_id = filteredData[i].id;
+// 			var text = filteredData[i].notes;
+// 			var span = $('<span class="text" style="color:white"></span>').text(text);
+// 			span.attr('data-text-id', text_id);  // Définir l'attribut de données pour l'ID
 
-        	$('span').click(function() {
-    			var clickedId = $(this).data('text-id');
+//         	$('span').click(function() {
+//     			var clickedId = $(this).data('text-id');
     
-			// Recherchez l'élément dans le tableau data en fonction de l'ID cliqué
-			var clickedItem = data.find(item => item.id === clickedId);
-			// console.log(clickedItem)
+// 			// Recherchez l'élément dans le tableau data en fonction de l'ID cliqué
+// 			var clickedItem = data.find(item => item.id === clickedId);
+// 			// console.log(clickedItem)
 
-			if (clickedItem) {
-				$('#event-card').hide(); // Masquer la div 	
-				$('#events_information').show(); // Afficher la div "replace"
+// 			if (clickedItem) {
+// 				$('#event-card').hide(); // Masquer la div 	
+// 				$('#events_information').show(); // Afficher la div "replace"
 				
 
-			var newContent_informations = `
-				<div class="card full-height" id="events_information">
-					<div class="card-header">
-					<div class="card-title">
-						<div class="row align-items-center">
-							<div class="col-md-10">
-								<span style="font-weight: bold;">Event Description</span>
-							</div>
-							<div class="col-md-2">
-								<button id="transparent-button-events-informations" class="btn btn-default">Last Event</button>
-							</div>
-						</div>
-					</div>
-				</div>
-					<div class="card-body-scroll">
-						<div class="container mt-5">
-							<div style="color: white;">
+// 			var newContent_informations = `
+// 				<div class="card full-height" id="events_information">
+// 					<div class="card-header">
+// 					<div class="card-title">
+// 						<div class="row align-items-center">
+// 							<div class="col-md-10">
+// 								<span style="font-weight: bold;">Event Description</span>
+// 							</div>
+// 							<div class="col-md-2">
+// 								<button id="transparent-button-events-informations" class="btn btn-default">Last Event</button>
+// 							</div>
+// 						</div>
+// 					</div>
+// 				</div>
+// 					<div class="card-body-scroll">
+// 						<div class="container mt-5">
+// 							<div style="color: white;">
 								
-								${clickedItem.notes}<br>
-								<br>
-								<span style="font-weight: bold;">Country: </span>${clickedItem.country}<br>
-								<br>
-								<span style="font-weight: bold;">Date: </span>${clickedItem.event_date}<br>
-								<br>
-								<span style="font-weight: bold;">Type: </span>${clickedItem.type}<br>
-								<br>
-								<span style="font-weight: bold;">Source: </span>${clickedItem.source}<br>
-								<br>
-								<span style="font-weight: bold;">Fatalities: </span>${clickedItem.fatalities}<br>
-								<br>
-							</div>
-						</div>
-					</div>
-				</div>
-			`;
-			$('#events_information').html(newContent_informations);
-		// console.log(newContent_informations)
+// 								${clickedItem.notes}<br>
+// 								<br>
+// 								<span style="font-weight: bold;">Country: </span>${clickedItem.country}<br>
+// 								<br>
+// 								<span style="font-weight: bold;">Date: </span>${clickedItem.event_date}<br>
+// 								<br>
+// 								<span style="font-weight: bold;">Type: </span>${clickedItem.type}<br>
+// 								<br>
+// 								<span style="font-weight: bold;">Source: </span>${clickedItem.source}<br>
+// 								<br>
+// 								<span style="font-weight: bold;">Fatalities: </span>${clickedItem.fatalities}<br>
+// 								<br>
+// 							</div>
+// 						</div>
+// 					</div>
+// 				</div>
+// 			`;
+// 			$('#events_information').html(newContent_informations);
+// 		// console.log(newContent_informations)
 
 							
-		$('#transparent-button-events-informations').on('click', function () {
-  			showCard(); // Afficher la div "event-card"
-  			$('#events_information').hide(); 
-		});		
-    }
-	});
-        listItem.append(span);
-        activityFeed.append(listItem);
-    }
-}
-				updateFeed('');
+// 		$('#transparent-button-events-informations').on('click', function () {
+//   			showCard(); // Afficher la div "event-card"
+//   			$('#events_information').hide(); 
+// 		});		
+//     }
+// 	});
+//         listItem.append(span);
+//         activityFeed.append(listItem);
+//     }
+// }
+// 				updateFeed('');
 
-				searchInput.on('input', function () {
-					var query = $(this).val();
-					updateFeed(query);
-				});
-            },
-            error: function(error) {
-                console.log('Une erreur s\'est produite :', error);
-            }
-        });
-    }
-    fetchDataAndProcess();
+// 				searchInput.on('input', function () {
+// 					var query = $(this).val();
+// 					updateFeed(query);
+// 				});
+//             },
+//             error: function(error) {
+//                 console.log('Une erreur s\'est produite :', error);
+//             }
+//         });
+//     }
+//     fetchDataAndProcess();
+$('#LastDay').on('click', function() {
+    // Charger les données au clic sur #LastDay
+    $.ajax({
+        url: window.location.href,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            // Une fois les données chargées, exécutez la fonction de traitement
+            LastDay(data);
+        },
+        error: function(error) {
+            console.log('Une erreur s\'est produite :', error);
+        }
+    });
+});$('#Last5Days').on('click', function() {
+    // Charger les données au clic sur #LastDay
+    $.ajax({
+        url: window.location.href,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            // Une fois les données chargées, exécutez la fonction de traitement
+            LastDay(data);
+        },
+        error: function(error) {
+            console.log('Une erreur s\'est produite :', error);
+        }
+    });
+});
+$('#Last30Days').on('click', function() {
+    // Charger les données au clic sur #LastDay
+    $.ajax({
+        url: window.location.href,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            // Une fois les données chargées, exécutez la fonction de traitement
+            LastDay(data);
+        },
+        error: function(error) {
+            console.log('Une erreur s\'est produite :', error);
+        }
+    });
+});
+$('#Last90Days').on('click', function() {
+    // Charger les données au clic sur #LastDay
+    $.ajax({
+        url: window.location.href,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            // Une fois les données chargées, exécutez la fonction de traitement
+            LastDay(data);
+        },
+        error: function(error) {
+            console.log('Une erreur s\'est produite :', error);
+        }
+    });
+});
+$('#Last100Days').on('click', function() {
+    // Charger les données au clic sur #LastDay
+    $.ajax({
+        url: window.location.href,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            // Une fois les données chargées, exécutez la fonction de traitement
+            LastDay(data);
+        },
+        error: function(error) {
+            console.log('Une erreur s\'est produite :', error);
+        }
+    });
+});
+$('#popupTriggerMainActor').on('click', function() {
+    loadDataAndProcess(processMainActors);
+});
+
+$('#popupTriggerActor').on('click', function() {
+    loadDataAndProcess(processActorTypes);
+});
+
+$('#popupTriggerEventYear').on('click', function() {
+    loadDataAndProcess(processEventYear);
+});
+
+$('#popupTriggerEventSource').on('click', function() {
+    loadDataAndProcess(processEventSource);
+});
+
+$('#popupTriggerEventSubtype').on('click', function() {
+    loadDataAndProcess(processEventSubtype);
+});
+
+$('#popupTriggerEventPeriod').on('click', function() {
+    loadDataAndProcess(processEventPeriod);
+});
+
+$('#popupTriggerEventDate').on('click', function() {
+    loadDataAndProcess(processEventTimeDate);
+});
+
+$('#popupTriggerEventType').on('click', function() {
+    // Charger les données et appeler processEventData
+    loadDataAndProcess(processEventData);
+});
+
+function loadDataAndProcess(processFunction) {
+    // Charger les données au clic
+    $.ajax({
+        url: window.location.href,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            // Une fois les données chargées, exécutez la fonction de traitement spécifiée
+            processFunction(data);
+        },
+        error: function(error) {
+            console.log('Une erreur s\'est produite :', error);
+        }
+    });
+}
+
 	function LastDay(data){
-		$('#LastDay').on('click',function(){
+		
 		
 		$('html,body').animate({
 			scrollTop:'+2500'
@@ -2961,11 +3202,11 @@ premiereDateInfoArray.forEach(function (info, index) {
 
 console.log('Informations associées à la première date :', premiereDateInfoArray);
 
-		})
+	
 	}
 	
 function Last5Days(data) {
-    $('#Last5Days').on('click', function () {
+    
         $('html,body').animate({
             scrollTop: '+2500'
         }, 1000);
@@ -3154,7 +3395,7 @@ $(document).ready(function () {
         }
     });
 });
-    });
+
 }
 
 	$("#allDays").on('click',function(){
@@ -3163,7 +3404,7 @@ $(document).ready(function () {
         }, 1000);
 	})
 	function Last30Days(data){
-		$('#Last30Days').on('click', function () {
+		
         $('html,body').animate({
             scrollTop: '+2500'
         }, 1000);
@@ -3351,12 +3592,12 @@ $(document).ready(function () {
         }
     });
 });
-    });
+
 
 	}
 	
 	function Last90Days(data){
-		$('#Last90Days').on('click', function () {
+	
         $('html,body').animate({
             scrollTop: '+2500'
         }, 1000);
@@ -3547,12 +3788,12 @@ $(document).ready(function () {
         }
     });
 });
-    });
+
 
 	}
 	
 	function Last100Days(data){
-		$('#Last100Days').on('click', function () {
+		
         $('html,body').animate({
             scrollTop: '+2500'
         }, 1000);
@@ -3745,7 +3986,7 @@ $(document).ready(function () {
         }
     });
 });
-    });
+
 
 	}
 
