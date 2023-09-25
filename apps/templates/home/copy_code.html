@@ -1,3 +1,72 @@
+$(document).ready(function() {
+    
+	$("#event-card").hide();
+	$("#div-main-actor").hide();
+	$("#div-event-type").hide();
+	$("#div-event-type-description").hide();
+	$("#div-main-actor-description").hide();
+	$("#div-sub-event").hide();
+	$("#div-sub-event-description").hide();
+	$("#div-event-source").hide();
+	$("#div-event-source-description").hide();
+	$("#div-year").hide();
+	$("#div-year-description").hide();
+	$("#div-event-date-description").hide();
+	$("#events_information").hide();
+
+});
+// Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
+$('#div-event-date').html(premiereDateHTML).show();
+$('#transparent-button').on('click', function() {
+    showCard();
+    $('#div-event-date').hide();
+});
+
+$(document).ready(function() {
+    
+	$("#event-card").hide();
+	$('#div-event-date').hide();
+	$("#div-main-actor").hide();
+	$("#div-event-type").hide();
+	$("#div-event-type-description").hide();
+	$("#div-main-actor-description").hide();
+	$("#div-sub-event").hide();
+	$("#div-sub-event-description").hide();
+	$("#div-event-source").hide();
+	$("#div-event-source-description").hide();
+	$("#div-year").hide();
+	$("#div-year-description").hide();
+	$("#div-event-date-description").hide();		
+
+});
+$('#events_information').html(descriptionLastDayContent);
+// console.log(newContent_informations)
+$("#events_information").show();
+
+$("#transparent-button-newContentDescribeMainActor").on("click",function(){
+$('#events_information').hide();
+showCard()
+})
+$("#button_goBack").on("click",function(){
+$("#events_information").hide();
+$("#div-event-date").show()
+})
+
+
+<div class="col-md-2">
+	<button class="btn btn-default" id="button_goBack">
+		<i class="fas fa-arrow-left" style="font-size:18px"></i>go back
+	</button>
+</div>
+<div class="col-md-7">
+	<span style ="font-weight:bold ; display:block;text-align:center;margin:0 auto;">Event Description</span>
+</div>
+<div class="col-md-3">
+	<button id="transparent-button-newContentDescribeMainActor" class="btn btn-default"> All Last Event</button>
+</div>
+
+
+
 <div id="replace"></div>
 				<div id="events_information"></div>
 				<div id="div-main-actor"></div>
@@ -24,4 +93,5348 @@
 				<div id="div-last100Days-description"></div>
 
 
+//
+{% extends "layouts/base.html" %}
 
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+{% load static %}
+
+<div class="content">
+	<div class="panel-header bg-primary-gradient">
+		<div class="page-inner py-5" style="height: 100px;">
+			<div class="container mt-5">
+				<div class="row">
+					<div class="col  ">						
+						<div class="dropdown dropdown-custom" style="bottom:70px;">
+							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
+								id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Actor</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<li><a class="dropdown-item" href="#" id="popupTriggerMainActor">main actor</a></li>
+							
+							  <li><a class="dropdown-item" href="#" id="popupTriggerActor">main actor type</a></li>
+							
+							  <li><a class="dropdown-item" href="#">Counterparty</a></li>
+							</ul>
+					 	</div>  
+  						<div id="popupContentActor" class="alert alert-info" style="display: none;"></div>					
+						<div id="popupContentMainActor" class="alert alert-info" style="display: none;">
+							<p style="margin:0;">contenu</p>
+						</div>
+					</div>
+					<div class="col">
+						<div class="dropdown dropdown-custom" style="bottom:70px;">
+							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
+								id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">Timeframe</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+								<li><a class="dropdown-item" href="#"id="popupTriggerEventPeriod">Event Period</a></li>
+								<li><a class="dropdown-item" href="#" id="popupTriggerEventYear">Event Year</a></li>
+								<li><a class="dropdown-item" href="#" id="popupTriggerEventDate">Event Date</a></li>
+							</ul>
+						</div>
+						<div id="popupContentEventYear" class="alert alert-info" style="display: none;" autoOpen="false">
+							<p>contenu</p>
+						</div>
+						<div id="popupContentEventDate" class="alert alert-info" style="display: none;" autoOpen="false">
+							<p>contenu</p>
+						</div>
+						<div id="popupContentEventPeriod" class="alert alert-info" style="display: none;" autoOpen="false">
+							<p>contenu</p>
+						</div>
+					</div>
+					<div class="col ">
+						<div class="dropdown dropdown-custom" style="bottom:70px;">
+							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
+								id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">Events</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+								<li><a class="dropdown-item" href="#" id="popupTriggerEventType">Event Type</a></li>
+								<li><a class="dropdown-item" href="#" id="popupTriggerEventSubtype">Event Subtype</a></li>
+								<li><a class="dropdown-item" href="#" id="popupTriggerEventSource">Event Source</a></li>
+							</ul>
+						</div>
+						<div id="popupContentEventType"  class="alert alert-info" style="display: none;" autoOpen="false">
+						<p>contenu</p></div>
+						<div id="popupContentEventSource"  class="alert alert-info" style="display: none;" autoOpen="false">
+							<p>contenu</p>
+						</div>
+						<div id="popupContentEventSubtype"  class="alert alert-info" style="display: none;" autoOpen="false">
+							<p>contenu</p>
+						</div>
+					</div>
+					<div class="col ">
+						<div class="dropdown" style="bottom:70px;">
+							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
+							id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: white;	width: 150px;">Time Range</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<li><a class="dropdown-item" href="#" id="LastDay">Last Day</a></li>
+								<li><a class="dropdown-item" href="#" id="Last5Days">Last 5 Days</a></li>
+								<li><a class="dropdown-item" href="#" id="Last30Days">Last 30 Days</a></li>
+								<li><a class="dropdown-item" href="#" id="Last90Days">Last 90 Days</a></li>
+								<li><a class="dropdown-item" href="#" id="Last100Days">Last 100 Days</a></li>
+								<li><a class="dropdown-item" href="#" id="allDays">Last All Days</a></li>
+								<li><a class="dropdown-item" href="#" id="popupTrigger">Custom Date</a></li>
+							</ul>
+						</div>						  		
+					</div>
+					<!-- measure pas utilisé -->
+					<!-- <div class="col my-2">
+						<div class="dropdown dropdown-custom" style="bottom:70px;">
+							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
+								id="dropdownMenuButton4" data-bs-toggle="dropdown"
+								aria-expanded="false">Measure</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
+								<li><a class="dropdown-item" href="#">Events</a></li>
+								<li><a class="dropdown-item" href="#">Fatalities</a></li>
+							</ul>
+						</div>
+					</div> -->
+					<!-- point type pas utilisé -->
+					<!-- <div class="col my-2">
+						<div class="dropdown dropdown-custom" style="bottom:70px;">
+							<button class="btn btn-ligth dropdown-toggle text-dark" type="button"
+								id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-expanded="false">Point Type
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton5">
+								<li><a class="dropdown-item" href="#">Icon</a></li>
+								<li><a class="dropdown-item" href="#">Point</a></li>
+							</ul>
+						</div>
+					</div> -->
+					<!-- <div class="col my-2">
+						<div class="dropdown dropdown-custom"style="bottom:70px;">
+							<button class="btn btn-ligth dropdown-toggle text-dark" type="button" id="dropdownMenuButton6" data-bs-toggle="dropdown" aria-expanded="false">Map Type
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton6">
+								<li><a class="dropdown-item" href="#">Default</a></li>
+								<li><a class="dropdown-item" href="#">Satellite</a></li>
+							</ul>
+						</div>
+					</div> -->
+					<div class="col ">
+						<div class="dropdown dropdown-custom" style="bottom:70px;">
+							<button class="btn btn-light dropdown-toggle text-dark" type="button" id="dropdownMenuButton7" data-bs-toggle="dropdown" aria-expanded="false">Last Available</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton7" id="eventDatesDropdown">
+								<!-- Dropdown items seront ajoutés ici par js -->
+							</ul>
+						</div>
+					</div>					
+				</div>
+
+				<!-- popup -->
+
+				
+		<div id="popupContent" class="alert alert-info" style="display: none; width: 500px;">					
+			<div class="modal-content">
+				<div class="modal-header" style="color: black;">
+					<h5 class="modal-title" id="myModalLabel">Select date range :</h5>
+					<!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button> -->
+				</div>
+				<div class="modal-body" style="color: black;">
+					<div class="row">
+						<div class="col">
+							<div class="input-group">
+								<span class="input-group-text" style="font-size: x-small;" >Start Date</span>
+								<input type="text" id="dateRangePicker1" class="form-control datepicker-input" />
+							</div>
+							<!-- Calendrier pour la date de début -->
+							<div id="calendarStart" class="datepicker-calendar">
+							</div>
+						</div>
+						<div class="col">
+							<div class="input-group">
+								<span class="input-group-text" style="font-size:  x-small;">End Date</span>
+								<input type="text" id="dateRangePicker2" class="form-control datepicker-input"/>
+							</div>
+							<!-- Calendrier pour la date de fin -->
+							<div id="calendarEnd" class="datepicker-calendar"></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="btnApply">Apply</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnClose">Close</button>
+					<div id="confirmationMessage" style="display: none;">
+						Date validée
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+		</div>
+	</div>
+	<div class="row row-card-no-pd">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">
+					<div class="card-head-row card-tools-still-right">
+						<h4 class="card-title">Users Geolocation</h4>
+						<div class="card-tools">
+							<div class="row">
+								<div class="col">
+									<div class="dropdown show">
+										<a class="btn btn-success dropdown-toggle" href="#" role="button"
+											id="continentDropdownButton" data-toggle="dropdown" aria-haspopup="true"
+											aria-expanded="false">
+											Select a continent
+										</a>
+
+										<div class="dropdown-menu" aria-labelledby="continentDropdownButton"
+											id="continentDropdown">
+
+											{% for continent in continentsData.continents %}
+											<a class="dropdown-item continent-item" href="#"
+												data-value="{{ continent.name }}">{{ continent.name }}</a>
+											{% endfor %}
+
+
+										</div>
+									</div>
+								</div>
+								<div class="col">
+
+									<div class="dropdown show" id="regionDropdownContainer" style="display: none;">
+										<a class="btn btn-success dropdown-toggle" href="#" role="button"
+											id="regionDropdownButton" data-toggle="dropdown" aria-haspopup="true"
+											aria-expanded="false">
+											Select a region
+										</a>
+
+										<div class="dropdown-menu" aria-labelledby="regionDropdownButton"
+											id="regionDropdown">
+											<!-- This will be populated with regions based on the selected continent -->
+										</div>
+									</div>
+								</div>
+								<div class="col">
+									<!-- Menu déroulant des pays avec barre de recherche -->
+									<div class="dropdown show" id="countryDropdownContainer" style="display: none;">
+										<a class="btn btn-success dropdown-toggle" href="#" role="button"
+											id="countryDropdownButton" data-toggle="dropdown" aria-haspopup="true"
+											aria-expanded="false">
+											Select a country
+										</a>
+
+										<div class="dropdown-menu" aria-labelledby="countryDropdownButton"
+											id="countryDropdown">
+
+
+
+											<!-- Liste des pays -->
+											<!-- This will be populated with countries based on the selected region -->
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+					<a class="btn btn-info btn-border btn-round btn-sm mr-2" id="BasemapBtn">
+						<span class="btn-label">
+							<i class="fa fa-pencil"></i>
+						</span>
+						Normal
+					</a>
+					<a class="btn btn-info btn-border btn-round btn-sm mr-2" id="HeatmapBtn">
+						<span class="btn-label">
+							<i class="fa fa-pencil"></i>
+						</span>
+						Chaleur
+					</a>
+					<a class="btn btn-info btn-border btn-round btn-sm mr-2" id="SatmapBtn">
+						<span class="btn-label">
+							<i class="fa fa-pencil"></i>
+						</span>
+						Satellite
+					</a>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="mapcontainer">
+								<div id="map" style="width: 1180px; height: 500px;"></div>
+								<div id="heatmapMap" style="width: 1180px; height: 500px; display: none;"></div>
+								<div id="satmapMap" style="width: 1180px; height: 500px; display: none;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="page-inner mt--5">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="card">
+					<div class="card-header">
+						<div class="card-head-row">
+							<div class="card-title">Event per Countries</div>
+							<div class="card-tools">
+								<a class="btn btn-info btn-border btn-round btn-sm mr-2" id="perCountryBtn">
+									<span class="btn-label">
+										<i class="fa fa-pencil"></i>
+									</span>
+									per Country
+								</a>
+								<a class="btn btn-info btn-border btn-round btn-sm mr-2" id="perPeriodBtn">
+									<span class="btn-label">
+										<i class="fa fa-pencil"></i>
+									</span>
+									per Period
+								</a>
+								<a class="btn btn-info btn-border btn-round btn-sm mr-2" id="perTypeSubtypeBtn">
+									<span class="btn-label">
+										<i class="fa fa-pencil"></i>
+									</span>
+									per Type&Subtype
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="chart-container">
+							<canvas id="barChart"></canvas>
+							<canvas id="lineChart" style="display:none;"></canvas>
+							<canvas id="bubbleChart" style="display:none;"></canvas>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 custom-height">
+				<div class="card card-primary bg-primary-gradient">
+					<div class="card-body d-flex flex-column">
+						<h4 class="mt-3 b-b1 pb-2 mb-4 fw-bold">Pays</h4>
+						<h5 class="mb-4 fw-bold" id="paysName">---</h5>
+						<h4 class="mt-3 b-b1 pb-2 mb-5 fw-bold">Details Event</h4>
+						<ul class="list-unstyled">
+							<li class="d-flex justify-content-between pb-1 pt-1">
+								<h5>Année:</h5> <span><strong id="year">---</strong></span>
+							</li>
+							<br>
+							<li class="d-flex justify-content-between pb-1 pt-1">
+								<h5>Total Events:</h5> <span><strong id="totEvents">---</strong></span>
+							</li>
+							<br>
+							<li class="d-flex justify-content-between pb-1 pt-1">
+								<h5>Fatalities:</h5> <span><strong id="fatals">---</strong></span>
+							</li>	
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header">
+						<div class="card-title">Event per Period</div>
+					</div>
+					<div class="card-body">
+						<div class="chart-container">
+							<canvas id="barPeriod"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header">
+						<div class="card-title">Per Type&SubTypes</div>
+					</div>
+					<div class="card-body">
+						<div class="chart-container">
+							<canvas id="barType"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card full-height" id="event-card">
+					<div class="card-header">
+						<div class="card-title">
+							<div class="row align-items-center">
+								<!-- Colonne "Last Events" -->
+								<div class="col-md-3">
+									<span>Last Events</span>
+								</div>
+								<!-- Colonne de la barre de recherche -->
+								<div class="col-md-9">
+									<div class="input-group">
+										<input type="text" class="form-control" id="search-bar"
+											placeholder="Search..." aria-haspopup="true" aria-expanded="false"
+											data-toggle="dropdown">
+										<div class="input-group-append">
+											<button class="btn btn-outline-secondary dropdown-toggle" type="button"
+												data-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false"></button>
+											<div class="dropdown-menu" aria-labelledby="search-bar">
+												<div id="dropdown-options"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<!-- Contenu du corps de la carte -->
+							<ol class="activity-feed" id="activity-feed">
+								<!-- Les données récupérées via AJAX seront affichées ici -->
+							</ol>
+						</div>
+					</div>
+				</div>
+				<div id="replace"></div>
+				<div id="events_information"></div>
+				<div id="div-main-actor"></div>
+				<div id="div-event-type"></div>
+				<div id="div-event-type-description"></div>
+				<div id="div-main-actor-description"></div>
+				<div id="div-sub-event"></div>
+				<div id="div-sub-event-description"></div>
+				<div id="div-event-source"></div>
+				<div id="div-event-source-description"></div>
+				<div id="div-year"></div>
+				<div id="div-year-description"></div>
+				<div id="div-event-date"></div>
+				<div id="div-event-date-description"></div>
+
+
+			</div>
+		
+			<div class="col-md-6">
+				<div class="card full-height">
+					<div class="card-header">
+						<div class="card-head-row">
+							<div class="card-title">Commentaires</div>
+							<div class="card-tools">
+								<div class="form-group">
+									<div class="input-icon">
+										<input id="commentSearch" type="text" class="form-control"
+											placeholder="Search for...">
+										<span class="input-icon-addon">
+											<i class="fa fa-search"></i>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Boucle pour afficher les commentaires -->
+
+					<div class="card-body comment" id="commentsContainer">
+						<!-- Boucle pour afficher les commentaires -->
+						{% for comment in comments reversed %}
+						<div class="d-flex mb-2 comment-entry">
+							<!-- Avatar de l'utilisateur -->
+							<div class="avatar avatar-online">
+								<span class="avatar-title rounded-circle border border-white random-color">
+									{{ comment.get_username|slice:"1" }}</span>
+							</div>
+							<!-- Contenu du commentaire -->
+							<div class="flex-1 ml-3 pt-1" style="color: white;">
+								<h6 class="text-uppercase fw-bold mb-1">
+									{{ comment.get_username }}
+									{{ comment.user.first_name }}
+									{{ comment.user.last_name }}</h6>
+								<span class="text-muted" style="color: white !important;">{{ comment.text }}</span>
+							</div>
+							<!-- Heure du commentaire -->
+							<div class="float-right pt-1">
+								<small class="text-muted" style="color: white !important;">{{ comment.date|date:"G:i / j M Y " }}</small>
+							</div>
+						</div>
+						<div class="separator-dashed"></div>
+						{% endfor %}
+					</div>
+
+					<br>
+					<div class="container" style="text-align: center;" id="postButton">
+						<button class="btn btn-secondary mt-3" style="height: 45px; width: 130px; ">
+							<span class="btn-label">
+								<i class="fa fa-plus"></i>
+							</span>
+							Post
+						</button>
+					</div>
+
+
+					<!-- Affichez le formulaire pour poster un commentaire -->
+					<form id="commentForm" method="post" class="hidden-form">
+						{% csrf_token %}
+						<textarea id="commentText" name="text" class="form-control" rows="3"
+							placeholder="Write a comment..."></textarea>
+						<div class="container" style="text-align: center;" id="postButtonContainer">
+							<div class="card-action">
+								<button type="button" class="btn btn-danger mr-2" id="cancelButton">Annuler</button>
+								<button type="button" class="btn btn-success" id="submitCommentBtn">Valider</button>
+							</div>
+						</div>
+
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<!-- Atlantis DEMO methods, don't include it in your project! -->
+<script src="/static/assets/js/setting-demo.js"></script>
+<script src="/static/assets/js/demo.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js"></script>
+<script src="https://unpkg.com/mapbox-gl@2.4.1/dist/mapbox-gl.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
+
+
+
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://unpkg.com/mapbox-gl@2.4.1/dist/mapbox-gl.css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+
+
+
+<style>
+	.back-button {
+  background: transparent;
+  border: none; /* Supprime les bordures du bouton si elles existent */
+  padding: 0; /* Supprime le rembourrage du bouton pour qu'il n'ait pas d'espace autour de l'icône */
+  font-size: 20px; /* Ajustez la taille de la police selon vos besoins */
+  color: #333; /* Couleur de l'icône (par exemple, noir) */
+  cursor: pointer; /* Change le curseur lorsqu'il survole le bouton */
+}
+
+.back-button i {
+  margin-right: 5px; /* Ajoute un espacement à droite de l'icône si nécessaire */
+}
+
+	/* CSS personnalisé pour afficher la liste des pays en dessous du bouton */
+	.dropdown-menu {
+		max-height: 200px;
+		overflow-y: auto;
+		/*top: 100% !important;
+		margin-top: 171px !important;*/
+	}
+
+	.dropdown-menu .dropdown-item {
+		/* Retirez ou désactivez la règle de filter */
+		/* filter: blur(2px); */
+		/* Ou réglez la valeur sur none */
+		filter: none;
+	}
+
+	.chart-container {
+		height: 350px;
+	}
+
+	.custom-height {
+		height: 350px;
+	}
+
+	.popup {
+		background-color: white;
+		/*border: 1px solid #ddd;*/
+		padding: 0px;
+		display: flex;
+		position: absolute;
+		top: 0;
+		right: 0;
+		border-radius: 5px;
+	}
+
+	.popup i {
+		margin: 0 5px;
+		cursor: pointer;
+	}
+
+	.hidden-form {
+		display: none;
+	}
+
+	.comment {
+		max-height: 310px;
+		overflow-y: auto;
+	}
+
+	.comment-highlight {
+		background-color: red;
+	}
+
+
+
+	.card-body-scroll {
+		overflow: auto;
+		/* Défilement automatique lorsque le contenu dépasse */
+		max-height: 500px;
+		/* Hauteur maximale du div avec défilement */
+	}
+
+	.col-md-4-hidden {
+		display: none;
+	}
+
+	.legend-box {
+		width: 20px;
+		height: 20px;
+		border: 1px solid #ccc;
+		display: inline-block;
+		vertical-align: middle;
+		margin-right: 5px;
+	}
+
+	/* style de la plus grande chart*/
+
+	.chart-grand {
+		height: 500px;
+		/* Vous pouvez ajuster la hauteur souhaitée ici */
+	}
+
+	/* Additional styles for the modal */
+	.modal-dialog {
+		max-width: 300px;
+		/* Reduce the modal width */
+		bottom: 100px;
+	}
+
+	.modal-content {
+		max-height: 400px;
+		/* Adjust the modal content height */
+		overflow-y: auto;
+		/* Enable vertical scroll if content overflows */
+	}
+
+	/* Positionnement personnalisé pour la fenêtre modale */
+	.modal-bottom {
+		margin-top: 50px;
+		/* Ajuster l'espace entre le dropdown et la fenêtre modale */
+		margin-right: 50px;
+	}
+
+	/* Styles personnalisés pour les dropdowns */
+	.dropdown-custom .btn {
+		background-color: #ffffff;
+		/* Couleur de fond blanche */
+		color: #000000;
+		/* Couleur du texte en noir */
+		width: 130px;
+		/* Largeur du dropdown */
+	}
+
+	.dropdown-custom .btn:hover,
+	.dropdown-custom .btn:focus {
+		background-color: #f2f2f2;
+		/* Couleur de fond au survol ou au focus */
+	}
+
+	.dropdown-custom .dropdown-menu {
+		background-color: #ffffff;
+		/* Couleur de fond blanche pour la liste déroulante */
+		width: 10px;
+		/* Même largeur que le dropdown */
+	}
+
+	.dropdown-custom .dropdown-item {
+		color: #000000;
+		/* Couleur du texte en noir pour les éléments de la liste déroulante */
+	}
+
+	.dropdown-custom .dropdown-item:hover,
+	.dropdown-custom .dropdown-item:focus {
+		background-color: #f2f2f2;
+		/* Couleur de fond au survol ou au focus des éléments de la liste déroulante */
+	}
+
+	/* Ajuster la largeur des boutons */
+	.btn-custom-width {
+		width: 150px;
+		/* Vous pouvez ajuster cette valeur selon vos besoins */
+	}
+
+	/* Ajuster la liste déroulante à la largeur du bouton déclencheur */
+	.dropdown.show .dropdown-menu {
+		width: 100% !important;
+	}
+
+
+	/* -----------------------integration ----------------- */
+	
+    #popupContent {
+		top: 135px;
+		left: 350px;
+        position: absolute;
+        background-color: white;        
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        z-index: 1000; /* Assure que le popup soit au-dessus des autres éléments */
+    }
+    #popupContentActor {
+		top: -30px;
+        width:190px;
+		display: none;
+		height:300px;
+        position: absolute;
+        background-color: white;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        z-index: 1000; /* Assure que le popup soit au-dessus des autres éléments */
+        overflow: auto;
+    }
+    #popupContentMainActor{	
+		top: -30px;
+		display: none;
+        width:190px;
+		height:300px;
+		position:absolute;
+		background-color: white;
+		box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+		z-index:1000;
+		overflow:auto;
+	}
+    /* Style du message "Aucun résultat trouvé" */
+    /* #noResultsMessage {
+        color: red; 
+        font-style: italic;
+    } */
+    
+    #searchBar {
+        padding: 5px;
+        width: 150px; /* Ajustez la largeur selon vos préférences */
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+    /* Style de la barre de recherche */
+    #searchBarActor {
+        padding: 5px;
+        width: 150px; /* Ajustez la largeur selon vos préférences */
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    } 
+	#popupContentEventType{
+		top: -30px;
+		display: none;
+		width: 190px;
+		height: 300px;
+		position: absolute;
+		background-color: white;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+		z-index: 1000;
+		overflow:auto;
+	}
+	#searchBarEventType{
+		padding: 5px;
+		width:150px;
+		border:1px solid #ccc;
+		border-radius : 4px;
+		margin-bottom : 10px;
+	}
+	#popupContentEventYear{
+		top: -30px;
+		display: none;
+		width: 190px;
+		height: 120px;
+		position: absolute;
+		background-color: white;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+		z-index: 1000;
+		/* overflow:auto; */
+	}
+	#searchBarEventYear{
+		padding: 5px;
+		width:150px;
+		border:1px solid #ccc;
+		border-radius : 4px;
+		margin-bottom : 10px;
+	}
+	#popupContentEventSource{
+		top: -30px;
+		display: none;
+		width: 190px;
+		height: 300px;
+		position: absolute;
+		background-color: white;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+		z-index: 1000;
+		overflow:auto;
+	}
+	#searchBarEventSource{
+		padding: 5px;
+		width:150px;
+		border:1px solid #ccc;
+		border-radius : 4px;
+		margin-bottom : 10px;
+	}
+	#popupContentEventDate{
+		top: -30px;
+		display: none;
+		width: 190px;
+		height: 300px;
+		position: absolute;
+		background-color: white;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+		z-index: 1000;
+		overflow:auto;
+	}
+	#searchBarEventDate{
+		padding: 5px;
+		width:150px;
+		border:1px solid #ccc;
+		border-radius : 4px;
+		margin-bottom : 10px;
+	}
+	#popupContentEventPeriod{
+		top: -30px;
+		display: none;
+		width: 190px;
+		height: 300px;
+		position: absolute;
+		background-color: white;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+		z-index: 1000;
+		overflow:auto;
+	}
+	#searchBarEventPeriod{
+		padding: 5px;
+		width:150px;
+		border:1px solid #ccc;
+		border-radius : 4px;
+		margin-bottom : 10px;
+	}
+	#popupContentEventSubtype{
+		top: -30px;
+		display: none;
+		width: 190px;
+		height: 300px;
+		position: absolute;
+		background-color: white;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+		z-index: 1000;
+		overflow:auto;
+	}
+	#searchBarEventSubtype{
+		padding: 5px;
+		width:150px;
+		border:1px solid #ccc;
+		border-radius : 4px;
+		margin-bottom : 10px;
+	}
+	.hide {
+    display: none;
+	}
+
+</style>
+
+<script>
+
+
+
+	
+document.addEventListener("DOMContentLoaded", function() {
+    const popupts = [
+        { trigger: "popupTrigger", content: "popupContent" },
+        { trigger: "popupTriggerActor", content: "popupContentActor" },
+        { trigger: "popupTriggerMainActor", content: "popupContentMainActor" },
+        { trigger: "popupTriggerEventType", content: "popupContentEventType" },
+		{ trigger : "popupTriggerEventYear", content: "popupContentEventYear"	},
+		{ trigger : "popupTriggerEventSource", content: "popupContentEventSource"	},
+		{ trigger : "popupTriggerEventDate", content: "popupContentEventDate"	},
+		{ trigger : "popupTriggerEventPeriod", content: "popupContentEventPeriod"	},
+		{ trigger : "popupTriggerEventSubtype", content: "popupContentEventSubtype"	},
+    ];
+	
+		// Masquer les popups au chargement initial
+		popupts.forEach(function(popup) {
+        const popupContent = document.getElementById(popup.content);
+        popupContent.style.display = "none";
+	
+    });
+	 
+    popupts.forEach(function(popup) {
+        const popupTrigger = document.getElementById(popup.trigger);
+        const popupContent = document.getElementById(popup.content);
+
+        popupTrigger.addEventListener("click", function(event) {
+            event.stopPropagation();
+            popupContent.style.display = "block";			
+        });
+
+        document.addEventListener("click", function(event) {
+            if (!popupContent.contains(event.target) && event.target !== popupTrigger) {
+                popupContent.style.display = "none";
+            }
+        });
+    });
+});
+
+	Circles.create({
+		id: 'circles-1',
+		radius: 45,
+		value: 60,
+		maxValue: 100,
+		width: 7,
+		text: 5,
+		colors: ['#f1f1f1', '#FF9E27'],
+		duration: 400,
+		wrpClass: 'circles-wrp',
+		textClass: 'circles-text',
+		styleWrapper: true,
+		styleText: true
+	})
+
+	Circles.create({
+		id: 'circles-2',
+		radius: 45,
+		value: 70,
+		maxValue: 100,
+		width: 7,
+		text: 36,
+		colors: ['#f1f1f1', '#2BB930'],
+		duration: 400,
+		wrpClass: 'circles-wrp',
+		textClass: 'circles-text',
+		styleWrapper: true,
+		styleText: true
+	})
+
+	Circles.create({
+		id: 'circles-3',
+		radius: 45,
+		value: 40,
+		maxValue: 100,
+		width: 7,
+		text: 12,
+		colors: ['#f1f1f1', '#F25961'],
+		duration: 400,
+		wrpClass: 'circles-wrp',
+		textClass: 'circles-text',
+		styleWrapper: true,
+		styleText: true
+	})
+
+	$('#lineChart').sparkline([105, 103, 123, 100, 95, 105, 115], {
+		type: 'line',
+		height: '70',
+		width: '100%',
+		lineWidth: '2',
+		lineColor: '#ffa534',
+		fillColor: 'rgba(255, 165, 52, .14)'
+	});
+
+	var lineChart = document.getElementById('lineChart').getContext('2d'),
+		bubbleChart = document.getElementById('bubbleChart').getContext('2d')
+
+
+	var myLineChart = new Chart(lineChart, {
+		type: 'line',
+		data: {
+			labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+			datasets: [{
+				label: "Active Users",
+				borderColor: "#1d7af3",
+				pointBorderColor: "#FFF",
+				pointBackgroundColor: "#1d7af3",
+				pointBorderWidth: 2,
+				pointHoverRadius: 4,
+				pointHoverBorderWidth: 1,
+				pointRadius: 4,
+				backgroundColor: 'transparent',
+				fill: true,
+				borderWidth: 2,
+				data: [542, 480, 430, 550, 530, 453, 380, 434, 568, 610, 700, 900]
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			legend: {
+				position: 'bottom',
+				labels: {
+					padding: 10,
+					fontColor: '#1d7af3',
+				}
+			},
+			tooltips: {
+				bodySpacing: 4,
+				mode: "nearest",
+				intersect: 0,
+				position: "nearest",
+				xPadding: 10,
+				yPadding: 10,
+				caretPadding: 10
+			},
+			layout: {
+				padding: { left: 15, right: 15, top: 15, bottom: 15 }
+			}
+		}
+	});
+
+	var myBubbleChart = new Chart(bubbleChart, {
+		type: 'bubble',
+		data: {
+			datasets: [{
+				label: "Car",
+				data: [{ x: 25, y: 17, r: 25 }, { x: 30, y: 25, r: 28 }, { x: 35, y: 30, r: 8 }],
+				backgroundColor: "#716aca"
+			},
+			{
+				label: "Motorcycles",
+				data: [{ x: 10, y: 17, r: 20 }, { x: 30, y: 10, r: 7 }, { x: 35, y: 20, r: 10 }],
+				backgroundColor: "#1d7af3"
+			}],
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			legend: {
+				position: 'bottom'
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}],
+				xAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}]
+			},
+		}
+	});
+
+
+	// Gérer le clic sur le bouton "per Country"
+	$("#perCountryBtn").on("click", function () {
+		// Afficher le graphique "barChart" et masquer les autres graphiques
+		$("#barChart").show();
+		$("#lineChart").hide();
+		$("#bubbleChart").hide();
+	});
+
+	// Gérer le clic sur le bouton "per Period"
+	$("#perPeriodBtn").on("click", function () {
+		// Afficher le graphique "lineChart" et masquer les autres graphiques
+		$("#barChart").hide();
+		$("#lineChart").show();
+		$("#bubbleChart").hide();
+	});
+
+	// Gérer le clic sur le bouton "per Type&Subtype"
+	$("#perTypeSubtypeBtn").on("click", function () {
+		// Afficher le graphique "bubbleChart" et masquer les autres graphiques
+		$("#barChart").hide();
+		$("#lineChart").hide();
+		$("#bubbleChart").show();
+	});
+
+	// Afficher le graphique "barChart" par défaut
+	$("#barChart").show();
+
+
+
+	// Masquer la carte de chaleur et afficher la carte de base
+	/*document.querySelector('.mapcontainer #heatmapMap').style.display = 'none';
+	document.querySelector('.mapcontainer #map').style.display = 'block';*/
+
+
+
+	
+
+
+	mapboxgl.accessToken = 'pk.eyJ1IjoidHJpZ2dlcnMiLCJhIjoiY2wxMjNxYmkwMDM2ZjNpbXZvMXNqaXRwcyJ9.CPlAR38urDrvZeJOIUERIw';
+	// var map = new mapboxgl.Map({
+	// 	container: 'map',
+	// 	style: 'mapbox://styles/mapbox/streets-v11',
+	// 	center: [-5.5471, 7.5468545], // Remplacez par les coordonnées du centre de votre carte
+	// 	zoom: 5,// Niveau de zoom initial
+	// 	maxZoom: 15
+	// });
+	var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [0, 0], // Centre de la carte au milieu de l'océan Atlantique
+    zoom: 2, // Zoom pour afficher tous les continents
+    maxZoom: 15
+});
+
+
+
+	var heatmapMap = new mapboxgl.Map({
+		container: 'heatmapMap',
+		style: 'mapbox://styles/mapbox/light-v10',
+		center: [-5.5471, 7.5468545], // Remplacez par les coordonnées du centre de votre carte
+		zoom: 5,// Niveau de zoom initial
+		maxZoom: 15
+	});
+
+	var satmapMap = new mapboxgl.Map({
+		container: 'satmapMap',
+		style: 'mapbox://styles/mapbox/satellite-v9',
+		center: [-5.5471, 7.5468545], // Remplacez par les coordonnées du centre de votre carte
+		zoom: 5,// Niveau de zoom initial
+		maxZoom: 15
+	});
+
+	var geolocateControl = new mapboxgl.GeolocateControl({ // Utilisation de this.geolocateControl
+		positionOptions: {
+			enableHighAccuracy: true
+		},
+		trackUserLocation: true,
+		showUserHeading: true
+	});
+
+	var geolocateHeatControl = new mapboxgl.GeolocateControl({ // Utilisation de this.geolocateControl
+		positionOptions: {
+			enableHighAccuracy: true
+		},
+		trackUserLocation: true,
+		showUserHeading: true
+	});
+
+	var geolocateSatControl = new mapboxgl.GeolocateControl({ // Utilisation de this.geolocateControl
+		positionOptions: {
+			enableHighAccuracy: true
+		},
+		trackUserLocation: true,
+		showUserHeading: true
+	});
+
+	map.addControl(this.geolocateControl, 'top-left');
+	heatmapMap.addControl(this.geolocateHeatControl, 'top-left');
+	satmapMap.addControl(this.geolocateSatControl, 'top-left');
+
+	var mapes = [map, heatmapMap, satmapMap];
+
+
+
+		// Gérer le clic sur le bouton "per Country"
+	$("#BasemapBtn").on("click", function () {
+		// Afficher le graphique "barChart" et masquer les autres graphiques
+		$("#map").show();
+		$("#heatmapMap").hide();
+		$("#satmapMap").hide();
+	});
+
+	// Afficher le graphique "barChart" par défaut
+	$("#map").show();
+
+
+
+	var heatmapData = [
+		{ lng: 13.404954, lat: 52.520008, value: 0.6 }, // Berlin, Germany
+		{ lng: 2.352222, lat: 48.856614, value: 0.7 }, // Paris, France
+		{ lng: -0.180525, lat: 51.404818, value: 0.9 }, // London, United Kingdom
+		{ lng: 4.351710, lat: 50.850340, value: 0.8 }, // Brussels, Belgium
+		{ lng: 12.496366, lat: 41.902782, value: 0.4 }, // Rome, Italy
+		{ lng: 31.235712, lat: 30.044420, value: 0.3 }, // Cairo, Egypt
+		{ lng: 2.173403, lat: 41.385064, value: 0.5 }, // Barcelona, Spain
+		{ lng: 32.585179, lat: 15.500654, value: 0.2 }, // Khartoum, Sudan
+		{ lng: 35.689506, lat: 139.691700, value: 0.7 }, // Tokyo, Japan
+		{ lng: 25.276987, lat: -25.731340, value: 0.6 }, // Johannesburg, South Africa
+		{ lng: 5.603717, lat: 52.076665, value: 0.8 }, // Amsterdam, Netherlands
+		{ lng: -8.629105, lat: 41.157944, value: 0.4 }, // Porto, Portugal
+		// Ajoutez plus de points avec leurs coordonnées et valeurs ici
+	];
+
+
+
+	heatmapMap.on('load', function () {
+		// Ajouter la couche de chaleur à la carte de chaleur
+		heatmapMap.addLayer({
+			id: 'heatmapLayer',
+			type: 'heatmap',
+			source: {
+				type: 'geojson',
+				data: {
+					type: 'FeatureCollection',
+					features: heatmapData.map(point => ({
+						type: 'Feature',
+						geometry: {
+							type: 'Point',
+							coordinates: [point.lng, point.lat]
+						},
+						properties: {
+							value: point.value
+						}
+					}))
+				}
+			},
+			paint: {
+				'heatmap-radius': 20,
+				'heatmap-color': [
+					'interpolate',
+					['linear'],
+					['heatmap-density'],
+					0, 'rgba(33,102,172,0)',
+					0.2, 'rgb(103,169,207)',
+					0.4, 'rgb(209,229,240)',
+					0.6, 'rgb(253,219,199)',
+					0.8, 'rgb(239,138,98)',
+					1, 'rgb(178,24,43)'
+				],
+				'heatmap-opacity': 0.75
+			}
+		});
+	});
+
+
+	document.getElementById('HeatmapBtn').addEventListener('click', function () {
+		// Masquer la carte existante et afficher la carte de chaleur
+		document.querySelector('.mapcontainer #map').style.display = 'none';
+		document.querySelector('.mapcontainer #satmapMap').style.display = 'none';
+		document.querySelector('.mapcontainer #heatmapMap').style.display = 'block';
+
+		// Redimensionner la carte de chaleur pour s'adapter à la taille du conteneur
+		heatmapMap.resize();
+	});
+
+	document.getElementById('SatmapBtn').addEventListener('click', function () {
+		// Masquer la carte existante et afficher la carte de chaleur
+		document.querySelector('.mapcontainer #map').style.display = 'none';
+		document.querySelector('.mapcontainer #heatmapMap').style.display = 'none';
+		document.querySelector('.mapcontainer #satmapMap').style.display = 'block';
+
+		// Redimensionner la carte de chaleur pour s'adapter à la taille du conteneur
+		satmapMap.resize();
+	});
+	
+
+
+	function updateCountryCard(data, countryName) {
+		// Trouvez l'entrée correspondante dans les données
+		const entry = data.find(entry => entry.country === countryName);
+		// console.log("maco",data)
+
+		if (entry) {
+			// Sélectionnez les éléments HTML correspondants par leurs identifiants
+			var countryNameElement = document.getElementById('paysName');
+			var yearElement = document.getElementById('year');
+			var totalEventsElement = document.getElementById('totEvents');
+			var fatalitiesElement = document.getElementById('fatals');
+
+			// Mettez à jour le contenu HTML avec les informations du pays
+			countryNameElement.textContent = entry.country;
+			yearElement.textContent = entry.years;
+			totalEventsElement.textContent = entry.event_count;
+			fatalitiesElement.textContent = entry.total_fatalities;
+		} else {
+			// Gérer le cas où aucune donnée n'est disponible pour le pays
+			console.log("Aucune donnée disponible pour " + countryName);
+		}
+	}
+
+
+
+	function loadJSON(callback) {
+		const xhr = new XMLHttpRequest();
+		xhr.overrideMimeType("application/json");
+		xhr.open("GET", "{% static 'json/pays.json' %}", true);
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				continentsData = JSON.parse(xhr.responseText);
+				callback(continentsData); // Appelez la fonction de rappel avec les données JSON en tant qu'argument
+			}
+		};
+		xhr.send(null);
+	}
+
+	let selectedMarker;
+	var myBarChart;
+	// Utilisez la fonction loadJSON pour récupérer les données JSON
+	loadJSON(function (data) {
+		// Ici, vous pouvez utiliser les données JSON récupérées
+		// console.log(data);
+
+		// Placez le reste de votre code ici, en utilisant les données JSON
+
+		// Récupérer les éléments des menus déroulants
+		// Récupérer les éléments des menus déroulants
+		const continentDropdown = $("#continentDropdown");
+		const regionDropdownContainer = $("#regionDropdownContainer");
+		const regionDropdown = $("#regionDropdown");
+		const countryDropdownContainer = $("#countryDropdownContainer");
+		const countryDropdown = $("#countryDropdown");
+
+		// Gérer le changement de sélection dans le menu déroulant des continents
+		continentDropdown.on("click", ".continent-item", function (e) {
+			e.preventDefault();
+
+			// Récupérer le continent sélectionné
+			const selectedContinent = $(this).data("value");
+
+			// Afficher le continent sélectionné dans le bouton du menu déroulant
+			$("#continentDropdownButton").text(selectedContinent);
+
+			// Masquer le menu déroulant des pays
+			countryDropdownContainer.hide();
+			countryDropdown.empty();
+
+			// Masquer le menu déroulant des régions (au cas où l'utilisateur change de continent)
+			regionDropdownContainer.hide();
+			regionDropdown.empty();
+
+			// Récupérer les régions du continent sélectionné
+			const regions = data.continents.find(continent => continent.name === selectedContinent).regions;
+
+			// Remplir le menu déroulant des régions
+			regions.forEach(region => {
+				const optionElement = `<a class="dropdown-item region-item" href="#" data-value="${region.name}">${region.name}</a>`;
+				regionDropdown.append(optionElement);
+			});
+
+			// Afficher le menu déroulant des régions
+			regionDropdownContainer.show();
+		});
+
+
+		
+
+
+
+
+
+
+
+
+		var dataChart = {
+			labels: [], // Utilisez les noms des pays comme valeurs de l'axe des ordonnées
+			datasets: [{
+				label: "Incidents",
+				backgroundColor: 'rgb(23, 125, 255)',
+				borderColor: 'rgb(23, 125, 255)',
+				data: [], // Utilisez les valeurs des incidents comme données pour le graphique à barres
+			}]
+		};
+
+		var selectedBars = new Set();
+		var allCountries = [];
+
+		
+
+		var options = {
+			responsive: true,
+			maintainAspectRatio: false,
+			scales: {
+				xAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}]
+			},
+
+			
+
+			onClick: function (event, elements) {
+				if (elements && elements.length > 0) {
+				var elementIndex = elements[0]._index; // Index de la barre cliquée
+				var clickedBar = elements[0];
+				var dataset = this.data.datasets[clickedBar._datasetIndex];
+				var countryName = dataset.label[elementIndex];
+
+        		updateCountryCard(allCountries, countryName);
+				
+				// Vérifiez si la barre est déjà sélectionnée
+				if (selectedBars.has(elementIndex)) {
+					// Désélectionnez la barre et réinitialisez sa couleur
+					selectedBars.delete(elementIndex);
+					dataset.backgroundColor[elementIndex] = 'rgb(23, 125, 255)';
+				} else {
+					// Sélectionnez la barre et changez sa couleur
+					selectedBars.add(elementIndex);
+					dataset.backgroundColor[elementIndex] = 'beige';
+				}
+
+				// Mettez à jour le graphique
+				this.update(); 
+
+				
+
+					// Créez le popup avec les boutons ici
+					var popup = document.createElement("div");
+					popup.className = "popup";
+
+					// Créez le groupe de boutons avec les icônes
+					popup.innerHTML = `
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-secondary btn-sm active">
+                        <input type="radio" name="options" id="option1" autocomplete="off">
+                        <i class="fas fa-plus-circle"></i>
+                    </label>
+                    <label class="btn btn-secondary btn-sm">
+                        <input type="radio" name="options" id="option2" autocomplete="off">
+                        <i class="far fa-times-circle"></i>
+                    </label>
+                    <label class="btn btn-secondary btn-sm">
+                        <input type="radio" name="options" id="option3" autocomplete="off">
+                        <i class="fas fa-check"></i>
+                    </label>
+                    <label class="btn btn-secondary btn-sm">
+                        <input type="radio" name="options" id="option4" autocomplete="off">
+                        <i class="fas fa-times"></i>
+                    </label>
+                </div>
+            `;
+
+					// Ajoutez le popup à l'intérieur de la div avec la classe "chart-container"
+					var chartContainer = document.querySelector(".chart-container");
+					chartContainer.appendChild(popup);
+
+					// Positionnez le popup en haut à droite de la div "chart-container"
+					popup.style.position = "absolute";
+					popup.style.right = "0";
+					popup.style.top = "0";
+
+					// Supprimez le popup lorsque le bouton "x" est cliqué
+					var closeButton = popup.querySelector(".btn-secondary:last-child");
+					closeButton.addEventListener("click", function () {
+						chartContainer.removeChild(popup);
+					});
+				}
+			}
+		};
+
+		myBarChart = new Chart(barChart, {
+			type: 'horizontalBar', // Utilisez le type horizontalBar pour avoir un histogramme horizontal
+			data: dataChart,
+			options: options
+		});
+
+
+
+		
+	
+
+	
+
+
+
+
+
+		// Gérer le changement de sélection dans le menu déroulant des régions
+		regionDropdown.on("click", ".region-item", function (e) {
+			e.preventDefault();
+
+			// Récupérer la région sélectionnée
+			const selectedRegion = $(this).data("value");
+
+			// Afficher la région sélectionnée dans le bouton du menu déroulant
+			$("#regionDropdownButton").text(selectedRegion);
+
+			// Masquer le menu déroulant des pays (au cas où l'utilisateur change de région)
+			countryDropdownContainer.hide();
+			countryDropdown.empty();
+
+			// Récupérer les pays de la région sélectionnée
+			const continent = data.continents.find(continent => continent.name === $("#continentDropdownButton").text());
+			const countries = continent.regions.find(region => region.name === selectedRegion).countries;
+
+			// Créer l'élément de la barre de recherche
+			const searchInputElement = $('<input type="text" class="form-control search-input" placeholder="Search country...">')
+
+				.css({
+					"border-top": "0px",
+					"border-bottom": "3px solid gray",
+					"border-left": "0px",
+					"border-right": "0px",
+					"background": "white",
+					"border-radius": "25px",
+					"color": "black",
+					"height": "40px",
+				})
+				// Ajouter l'événement onkeyup à la barre de recherche
+				.on("keyup", function () {
+					filterDropdownItems(this, 'country-item');
+				});
+
+			// Ajouter la barre de recherche au début du dropdown-menu des pays
+			countryDropdown.prepend(searchInputElement);
+
+			// Remplir le menu déroulant des pays
+			countries.forEach(country => {
+				const optionElement = `<a class="dropdown-item country-item" href="#" data-value="${country.name}" data-lat="${country.latitude}" data-lon="${country.longitude}">${country.name}</a>`;
+				countryDropdown.append(optionElement);
+			});
+
+
+			// Afficher le menu déroulant des pays
+			countryDropdownContainer.show();
+
+		});
+
+		countryDropdown.on("click", ".country-item", function (e) {
+			e.preventDefault();
+
+			// Récupérer le pays sélectionné
+			const selectedCountry = $(this).data("value");
+			const lat = $(this).data("lat");
+			const lon = $(this).data("lon");
+
+			// Afficher le pays sélectionné dans le bouton du menu déroulant
+			$("#countryDropdownButton").text(selectedCountry);
+
+			// Déplacer la carte Mapbox pour centrer le pays sélectionné
+			map.flyTo({ center: [lon, lat], zoom: 5 });
+
+			heatmapMap.flyTo({ center: [lon, lat], zoom: 5 });
+
+
+			function loadCountryGeoJSON(map, countryName) {
+				// Charger les données GeoJSON des contours du pays ici
+				// Remplacez 'path/to/' par le chemin vers le dossier contenant les fichiers GeoJSON de chaque pays
+				const geoJSONPath = `/static/geojson/${countryName}.geojson`;
+
+				// Vérifier si la source de données existe déjà
+				const sourceExists = map.getSource('countries');
+
+				if (sourceExists) {
+					// Mettre à jour la source de données existante avec le nouveau fichier GeoJSON
+					map.getSource('countries').setData(geoJSONPath);
+				} else {
+					// Ajouter une nouvelle source de données pour le pays sélectionné
+					map.addSource('countries', {
+						type: 'geojson',
+						data: geoJSONPath,
+					});
+
+					// Ajouter une couche de remplissage pour le pays
+					map.addLayer({
+						id: 'country-fill',
+						type: 'fill',
+						source: 'countries',
+						paint: {
+							'fill-color': 'blue', // Couleur de remplissage des pays
+							'fill-opacity': 0.5, // Opacité de remplissage
+						},
+					});
+
+					// Ajouter une couche de contour pour le pays
+					/*map.addLayer({
+						id: 'country-outline',
+						type: 'line',
+						source: 'countries',
+						paint: {
+							'line-color': 'red', // Couleur des contours des pays
+							'line-width': 1, // Epaisseur des contours
+						},
+					});*/
+				}
+			}
+
+			loadCountryGeoJSON(map, selectedCountry);
+			loadCountryGeoJSON(heatmapMap, selectedCountry);
+			loadCountryGeoJSON(satmapMap, selectedCountry);
+
+
+
+		});
+
+
+	});
+
+	function filterDropdownItems(input, itemClass) {
+		const value = input.value.toLowerCase();
+		const items = document.getElementsByClassName(itemClass);
+
+		for (let i = 0; i < items.length; i++) {
+			const item = items[i];
+			const itemName = item.textContent.toLowerCase();
+
+			if (itemName.includes(value)) {
+				item.style.display = "block";
+			} else {
+				item.style.display = "none";
+			}
+		}
+	}
+
+	/* TOUT CE QUI CONCERNE L'ENVOI D'UN COMMENTAIRE*/
+
+
+	// Liste de classes de couleur prédéfinies
+	var colorClasses = ["bg-primary", "bg-secondary", "bg-info", "bg-success", "bg-danger", "bg-warning"];
+
+	// Fonction pour choisir une couleur aléatoire
+	function getRandomColor() {
+		var randomIndex = Math.floor(Math.random() * colorClasses.length);
+		return colorClasses[randomIndex];
+	}
+
+	// Appliquer une couleur aléatoire à tous les éléments avec la classe "random-color"
+	$(".random-color").each(function () {
+		var randomColor = getRandomColor();
+		$(this).addClass(randomColor);
+	});
+
+	// Obtenez une référence au bouton et au formulaire
+	var postButton = document.getElementById("postButton");
+	var commentForm = document.getElementById("commentForm");
+	var cancelButton = document.getElementById("cancelButton");
+
+
+	document.getElementById('submitCommentBtn').addEventListener('click', function () {
+		// Récupérer le texte du commentaire et le CSRF token
+		var commentText = document.getElementById('commentText').value;
+		var csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+		// Créer un objet de données pour envoyer via AJAX
+		var data = new FormData();
+		data.append('text', commentText);
+		data.append('csrfmiddlewaretoken', csrfToken);
+
+		// Envoyer le commentaire via AJAX
+		fetch("{% url 'home' %}", {
+			method: 'POST',
+			body: data,
+			headers: {
+				'X-CSRFToken': csrfToken,
+				'X-Requested-With': 'XMLHttpRequest' // Indiquer que c'est une requête AJAX
+			}
+		})
+			.then(response => response.json())
+			.then(data => {
+				// console.log(data.message);
+
+				// Mettez à jour la liste des commentaires dans l'interface utilisateur
+				const commentsContainer = document.querySelector(".card-body.comment");
+				const updatedComment = `
+            <!-- Nouveau commentaire -->
+				<div class="d-flex mb-2">
+					<!-- Avatar de l'utilisateur -->
+					<div class="avatar avatar-online">
+						<span class="avatar-title rounded-circle border border-white random-color">
+							${data.comment_user.username.slice(0, 1)}
+						</span>
+					</div>
+					<!-- Contenu du commentaire -->
+					<div class="flex-1 ml-3 pt-1">
+						<h6 class="text-uppercase fw-bold mb-1">
+							${data.comment_user.username}
+							${data.comment_user.first_name}
+							${data.comment_user.last_name}
+						</h6>
+						<span class="text-muted">${commentText}</span>
+					</div>
+					<!-- Heure du commentaire -->
+					<div class="float-right pt-1">
+						<small class="text-muted">Maintenant</small>
+					</div>	
+				</div>
+            <div class="separator-dashed"></div>
+        `;
+
+				// Ajouter le nouveau commentaire à la fin de la liste des commentaires
+				//commentsContainer.innerHTML += updatedComment;
+				commentsContainer.insertAdjacentHTML("afterbegin", updatedComment);
+
+				// Masquer le formulaire et afficher à nouveau le bouton "Post"
+				commentForm.classList.add("hidden-form");
+				postButton.style.display = "block";
+			})
+			.catch(error => {
+				console.error("Erreur lors de l'envoi du commentaire:", error);
+			});
+	});
+
+
+	// Ajoutez un événement de clic au bouton
+	postButton.addEventListener("click", function () {
+		// Basculez la visibilité du formulaire en ajoutant ou en supprimant la classe "hidden-form"
+		commentForm.classList.toggle("hidden-form");
+		postButton.style.display = "none"; // Masquez le bouton "Post"
+	});
+
+	cancelButton.addEventListener("click", function () {
+		// Réinitialisez la visibilité du formulaire et du bouton "Post"
+		commentForm.classList.add("hidden-form");
+		postButton.style.display = "block";
+	});
+	const commentSearchInput = document.getElementById("commentSearch");
+	const commentsContainer = document.getElementById("commentsContainer");
+	const originalCommentsHTML = commentsContainer.innerHTML;
+	const commentEntries = commentsContainer.querySelectorAll(".comment-entry");
+
+	commentSearchInput.addEventListener("input", function () {
+		const searchText = commentSearchInput.value.toLowerCase();
+
+		let filteredCommentsHTML = "";
+
+		commentEntries.forEach(function (entry) {
+			const commentText = entry.textContent.toLowerCase();
+			const shouldDisplay = commentText.includes(searchText);
+
+			if (shouldDisplay) {
+				filteredCommentsHTML += entry.outerHTML;
+			}
+		});
+
+		if (filteredCommentsHTML === "") {
+			commentsContainer.innerHTML = "No matching comments found.";
+		} else {
+			commentsContainer.innerHTML = filteredCommentsHTML;
+		}
+
+		// console.log("Je t'aime Ruru");
+	});
+
+	// Réinitialiser les commentaires à leur état initial
+	function resetComments() {
+		commentsContainer.innerHTML = originalCommentsHTML;
+	}
+
+	commentSearchInput.addEventListener("focus", function () {
+		resetComments();
+	});
+
+
+
+
+/*-----------------------------------SELECTION PAYS SUR LA CARTE---------------------------------------*/
+
+	var isPopupOpen = false;
+	var popupOKButton; // Déclarez les variables globales ici
+	var popupCancelButton;
+	var popups = {};
+
+	function createCustomPopup() {
+		var pop = new mapboxgl.Popup({
+			closeButton: false, // Désactivez le bouton de fermeture par défaut
+			className: 'custom-popup', // Classe CSS personnalisée pour le style
+		});
+
+		return pop;
+	}
+
+	// Fonction pour mettre à jour le contenu du popup
+
+
+
+	var selectedCountries = [];
+
+	// Utilisez la fonction loadJSON pour charger le fichier pays.json
+	loadJSON(function (data) {
+		// Récupérez la liste des pays
+		var countries = getCountries(data);
+		// Chargez les données GeoJSON pour chaque pays sur toutes les cartes
+		countries.forEach(country => {
+			loadPaysGeoJSON(map, country);
+			loadPaysGeoJSON(heatmapMap, country);
+			loadPaysGeoJSON(satmapMap, country);
+		});
+	});
+
+	// Fonction pour obtenir la liste des pays à partir du fichier JSON
+	function getCountries(data) {
+		var countries = [];
+
+		data.continents.forEach(continent => {
+			continent.regions.forEach(region => {
+				region.countries.forEach(country => {
+					countries.push(country);
+				});
+			});
+		});
+
+		return countries;
+	}
+
+	// Fonction pour charger les données GeoJSON d'un pays
+	function loadPaysGeoJSON(map,country) {
+		var geoJSONPath = `/static/geojson/${country.name}.geojson`;
+
+		fetch(geoJSONPath)
+			.then(response => response.json())
+			.then(geojson => {
+				// Ajoutez les données GeoJSON du pays à la carte
+				map.addSource(country.name, {
+					type: 'geojson',
+					data: geojson
+				});
+
+
+				
+				// Ajoutez une couche de remplissage avec une opacité de 0 (transparente)
+				map.addLayer({
+					id: country.name + '-fill',
+					type: 'fill',
+					source: country.name,
+					layout: {},
+					paint: {
+						'fill-color': '#e0115f', 
+						'fill-opacity': 0, 
+						'fill-outline-color': 'black' // Couleur de la bordure initiale (noire)
+					},
+					properties: {
+						'country-name': country.name
+					}
+				});
+
+
+				// Ajoutez une couche sans couleur initiale
+				map.addLayer({
+					id: country.name + '-borders',
+					type: 'line',
+					source: country.name,
+					layout: {},
+					paint: {
+						'line-width': 1,
+						'line-color': 'transparent' // Couleur de la bordure initiale (transparente)
+					},
+					properties: {
+        				'country-name': country.name
+    				}
+				});
+				
+			})
+			.catch(error => {
+				console.error('Erreur lors du chargement des données GeoJSON pour ' + country.name + ':', error);
+			});
+	}
+
+
+	
+	/*-------------------------------------------BARCHART_PERIOD---AND---TYPES&SUBTYPES------------------------*/
+
+	barPeriod = document.getElementById('barPeriod').getContext('2d')
+	barType = document.getElementById('barType').getContext('2d')
+
+
+	// Obtenez la date actuelle
+	/*var currentDate = new Date();
+
+	// Initialisez un tableau pour stocker les libellés des mois
+	var monthLabels = [];
+
+	// Bouclez pour obtenir les libellés des 12 derniers mois
+	for (var i = 11; i >= 0; i--) {
+		var month = currentDate.getMonth() + 1; // Mois actuel (1-12)
+		var year = currentDate.getFullYear(); // Année actuelle
+
+		// Ajoutez le libellé au format "MMM/YY" au tableau
+		var monthLabel = getMonthName(month) + '/' + year.toString().substr(2);
+		monthLabels.push(monthLabel);
+
+		// Passez au mois précédent
+		currentDate.setMonth(currentDate.getMonth() - 1);
+	}
+
+	// Inversez le tableau pour avoir les mois dans l'ordre
+	monthLabels.reverse();*/
+
+	// Définissez les données du graphique avec les libellés générés
+	var myBarPeriod = new Chart(barPeriod, {
+		type: 'bar',
+		data: {
+			labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+			datasets: [{
+				label: "Sales",
+				backgroundColor: 'beige',
+				borderColor: 'beige',
+				data: [],
+			}],
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}]
+			},
+		}
+	});
+
+	var myBarType = new Chart(barType, {
+		type: 'bar',
+		data: {
+			labels: ["\u{1F4A5}BAT", "\u{1F4A3}E/R", "\u{1F4E2}PRO", "\u{270A}RIO", "\u{1F680}SD", "\u{1F469}VAC"],
+			datasets: [{
+				label: "Sales",
+				backgroundColor: ['#F0C300', '#FF6600', '#7A238A', '#FA8072', '#3A9D23', '#00FFFF'],
+				borderColor: 'beige',
+				data: [],
+			}],
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}],
+				xAxes: [{
+					ticks: {
+						callback: function (label, index, labels) {
+							// Créez un dictionnaire pour faire correspondre les catégories complètes aux abréviations
+							var abbreviationMap = {
+								"Battles": "\u{1F4A5}BAT",
+								"Explosions/Remote violence": "\u{1F4A3}E/R",
+								"Protests": "\u{1F4E2}PRO",
+								"Riots": "\u{270A}RIO",
+								"Strategic developments": "\u{1F680}SD",
+								"Violence against civilians": "\u{1F469}VAC"
+							};
+							
+							// Vérifiez si une abréviation correspond à la catégorie complète
+							if (abbreviationMap[label]) {
+								return abbreviationMap[label];
+							}
+							
+							// Si aucune abréviation n'est trouvée, retournez la catégorie complète
+							return label;
+						}
+					}
+				}]
+			},
+			tooltips: {
+				callbacks: {
+					title: function(tooltipItem, data) {
+						// Récupérez l'index de la barre survolée
+						var index = tooltipItem[0].index;
+						
+						// Récupérez l'étiquette complète correspondant à l'index
+						var fullLabel = data.labels[index];
+						
+						// Retournez l'étiquette complète pour le titre du tooltip
+						return fullLabel;
+					}
+				}
+			},
+			
+		}
+	});
+	
+	function getCategoryEmoji(category) {
+		const emojiMap = {
+			"Battles": "\u{1F4A5}",
+			"Explosions/Remote violence": "\u{1F4A3}",
+			"Protests": "\u{1F4E2}",
+			"Riots": "\u{270A}",
+			"Strategic developments": "\u{1F680}",
+			"Violence against civilians": "\u{1F469}"
+		};
+
+		// Retournez l'emoji correspondant à la catégorie, ou une chaîne vide par défaut
+		return emojiMap[category] || "";
+	}
+
+	function OKButtonClick(selectedCountries, mapes, myBarChart) {
+    // Effectuez une requête AJAX pour obtenir les données des événements
+    $.ajax({
+        type: "GET",
+        url: "{% url 'fetch_event_data' %}",
+        data: { selectedCountries: selectedCountries },
+        dataType: "json",
+        success: function (data) {
+            // console.log("enfin", data);
+            // Les données des événements sont disponibles dans la variable "data"
+
+            // Créez un tableau pour stocker toutes les valeurs, y compris les nulles
+                allCountries = selectedCountries.map(countryName => {
+                const entry = data.find(entry => entry.country === countryName);
+                if (entry) {
+					
+                    return {
+                        country: entry.country,
+                        event_count: entry.event_count
+                    };
+                } else {
+                    return {
+                        country: countryName,
+                        event_count: 0 // Valeur nulle
+                    };
+                }
+			
+           
+            });
+
+            const labels = allCountries.map(entry => entry.country);
+            const eventValues = allCountries.map(entry => entry.event_count);
+
+            // Mettez à jour les données du graphique avec les données réelles
+            myBarChart.data.labels = labels;
+            myBarChart.data.datasets[0].data = eventValues;
+
+            // Personnalisez les couleurs de remplissage en fonction des valeurs des données
+            const backgroundColors = allCountries.map(entry => entry.event_count === 0 ? 'red' : 'rgb(23, 125, 255)');
+            myBarChart.data.datasets[0].backgroundColor = backgroundColors;
+
+            myBarChart.update();
+		
+
+            // Mettez à jour les propriétés de remplissage pour chaque carte
+            mapes.forEach(function (map) {
+                selectedCountries.forEach(function (countryName) {
+                    map.setPaintProperty(countryName + '-fill', 'fill-opacity', 0.5);
+                    map.setPaintProperty(countryName + '-borders', 'line-color', 'green');
+                });
+            });
+
+			updateCountryCard(data, selectedCountries[0]); 
+			$.ajax({
+                type: "GET",
+                url: "{% url 'fetch_event_period' %}",  // Utilisez le nom de vue 'fetch_event_period'
+                data: { selectedCountries: selectedCountries },
+                dataType: "json",
+                success: function (periodData) {
+					// console.log("periodData",periodData)
+
+					  // Obtenez les données de l'événement depuis periodData
+					  var eventCounts = periodData.map(function (item) {
+						return item.event_count;
+					});
+
+					var eventMonth = periodData.map(function (item) {
+						return item.month;
+					});
+
+					// Mettez à jour le dataset du graphique avec les nouvelles données
+					myBarPeriod.data.datasets[0].data = eventCounts;  
+					myBarPeriod.data.labels = eventMonth;
+					// Rafraîchissez le graphique
+					myBarPeriod.update();
+
+
+                  
+					$.ajax({
+						type: "GET",
+						url: "{% url 'fetch_event_type' %}",  // Utilisez le nom de vue 'fetch_event_period'
+						data: { selectedCountries: selectedCountries },
+						dataType: "json",
+						success: function (typeData) {
+							// console.log("typeData",typeData)
+
+							
+							var allCategories = [
+								"Battles",
+								"Explosions/Remote violence",
+								"Protests",
+								"Riots",
+								"Strategic developments",
+								"Violence against civilians"
+							];
+
+							// Créez un objet pour stocker le compte par catégorie
+							var categoryCounts = {};
+
+							// Parcourez typeData et mettez à jour le compte pour chaque catégorie
+							typeData.forEach(function (item) {
+								var category = item.category;
+								var eventCount = item.event_count;
+
+								// Si la catégorie n'existe pas dans categoryCounts, initialisez-la à 0
+								if (!categoryCounts[category]) {
+									categoryCounts[category] = 0;
+								}
+
+								// Mettez à jour le compte pour la catégorie
+								categoryCounts[category] += eventCount;
+							});
+
+							// Mettez à jour le dataset du graphique avec les nouvelles données
+							var eventCounts = Object.values(categoryCounts);
+							var eventType = Object.keys(categoryCounts);
+
+							// Ajoutez les catégories manquantes avec un compte de 0
+							allCategories.forEach(function (category) {
+								if (!eventType.includes(category)) {
+									eventType.push(category);
+									eventCounts.push(0);
+								}
+							});
+
+								eventType.sort();
+
+								if (eventType.length === 0) {
+									eventType = ["\u{1F4A5}BAT", "\u{1F4A3}E/R", "\u{1F4E2}PRO", "\u{270A}RIO", "\u{1F680}SD", "\u{1F469}VAC"];
+								}
+
+								// Mettez à jour le dataset du graphique avec les nouvelles données
+								myBarType.data.datasets[0].data = eventCounts;  
+								myBarType.data.labels = eventType;
+
+							
+								//myBarType.data.labels = ["\u{1F4A5}BAT", "\u{1F4A3}E/R", "\u{1F4E2}PRO", "\u{270A}RIO", "\u{1F680}SD", "\u{1F469}VAC"];
+							
+							
+
+							// Triez eventType par ordre alphabétique
+							
+
+
+							myBarType.options.onClick = function (event, elements) {
+							if (elements && elements.length > 0) {
+								// Récupérez la catégorie de la barre cliquée
+								var elementIndex = elements[0]._index;
+								var clickedCategory = this.data.labels[elementIndex];
+
+								// Obtenez l'emoji correspondant à la catégorie
+								var emoji = getCategoryEmoji(clickedCategory);
+
+								if (emoji) {
+									// Filtrer les données pour obtenir uniquement la catégorie sélectionnée
+									var filteredData = typeData.filter(function (item) {
+										return item.category === clickedCategory;
+									});
+
+									if (filteredData.length > 0) {
+										// Récupérez les coordonnées pour la catégorie sélectionnée
+										var coordinates = filteredData[0].coordinates;
+										// console.log("coordonnée:", coordinates);
+
+										// Ajoutez de nouveaux marqueurs avec l'emoji comme icône
+										coordinates.forEach(function (coordinate) {
+											var latitude = coordinate[0];
+											var longitude = coordinate[1];
+
+											// Créez un élément HTML personnalisé pour l'icône
+											var icon = document.createElement('div');
+											icon.innerHTML = emoji;
+											icon.className = 'category-marker';
+
+											// Créez le marqueur avec l'icône personnalisée
+											var marker = new mapboxgl.Marker({ element: icon })
+												.setLngLat([longitude, latitude])
+												.addTo(map);
+
+												markers.push(marker);
+										});
+									}
+								}
+							}
+						};
+
+						// Rafraîchissez le graphique
+						myBarType.update();
+						
+						},
+						error: function (error) {
+							console.error("Erreur lors de la récupération des données des événements par type: ", error);
+						}
+					});
+                },
+                error: function (error) {
+                    console.error("Erreur lors de la récupération des données des événements par période: ", error);
+                }
+            });
+        },
+        error: function (error) {
+            console.error("Erreur lors de la récupération des données des événements: ", error);
+        }
+    });
+}
+
+
+/*
+function OKButtonClick(selectedCountries, mapes, myBarChart) {
+		console.log(selectedCountries);
+
+		// Mettez à jour les données du graphique pour myBarChart
+		myBarChart.data.labels = selectedCountries;
+		var incidentValues = selectedCountries.map(function (countryName) {
+			// Remplacez ceci par votre logique pour obtenir les valeurs appropriées pour chaque pays.
+			return Math.floor(Math.random() * 100);
+		});
+
+		myBarChart.data.datasets[0].data = incidentValues;
+		myBarChart.update();
+
+		// Mettez à jour les propriétés de remplissage pour chaque carte
+		mapes.forEach(function (map) {
+			selectedCountries.forEach(function (countryName) {
+				map.setPaintProperty(countryName + '-fill', 'fill-opacity', 0.5);
+				map.setPaintProperty(countryName + '-borders', 'line-color', 'green');
+			});
+		});
+	}*/
+
+
+
+	/*
+	function OKButtonClick(selectedCountries, mapes, myBarChart) {
+		// Créez un tableau vide pour stocker les valeurs des incidents
+		var incidentValues = [];
+
+		// Exemple de requête à l'API d'ACLED pour obtenir le nombre d'événements par pays
+		fetch('https://api.acleddata.com/acled/read', {
+			method: 'POST',
+			body: JSON.stringify({
+			countries: selectedCountries,
+			}),
+			headers: {
+			'Content-Type': 'application/json',
+			},
+		})
+		.then((response) => response.json())
+		.then((data) => {
+		// Traitez les données de la réponse de l'API ici
+		// Supposons que les données sont sous forme de tableau d'objets JSON avec des propriétés telles que "country" et "event_count"
+
+		// Créez un objet pour stocker le nombre d'événements par pays
+		const eventsByCountry = {};
+
+		// Remplissez l'objet avec les données de l'API
+		console.log(data);
+		data.forEach((entry) => {
+			eventsByCountry[entry.country] = entry.event_count;
+		});
+
+		// Remplissez le tableau incidentValues avec les données de l'API dans le même ordre que selectedCountries
+		incidentValues = selectedCountries.map((country) => eventsByCountry[country] || 0); // Utilisez 0 si aucune donnée n'est disponible
+
+		// Mettez à jour les données du graphe avec les données réelles
+		myBarChart.data.labels = selectedCountries;
+		myBarChart.data.datasets[0].data = incidentValues;
+		myBarChart.update();
+
+		// Mettez à jour les propriétés de remplissage pour chaque carte
+		mapes.forEach(function (map) {
+			selectedCountries.forEach(function (countryName) {
+			map.setPaintProperty(countryName + '-fill', 'fill-opacity', 0.5);
+			map.setPaintProperty(countryName + '-borders', 'line-color', 'green');
+			});
+		});
+		})
+		.catch(error => {
+					console.error("Erreur lors de la requete API ACLED:", error);
+		});
+	
+
+	}*/
+	function fetchACLEDDataset(apiKey, userName, callback) {
+  // Définissez l'URL de l'API ACLED
+  const apiUrl = 'https://api.acleddata.com/acled/read?terms=accept';
+
+  // Définissez les paramètres de la requête POST (dans cet exemple, nous n'avons pas de paramètres spécifiques)
+  const requestData = {
+    // Vous pouvez ajouter des paramètres de requête ici si nécessaire
+  };
+
+  // Effectuez la requête à l'API ACLED en utilisant la clé API fournie
+  fetch(apiUrl, {
+    method: 'POST',
+    body: JSON.stringify(requestData),
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`, // Utilisez la clé API fournie
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // Une fois que les données sont récupérées, appelez la fonction de rappel (callback) avec les données
+      callback(data);
+    })
+    .catch((error) => {
+      console.error("Erreur lors de la requête API ACLED:", error);
+      callback(null); // En cas d'erreur, appelez la fonction de rappel avec null
+    });
+}
+// Utilisation de la fonction pour récupérer toutes les données d'ACLED
+const votreCleAPI = "a0kZXycyBAkilS3e23wW"; // Remplacez VOTRE_CLE_API par votre clé API ACLED
+const nomUtilisateur = 'Alexia4401$$'; // Remplacez NomUtilisateur par le nom d'utilisateur souhaité
+fetchACLEDDataset(votreCleAPI, nomUtilisateur, (data) => {
+  if (data !== null) {
+    // Traitez les données ici
+    // console.log(data);
+  } else {
+    console.error("Échec de la récupération des données ACLED.");
+  }
+});
+
+// 	function fetchACLEDDataset(apiKey, callback) {
+//   // Définissez l'URL de l'API ACLED
+//   const apiUrl = 'https://api.acleddata.com/acled/read?terms=accept';
+
+//   // Définissez les paramètres de la requête POST (dans cet exemple, nous n'avons pas de paramètres spécifiques)
+//   const requestData = {
+//     // Vous pouvez ajouter des paramètres de requête ici si nécessaire
+//   };
+
+//   // Effectuez la requête à l'API ACLED en utilisant la clé API fournie
+//   fetch(apiUrl, {
+//     method: 'POST',
+//     body: JSON.stringify(requestData),
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Authorization': `Bearer ${"a0kZXycyBAkilS3e23wW"}`, // Utilisez la clé API fournie
+	 
+// 	},
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       // Une fois que les données sont récupérées, appelez la fonction de rappel (callback) avec les données
+//       callback(data);
+//     })
+//     .catch((error) => {
+//       console.error("Erreur lors de la requête API ACLED:", error);
+//       callback(null); // En cas d'erreur, appelez la fonction de rappel avec null
+//     });
+// }
+// console.log("milieu")
+// // Utilisation de la fonction pour récupérer toutes les données d'ACLED
+// const votreCleAPI = "a0kZXycyBAkilS3e23wW"; // Remplacez VOTRE_CLE_API par votre clé API ACLED
+// const nomUtilisateur = 'Alexia4401$$'; // Remplacez NomUtilisateur par le nom d'utilisateur souhaité
+// fetchACLEDDataset(votreCleAPI, nomUtilisateur, (data) => {
+//   if (data !== null) {
+//     // Traitez les données ici
+//     console.log(data);
+//   } else {
+//     console.error("Échec de la récupération des données ACLED.");
+//   }
+// });
+
+	var markers = [];
+
+	// Fonction pour gérer le clic sur le bouton "Annuler"
+	function CancelButtonClick(selectedCountries, mapes) {
+		// Réinitialisez l'opacité des pays sélectionnés à 0 (transparent) pour chaque carte
+		mapes.forEach(function (map) {
+			selectedCountries.forEach(function (countryName) {
+				map.setPaintProperty(countryName + '-fill', 'fill-opacity', 0);
+				map.setPaintProperty(countryName + '-borders', 'line-color', 'transparent');
+			});
+		});
+
+		 // Réinitialisez la liste des pays sélectionnés
+		 selectedCountries.length = 0;
+		//  console.log(selectedCountries);
+
+		// Fermez le popup pour chaque carte en utilisant l'objet popups
+		mapes.forEach(function (map) {
+			var popup = popups[map.getContainer().id];
+			if (popup) {
+				popup.remove();
+				delete popups[map.getContainer().id];
+			}
+		});
+
+		popups = {}; // Réinitialisez la liste des popups
+
+		// Supprimez tous les marqueurs de la liste globale
+		markers.forEach(function (marker) {
+			marker.remove();
+		});
+	}
+
+
+
+	function updatePopupContent(pop, countryName, selectedCountries, mapes, myBarChart) {
+		var popupContent = document.createElement('div');
+		popupContent.innerHTML = `
+			<h3>${countryName}</h3>
+			<button class="popup-button" id="popup-ok">OK</button>
+			<button class="popup-button" id="popup-cancel">Annuler</button>
+		`;
+
+		// Mettez à jour le contenu du popup
+		pop.setDOMContent(popupContent);
+
+		popupOKButton = popupContent.querySelector('#popup-ok');
+    	popupCancelButton = popupContent.querySelector('#popup-cancel');
+
+		popupOKButton.addEventListener('click', function () {
+			OKButtonClick(selectedCountries, mapes, myBarChart);
+			//popups[layerId].remove(); // Supprimez le popup ici
+		});
+
+		popupCancelButton.addEventListener('click', function () {
+			CancelButtonClick(selectedCountries, mapes);
+			//popups[layerId].remove(); // Supprimez le popup ici
+		});
+	}
+
+	function setupMapClickInteraction(map, mapName, otherMaps) {
+
+		
+
+		// Ajoutez une interaction de clic à la carte
+		map.on('click', function(e) {
+
+			var features = map.queryRenderedFeatures(e.point);
+
+			if (features.length > 0) {
+
+			
+				// Parcourez les couches de carte pour trouver la couche de remplissage correspondante
+				features.forEach(function(feature) {
+					var layerId = feature.layer.id;
+					if (layerId.endsWith('-fill')) {
+						var countryName = layerId.replace('-fill', '');
+						
+						if (!popups[layerId]) {
+                        var pop = createCustomPopup();
+                        updatePopupContent(pop, countryName, selectedCountries, otherMaps, myBarChart);
+
+                        // Affichez le popup
+                        pop.setLngLat(e.lngLat).addTo(map);
+
+                        // Stockez le popup associé à la couche
+                        popups[layerId] = pop;
+                    }
+
+						
+						
+
+						// Vérifiez si le pays est déjà dans la liste des pays sélectionnés
+						var index = selectedCountries.indexOf(countryName);
+
+						if (index !== -1) {
+							// Si le pays est déjà sélectionné, retirez-le de la liste
+							selectedCountries.splice(index, 1);
+							// Réinitialisez la couleur de la bordure du pays à transparent
+							map.setPaintProperty(countryName + '-borders', 'line-color', 'transparent');
+						} else {
+							// Si le pays n'est pas encore sélectionné, ajoutez-le à la liste
+							selectedCountries.push(countryName);
+							// Mettez à jour la couleur de la bordure du pays pour la mettre en évidence (verte)
+							map.setPaintProperty(countryName + '-borders', 'line-color', 'green');
+							map.setPaintProperty(countryName + '-borders', 'line-width', 2);
+						}
+
+						otherMaps.forEach(function (otherMap) {
+							if (otherMap !== map) {
+								// Mettez à jour la couleur de la bordure des pays sur les autres cartes
+								selectedCountries.forEach(function (country) {
+									otherMap.setPaintProperty(country + '-borders', 'line-color', 'green');
+									otherMap.setPaintProperty(country + '-borders', 'line-width', 2);
+								});
+							}
+						});
+
+
+
+						popupOKButton.addEventListener('click', function () {
+							OKButtonClick(selectedCountries, mapes, myBarChart);
+						});
+
+						popupCancelButton.addEventListener('click', function () {
+							CancelButtonClick(selectedCountries, mapes);
+							pop.remove();
+						});
+
+
+					}
+						
+				});
+			}
+		});
+
+		// console.log('Interaction de clic configurée pour la carte ' + mapName);
+
+	}
+
+	// Configurez l'interaction de clic pour chaque carte
+
+	mapes.forEach(function (map) {
+		setupMapClickInteraction(map, 'NomDeLaCarte', mapes);
+	});
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+	/*--------------------------------------CODE--TANIA----------------------------------------------------*/
+
+	
+	$(document).ready(function () {
+		
+    // Récupérez la date actuelle
+    var dateActuelle = new Date();
+    var jourActuel = dateActuelle.getDate();
+    var moisActuel = dateActuelle.getMonth();
+    var anneeActuelle = dateActuelle.getFullYear();
+
+    // Initialisation des calendriers dans les divs correspondantes
+    $('#calendarStart').datepicker({
+        format: 'dd/mm/yyyy',
+        autoclose: true,
+        todayHighlight: true,
+        endDate: new Date(anneeActuelle, moisActuel, jourActuel),
+    });
+
+    $('#calendarEnd').datepicker({
+        format: 'dd/mm/yyyy',
+        autoclose: true,
+        todayHighlight: true,
+        endDate: new Date(anneeActuelle, moisActuel, jourActuel),
+    });
+
+    $('#btnApply').click(function () {
+        var startDate = $('#dateRangePicker1').val('');
+        var endDate = $('#dateRangePicker2').val('');
+        // Afficher le message de confirmation
+        $('#confirmationMessage').show();
+        setTimeout(function () {
+            $('#confirmationMessage').hide();
+        }, 2000); // Masquer le message après 2 secondes
+    });
+
+    $('#btnClose').click(function () {
+        // Réinitialiser les champs d'entrée lorsque la fenêtre modale est fermée
+        $('#dateRangePicker1, #dateRangePicker2').val('');
+        // Fermer la fenêtre modale
+        $('#popupContent').modal('hide');
+        // Cacher la div du popup
+        $('#popupContent').hide();
+    });
+
+    // Écouteur d'événement de sélection de date pour le calendrier de début
+    $('#calendarStart').on('changeDate', function (e) {
+        var selectedStartDate = e.date;
+        $('#dateRangePicker1').val(e.format()); // Mettre à jour la valeur de l'input avec la date sélectionnée
+        // Mettre à jour la date maximale dans le calendrier de fin
+        $('#calendarEnd').datepicker('setStartDate', selectedStartDate);
+    });
+
+    // Écouteur d'événement de sélection de date pour le calendrier de fin
+    $('#calendarEnd').on('changeDate', function (e) {
+        var selectedEndDate = e.date;
+        $('#dateRangePicker2').val(e.format()); // Mettre à jour la valeur de l'input avec la date sélectionnée
+        // Mettre à jour la date minimale dans le calendrier de début
+        $('#calendarStart').datepicker('setEndDate', selectedEndDate);
+    });
+
+
+// // -------------------------------------------------------------
+var dropdownContainer = $('#dropdown-options');
+var searchBar = $('#search-bar');
+searchBar.on('input', function () {
+	var query = $(this).val().toLowerCase();
+
+	var found = false; // Variable pour suivre si des résultats ont été trouvés
+
+	dropdownContainer.find('.dropdown-item').each(function () {
+		var itemText = $(this).text().toLowerCase();
+
+		if (itemText.includes(query)) {
+			$(this).show();
+			found = true; // Au moins un résultat a été trouvé
+		} else {
+			$(this).hide();
+		}
+	});
+
+	// Afficher "Aucun résultat trouvé" si aucun résultat n'a été trouvé
+	if (!found) {
+		dropdownContainer.append($('<div class="dropdown-item">no results found</div>'));
+	}
+});
+
+function showCard() {
+	$('#event-card').show(); // Afficher la div avec l'identifiant event-card
+}
+function HideReplaceDropdown(){
+	$('#replace').hide();
+}
+$('[data-toggle="dropdown"]').dropdown();
+function formatEventDate(rawDate) {
+	var eventDate = new Date(rawDate);
+	var options = { day: 'numeric', month: 'long', year: 'numeric' };
+	return eventDate.toLocaleDateString('en-US', options);
+}
+
+function applySearchFilter(query, data) {
+    return data.filter(function (item) {
+        // Vérifier si item.notes n'est pas null ou indéfini avant d'utiliser includes
+        return item.notes && item.notes.includes(query);
+    });
+}
+
+
+var activityFeed = $('#activity-feed');
+var searchInput = $('#search-input');
+
+// Fonction pour gérer la requête AJAX et la logique principale
+// function fetchDataAndProcess() {
+// 	$.ajax({
+// 		url: window.location.href,
+// 		method: 'GET',
+// 		dataType: 'json',
+// 		success: function(data) 
+// 		{ 
+// 			LastDay(data)
+// 			Last5Days(data)
+// 			Last30Days(data)
+// 			Last90Days(data)
+// 			Last100Days(data)
+
+// 			$('#popupTriggerMainActor').on('click', function() {
+//         	processMainActors(data);
+//     });
+// 	$('#popupTriggerActor').on('click', function() {
+// 		processActorTypes(data);;
+//     });
+// 	$('#popupTriggerEventYear').on('click', function() {
+// 		processEventYear(data);
+//     });
+// 	$('#popupTriggerEventSource').on('click', function() {
+// 		processEventSource(data);
+//     });
+// 	$('#popupTriggerEventSubtype').on('click', function() {
+// 		processEventSubtype(data);
+//     });
+// 	$('#popupTriggerEventPeriod').on('click', function() {
+// 		processEventPeriod(data)
+// 	});
+// 	$('#popupTriggerEventDate').on('click', function() {
+// 		processEventTimeDate(data);
+//     });
+// 	$('#popupTriggerEventType').on('click', function() {
+// 		// processEventTypes(data);
+// 		processEventData(data);
+//     });
+// 	processEventDates(data);
+
+// 	var dropdownContainer = $('#dropdown-options'); // Sélectionner le conteneur spécifique
+					
+// 	// Générer les éléments de la liste déroulante à partir des données reçues
+// 	data.forEach(function (item) {
+// 		var optionLink = $('<a>', {							
+// 			class: 'dropdown-item',
+// 			css: {
+// 				color: 'black',
+// 				overflow: 'hidden',
+// 				whiteSpace: 'normal', // Permettre au texte de passer à la ligne
+// 				wordWrap: 'break-word', // Permettre le passage à la ligne
+// 				maxWidth: '100%' // Limiter la largeur pour éviter que le texte dépasse le conteneur
+// 			},
+// 			text: item.notes
+// 		});
+// 		optionLink.on('click', function () {
+// 			$('#event-card').hide(); 
+// 			$('#replace').show(); 							
+// 			var newContentDropdown = `
+// 				<div class="card full-height" id="">
+// 					<div class="card-header">
+// 						<div class="card-title">
+// 							<div class="row align-items-center">
+// 							<div class="col-md-9">
+// 								<span style="font-weight: bold;">Event Description</span>
+// 							</div>
+// 							<div class="col-md-3">
+// 								<button id="transparent-button-newContentDropdown" class="btn btn-default">Last Event</button>
+// 							</div>
+// 						</div>
+// 					</div>
+// 					</div>
+// 					<div class="card-body-scroll">
+// 						<div class="container mt-5" >
+// 							<div style="color: white;">	
+// 								${item.notes}<br>
+// 								<br>
+// 								<span style="font-weight: bold;">date: </span>${item.event_date}<br>
+// 								<br>
+// 								<span style="font-weight: bold;">Country: </span>${item.country}<br>
+// 								<br>
+// 								<span style="font-weight: bold;">type: </span>${item.type}<br>
+// 								<br>
+// 								<span style="font-weight: bold;">source: </span>${item.source}<br>
+// 								<br>
+// 								<span style="font-weight: bold;">fatalities: </span>${item.fatalities}<br>
+// 								<br>
+// 							</div>
+// 						</div>
+// 					</div>
+// 				</div>`;
+// 				$('#replace').html(newContentDropdown);
+// 				$('#transparent-button-newContentDropdown').on('click', function () {
+//   					showCard(); // Afficher la div "event-card"
+// 					HideReplaceDropdown();
+//   					// $('#replace').hide(); // Masquer la div "replace"
+// 				});
+// 			});
+// 			dropdownContainer.append(optionLink);
+// 		});
+
+// 		dropdownContainer.css({
+// 			width: '450px',
+// 			height: '300px',
+// 			// overflow: 'auto'
+// 		});
+
+// 		////////// partie historique initial : all historique 
+
+// 		var types = ['success', 'info', 'warning', 'danger'];
+								
+// 		function updateFeed(query) {
+// 			activityFeed.empty();
+// 			var filteredData = applySearchFilter(query, data);
+				
+// 			for (var i = 0; i < filteredData.length; i++) {
+// 				if (filteredData[i].notes.trim() === '') {
+// 					continue;
+// 				}
+// 			var listItem = $('<li></li>').addClass('feed-item').addClass('feed-item-' + types[i % types.length]);
+
+// 			var formattedDate = formatEventDate(filteredData[i].event_date);
+// 			var time = $('<time class="date"></time>').text(formattedDate);
+// 			listItem.append(time);
+					
+// 			var text_id = filteredData[i].id;
+// 			var text = filteredData[i].notes;
+// 			var span = $('<span class="text" style="color:white"></span>').text(text);
+// 			span.attr('data-text-id', text_id);  // Définir l'attribut de données pour l'ID
+
+//         	$('span').click(function() {
+//     			var clickedId = $(this).data('text-id');
+    
+// 			// Recherchez l'élément dans le tableau data en fonction de l'ID cliqué
+// 			var clickedItem = data.find(item => item.id === clickedId);
+// 			// console.log(clickedItem)
+
+// 			if (clickedItem) {
+// 				$('#event-card').hide(); // Masquer la div 	
+// 				$('#events_information').show(); // Afficher la div "replace"
+				
+
+// 			var newContent_informations = `
+// 				<div class="card full-height" id="events_information">
+// 					<div class="card-header">
+// 					<div class="card-title">
+// 						<div class="row align-items-center">
+// 							<div class="col-md-10">
+// 								<span style="font-weight: bold;">Event Description</span>
+// 							</div>
+// 							<div class="col-md-2">
+// 								<button id="transparent-button-events-informations" class="btn btn-default">Last Event</button>
+// 							</div>
+// 						</div>
+// 					</div>
+// 				</div>
+// 					<div class="card-body-scroll">
+// 						<div class="container mt-5">
+// 							<div style="color: white;">
+								
+// 								${clickedItem.notes}<br>
+// 								<br>
+// 								<span style="font-weight: bold;">Country: </span>${clickedItem.country}<br>
+// 								<br>
+// 								<span style="font-weight: bold;">Date: </span>${clickedItem.event_date}<br>
+// 								<br>
+// 								<span style="font-weight: bold;">Type: </span>${clickedItem.type}<br>
+// 								<br>
+// 								<span style="font-weight: bold;">Source: </span>${clickedItem.source}<br>
+// 								<br>
+// 								<span style="font-weight: bold;">Fatalities: </span>${clickedItem.fatalities}<br>
+// 								<br>
+// 							</div>
+// 						</div>
+// 					</div>
+// 				</div>
+// 			`;
+// 			$('#events_information').html(newContent_informations);
+// 		// console.log(newContent_informations)
+
+							
+// 		$('#transparent-button-events-informations').on('click', function () {
+//   			showCard(); // Afficher la div "event-card"
+//   			$('#events_information').hide(); 
+// 		});		
+//     }
+// 	});
+//         listItem.append(span);
+//         activityFeed.append(listItem);
+//     }
+// }
+// 				updateFeed('');
+
+// 				searchInput.on('input', function () {
+// 					var query = $(this).val();
+// 					updateFeed(query);
+// 				});
+//             },
+//             error: function(error) {
+//                 console.log('Une erreur s\'est produite :', error);
+//             }
+//         });
+//     }
+//     fetchDataAndProcess();
+$('#LastDay').on('click', function() {
+    // Charger les données au clic sur #LastDay
+    $.ajax({
+        url: window.location.href,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            // Une fois les données chargées, exécutez la fonction de traitement
+            LastDay(data);
+        },
+        error: function(error) {
+            console.log('Une erreur s\'est produite :', error);
+        }
+    });
+});
+$('#Last5Days').on('click', function() {
+    // Charger les données au clic sur #LastDay
+    $.ajax({
+        url: window.location.href,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            // Une fois les données chargées, exécutez la fonction de traitement
+            Last5Days(data);
+        },
+        error: function(error) {
+            console.log('Une erreur s\'est produite :', error);
+        }
+    });
+});
+$('#popupTriggerMainActor').on('click', function() {
+    loadDataAndProcess(processMainActors);
+});
+
+$('#popupTriggerActor').on('click', function() {
+    loadDataAndProcess(processActorTypes);
+});
+
+$('#popupTriggerEventYear').on('click', function() {
+    loadDataAndProcess(processEventYear);
+});
+
+$('#popupTriggerEventSource').on('click', function() {
+    loadDataAndProcess(processEventSource);
+});
+
+$('#popupTriggerEventSubtype').on('click', function() {
+    loadDataAndProcess(processEventSubtype);
+});
+
+$('#popupTriggerEventPeriod').on('click', function() {
+    loadDataAndProcess(processEventPeriod);
+});
+
+$('#popupTriggerEventDate').on('click', function() {
+    loadDataAndProcess(processEventTimeDate);
+});
+
+$('#popupTriggerEventType').on('click', function() {
+    // Charger les données et appeler processEventData
+    loadDataAndProcess(processEventData);
+});
+
+function loadDataAndProcess(processFunction) {
+    // Charger les données au clic
+    $.ajax({
+        url: window.location.href,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            // Une fois les données chargées, exécutez la fonction de traitement spécifiée
+            processFunction(data);
+        },
+        error: function(error) {
+            console.log('Une erreur s\'est produite :', error);
+        }
+    });
+}
+
+
+	function LastDay(data){
+		$('html,body').animate({
+			scrollTop:'+2500'
+		},1000);
+
+
+var premiereDate = null; // Variable pour stocker la première date
+var idPremiereDate = null; // Variable pour stocker l'ID associé à la première date
+var notePremiereDate = null; // Variable pour stocker la note associée à la première date
+
+var premiereDateInfoArray = []; // Tableau pour stocker toutes les occurrences de la première date, de l'ID et de la note
+
+data.forEach(function(item, index) {
+    // Vérifiez si l'acteur a déjà été ajouté
+    var EventDateItem = item['event_date'];
+    var IdEventDate = item['id']; // Cherchez l'ID de l'acteur principal dans la base de données
+    var note = item['notes']; // Supposons que 'note' est la clé qui contient les notes
+	var country = item['country'];
+	var type = item['type'];
+	var source = item['source'];
+	var fatalities = item['fatalities']
+    // Si la première date n'a pas encore été trouvée, enregistrez-la avec l'ID et la note associés
+    if (premiereDate === null) {
+        premiereDate = EventDateItem;
+        idPremiereDate = IdEventDate;
+        notePremiereDate = note;
+		countryPremiereDate = country;
+    }
+
+    // Si la date correspond à la première date, ajoutez ces informations au tableau
+    if (EventDateItem === premiereDate) {
+        premiereDateInfoArray.push({
+            date: premiereDate,
+            id: idPremiereDate,
+            note: note,
+			country:country,
+			type:type,
+			source:source,
+			fatalities:fatalities
+        });
+    }
+});
+
+var premiereDateHTML = `
+    <div class="card full-height" id="div-event-date">
+        <div class="card-header">
+            <div class="card-title">
+                <div class="row align-items-center">
+                    <div class="col-md-9">
+                        <span style="font-weight:bold;">Last Event</span>
+                    </div>
+                    <div class="col-md-3">
+                        <button id="transparent-button" class="btn btn-default">All Last Events</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body-scroll">
+            <div class="container mt-5">
+                <div class="activity-feed">
+                    <ol class="activity-feed">
+                        ${premiereDateInfoArray.map(function (info, index) {
+                            // Couleurs disponibles
+                            var colorsType = ['success', 'info', 'warning', 'danger'];
+
+                            // Calculez l'index de la couleur en fonction de l'index de l'élément
+                            var colorIndex = index % colorsType.length;
+                            var colorClass = colorsType[colorIndex];
+
+                            // Générez un identifiant unique pour chaque note
+                            var noteId = 'note-' + index;
+
+                            // Vérifiez si la note est vide, si c'est le cas, sautez cet élément
+                            if (info.note === '') {
+                                return '';
+                            }
+
+                            return `
+                                <li class="feed-item feed-item-${colorClass}" id="${noteId}">
+                                    <div class="date">${info.date}</div>
+                                    <div class="text" style="color:white">${info.note}</div>
+                                </li>
+                            `;
+                        }).join('')}
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
+$("#event-card").hide();
+
+// Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
+$('#div-event-date').html(premiereDateHTML).show();
+
+// Ajoutez un gestionnaire d'événement de clic à chaque élément li
+premiereDateInfoArray.forEach(function (info, index) {
+    var noteId = 'note-' + index;
+    $('#' + noteId).click(function () {
+        // Récupérez la note correspondante à partir de premiereDateInfoArray
+		var dateContent = info.date;		
+		var noteContent = info.note;
+		var countryContent = info.country
+        var typeContent = info.type
+		var sourceContent = info.source
+		var fatalitiesContent = info.fatalities 
+        // Affichez la note dans une boîte de dialogue, un alert, ou tout autre élément de votre choix
+        // alert(countryContent);
+		// alert(sourceContent);
+		// alert(typeContent)
+		// alert(fatalitiesContent)
+
+		var descriptionLastDayContent = `
+		<div class="card full-height" id="events_information">
+					<div class="card-header">
+					<div class="card-title">
+                    <div class="row align-items-center">
+                        <div class="col-md-2">
+                            <button class="btn btn-default" id="button_goBack">
+                                <i class="fas fa-arrow-left" style="font-size:18px"></i>go back
+                            </button>
+                        </div>
+                        <div class="col-md-7">
+                            <span style ="font-weight:bold ; display:block;text-align:center;margin:0 auto;">Event Description</span>
+                        </div>
+                        <div class="col-md-3">
+                            <button id="transparent-button-newContentDescribeMainActor" class="btn btn-default"> All Last Event</button>
+                        </div>
+                    </div>
+                </div>
+				</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<div style="color: white;">
+								
+								${noteContent}<br>
+								<br>
+								<span style="font-weight: bold;">Country: </span>${countryContent}<br>
+								<br>
+								<span style="font-weight: bold;">Date: </span>${dateContent}<br>
+								<br>
+								<span style="font-weight: bold;">Type: </span>${typeContent}<br>
+								<br>
+								<span style="font-weight: bold;">Source: </span>${sourceContent}<br>
+								<br>
+								<span style="font-weight: bold;">Fatalities: </span>${fatalitiesContent}<br>
+								<br>
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+		$("#event-card").hide()
+    	$('#div-main-actor').hide();	
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();		
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
+		$('#events_information').html(descriptionLastDayContent);
+		// console.log(newContent_informations)
+
+    });
+});
+
+console.log('Informations associées à la première date :', premiereDateInfoArray);
+
+	
+	}
+	
+function Last5Days(data) {
+   
+        $('html,body').animate({
+            scrollTop: '+2500'
+        }, 1000);
+        $("#event-card").hide();
+        var allDates = []; // Tableau pour stocker toutes les dates
+        var uniqueDatesSet = new Set(); // Ensemble pour stocker les dates uniques
+        var uniqueDates = []; // Tableau pour stocker les dates uniques
+
+        // Parcourez les données pour obtenir les 5 premières dates uniques
+        for (var i = 0; i < data.length; i++) {
+            var EventDateItem = data[i]['event_date'];
+
+            // Vérifiez si la date n'est pas déjà présente dans uniqueDatesSet
+            if (!uniqueDatesSet.has(EventDateItem)) {
+                uniqueDatesSet.add(EventDateItem);
+                uniqueDates.push(EventDateItem);
+            }
+
+            // Si nous avons trouvé les 5 premières dates uniques, sortez de la boucle
+            if (uniqueDates.length === 5) {
+                break;
+            }
+        }
+        var notesOfFirst5Dates = [];
+
+        for (var i = 0; i < data.length; i++) {
+            var item = data[i];
+            var EventDateItem = item['event_date'];
+
+            // Vérifiez si la date est l'une des 5 premières dates uniques
+            if (uniqueDates.includes(EventDateItem)) {
+                var note = item['notes'];
+				var country = item['country'];
+				var type = item['type'];
+				var source = item['source'];
+				var fatalities = item['fatalities']
+                notesOfFirst5Dates.push(note);
+            }
+        }
+
+var colorsType = ['success', 'info', 'warning', 'danger'];
+	var htmlContent = `
+    <div class="card full-height" id="div-event-date">
+        <div class="card-header">
+            <div class="card-title">
+                <div class="row align-items-center">
+                    <div class="col-md-9">
+                        <span style="font-weight:bold;">Last Event</span>
+                    </div>
+                    <div class="col-md-3">
+                        <button id="transparent-button" class="btn btn-default">All Last Events</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body-scroll">
+            <div class="container mt-5">
+                <div class="activity-feed">
+                    <ol class="activity-feed">
+                        ${uniqueDates.map(function (date, dateIndex) {
+                            return `
+                                ${notesOfFirst5Dates.map(function (note, noteIndex) {
+                                    // Calculez l'index de la couleur en fonction de l'index global de l'élément
+                                    var colorIndex = (dateIndex * notesOfFirst5Dates.length + noteIndex) % colorsType.length;
+                                    var colorClass = colorsType[colorIndex];
+
+                                    // Générez un identifiant unique pour chaque note
+                                    var noteId = 'note-' + dateIndex + '-' + noteIndex;
+                                    var date = data[noteIndex]['event_date'];
+                                    var country = data[noteIndex]['country'];
+									var type = data[noteIndex]['type'];
+									var source = data[noteIndex]['source'];
+									var fatalities = data[noteIndex]['fatalities']
+							
+                                    if (data[noteIndex]['event_date'] === date) {
+                                        if (note === '') {
+                                            return '';
+                                        }
+
+                                        return `
+                                            <li class="feed-item feed-item-${colorClass}" data-date="${date}" data-country="${country}" data-type="${type}" data-source="${source}" data-fatalities= "${fatalities}">
+                                                <div class="date">${date}</div>
+                                                <div class="text" style="color:white" id="${noteId}">${note}</div>
+                                            </li>
+                                        `;
+                                    } else {
+                                        return '';
+                                    }
+                                }).join('')}
+                            `;
+                        }).join('')}
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
+		
+    	$('#div-main-actor').hide();
+	
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date-description").hide();
+
+// Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
+$('#div-event-date').html(htmlContent).show();
+
+$(document).ready(function () {
+    $('li.feed-item').each(function () {
+        // Récupérez la classe de couleur de l'élément <li>
+        var colorClass = $(this).attr('class').split(' ').find(cls => cls.startsWith('feed-item-'));
+        
+        // Ajoutez un gestionnaire d'événements de clic uniquement si la classe de couleur existe
+        if (colorClass) {
+            $(this).on('click', function () {
+                // Récupérez le contenu de la note cliquée
+                var noteText = $(this).find('.text').text();
+                var date = $(this).data('date')
+                // Récupérez le pays associé à cette note à partir de l'attribut data-country
+                var country = $(this).data('country');
+				var type = $(this).data('type');
+				var source = $(this).data('source');
+				var fatalities = $(this).data('fatalities');
+
+				alert(fatalities)
+		var descriptionLast5DaysContent = `
+		<div class="card full-height" id="events_information">
+					<div class="card-header">
+					<div class="card-title">
+						<div class="row align-items-center">
+							<div class="col-md-10">
+								<span style="font-weight: bold;">Event Description</span>
+							</div>
+							<div class="col-md-2">
+								<button id="transparent-button-events-informations" class="btn btn-default">Last Event</button>
+							</div>
+						</div>
+					</div>
+				</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<div style="color: white;">
+								
+								${noteText}<br>
+								<br>
+								<span style="font-weight: bold;">Country: </span>${country}<br>
+								<br>
+								<span style="font-weight: bold;">Date: </span>${date}<br>
+								<br>
+								<span style="font-weight: bold;">Type: </span>${type}<br>
+								<br>
+								<span style="font-weight: bold;">Source: </span>${source}<br>
+								<br>
+								<span style="font-weight: bold;">Fatalities: </span>${fatalities}<br>
+								<br>
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+		// $("#event-card").hide()
+    	// $('#div-main-actor').hide();
+	
+		// $("#div-event-type").hide();
+		// $("#div-event-type-description").hide();
+		
+		// $("#div-sub-event").hide();
+		// $("#div-sub-event-description").hide();
+		// $("#div-event-source").hide();
+		// $("#div-event-source-description").hide();
+		// $("#div-year").hide();
+		// $("#div-year-description").hide();
+		// $("#div-event-date").hide();
+		// $("#div-event-date-description").hide();
+
+		$('#events_information').html(descriptionLast5DaysContent);
+
+		
+            });
+        }
+    });
+});
+
+}
+
+	$("#allDays").on('click',function(){
+		$('html,body').animate({
+            scrollTop: '+2500'
+        }, 1000);
+	})
+	function Last30Days(data){
+		$('#Last30Days').on('click', function () {
+        $('html,body').animate({
+            scrollTop: '+2500'
+        }, 1000);
+        $("#event-card").hide();
+        var allDates = []; // Tableau pour stocker toutes les dates
+        var uniqueDatesSet = new Set(); // Ensemble pour stocker les dates uniques
+        var uniqueDates = []; // Tableau pour stocker les dates uniques
+
+        // Parcourez les données pour obtenir les 5 premières dates uniques
+        for (var i = 0; i < data.length; i++) {
+            var EventDateItem = data[i]['event_date'];
+
+            // Vérifiez si la date n'est pas déjà présente dans uniqueDatesSet
+            if (!uniqueDatesSet.has(EventDateItem)) {
+                uniqueDatesSet.add(EventDateItem);
+                uniqueDates.push(EventDateItem);
+            }
+
+            if (uniqueDates.length === 30) {
+                break;
+            }
+        }
+
+        var notesOfFirst5Dates = [];
+
+        for (var i = 0; i < data.length; i++) {
+            var item = data[i];
+            var EventDateItem = item['event_date'];
+
+            if (uniqueDates.includes(EventDateItem)) {
+                var note = item['notes'];
+				var country = item['country'];
+				var type = item['type'];
+				var source = item['source'];
+				var fatalities = item['fatalities']
+                notesOfFirst5Dates.push(note);
+            }
+        }
+var colorsType = ['success', 'info', 'warning', 'danger'];
+	var htmlContent = `
+    <div class="card full-height" id="div-event-date">
+        <div class="card-header">
+            <div class="card-title">
+                <div class="row align-items-center">
+                    <div class="col-md-9">
+                        <span style="font-weight:bold;">Last Event</span>
+                    </div>
+                    <div class="col-md-3">
+                        <button id="transparent-button" class="btn btn-default">All Last Events</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body-scroll">
+            <div class="container mt-5">
+                <div class="activity-feed">
+                    <ol class="activity-feed">
+                        ${uniqueDates.map(function (date, dateIndex) {
+                            return `
+                                ${notesOfFirst5Dates.map(function (note, noteIndex) {
+                                    // Calculez l'index de la couleur en fonction de l'index global de l'élément
+                                    var colorIndex = (dateIndex * notesOfFirst5Dates.length + noteIndex) % colorsType.length;
+                                    var colorClass = colorsType[colorIndex];
+
+                                    // Générez un identifiant unique pour chaque note
+                                    var noteId = 'note-' + dateIndex + '-' + noteIndex;
+                                    var date = data[noteIndex]['event_date'];
+                                    var country = data[noteIndex]['country'];
+									var type = data[noteIndex]['type'];
+									var source = data[noteIndex]['source'];
+									var fatalities = data[noteIndex]['fatalities']
+							
+                                    if (data[noteIndex]['event_date'] === date) {
+                                        if (note === '') {
+                                            return '';
+                                        }
+
+                                        return `
+                                            <li class="feed-item feed-item-${colorClass}" data-date="${date}" data-country="${country}" data-type="${type}" data-source="${source}" data-fatalities= "${fatalities}">
+                                                <div class="date">${date}</div>
+                                                <div class="text" style="color:white" id="${noteId}">${note}</div>
+                                            </li>
+                                        `;
+                                    } else {
+                                        return '';
+                                    }
+                                }).join('')}
+                            `;
+                        }).join('')}
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
+$("#event-card").hide();
+    $('#div-main-actor').hide();
+	
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date-description").hide();
+
+// Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
+$('#div-event-date').html(htmlContent).show();
+
+$(document).ready(function () {
+    $('li.feed-item').each(function () {
+        // Récupérez la classe de couleur de l'élément <li>
+        var colorClass = $(this).attr('class').split(' ').find(cls => cls.startsWith('feed-item-'));
+        
+        // Ajoutez un gestionnaire d'événements de clic uniquement si la classe de couleur existe
+        if (colorClass) {
+            $(this).on('click', function () {
+                // Récupérez le contenu de la note cliquée
+                var noteText = $(this).find('.text').text();
+                var date = $(this).data('date')
+                // Récupérez le pays associé à cette note à partir de l'attribut data-country
+                var country = $(this).data('country');
+				var type = $(this).data('type');
+				var source = $(this).data('source');
+				var fatalities = $(this).data('fatalities');
+
+		var descriptionLastDayContent = `
+		<div class="card full-height" id="events_information">
+					<div class="card-header">
+					<div class="card-title">
+						<div class="row align-items-center">
+							<div class="col-md-10">
+								<span style="font-weight: bold;">Event Description</span>
+							</div>
+							<div class="col-md-2">
+								<button id="transparent-button-events-informations" class="btn btn-default">Last Event</button>
+							</div>
+						</div>
+					</div>
+				</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<div style="color: white;">
+								
+								${noteText}<br>
+								<br>
+								<span style="font-weight: bold;">Country: </span>${country}<br>
+								<br>
+								<span style="font-weight: bold;">Date: </span>${date}<br>
+								<br>
+								<span style="font-weight: bold;">Type: </span>${type}<br>
+								<br>
+								<span style="font-weight: bold;">Source: </span>${source}<br>
+								<br>
+								<span style="font-weight: bold;">Fatalities: </span>${fatalities}<br>
+								<br>
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+		$("#event-card").hide()
+    $('#div-main-actor').hide();
+	
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
+		$('#events_information').html(descriptionLastDayContent);
+	
+
+            });
+        }
+    });
+});
+    });
+
+	}
+	
+	function Last90Days(data){
+		$('#Last90Days').on('click', function () {
+        $('html,body').animate({
+            scrollTop: '+2500'
+        }, 1000);
+        $("#event-card").hide();
+        var allDates = []; // Tableau pour stocker toutes les dates
+        var uniqueDatesSet = new Set(); // Ensemble pour stocker les dates uniques
+        var uniqueDates = []; // Tableau pour stocker les dates uniques
+
+        // Parcourez les données pour obtenir les 5 premières dates uniques
+        for (var i = 0; i < data.length; i++) {
+            var EventDateItem = data[i]['event_date'];
+
+            // Vérifiez si la date n'est pas déjà présente dans uniqueDatesSet
+            if (!uniqueDatesSet.has(EventDateItem)) {
+                uniqueDatesSet.add(EventDateItem);
+                uniqueDates.push(EventDateItem);
+            }
+
+            if (uniqueDates.length === 90) {
+                break;
+            }
+        }
+
+        var notesOfFirst5Dates = [];
+
+        for (var i = 0; i < data.length; i++) {
+            var item = data[i];
+            var EventDateItem = item['event_date'];
+
+            if (uniqueDates.includes(EventDateItem)) {
+                var note = item['notes'];
+				var country = item['country'];
+				var type = item['type'];
+				var source = item['source'];
+				var fatalities = item['fatalities']
+                notesOfFirst5Dates.push(note);
+            }
+        }
+
+var colorsType = ['success', 'info', 'warning', 'danger'];
+	var htmlContent = `
+    <div class="card full-height" id="div-event-date">
+        <div class="card-header">
+            <div class="card-title">
+                <div class="row align-items-center">
+                    <div class="col-md-9">
+                        <span style="font-weight:bold;">Last Event</span>
+                    </div>
+                    <div class="col-md-3">
+                        <button id="transparent-button" class="btn btn-default">All Last Events</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body-scroll">
+            <div class="container mt-5">
+                <div class="activity-feed">
+                    <ol class="activity-feed">
+                        ${uniqueDates.map(function (date, dateIndex) {
+                            return `
+                                ${notesOfFirst5Dates.map(function (note, noteIndex) {
+                                    // Calculez l'index de la couleur en fonction de l'index global de l'élément
+                                    var colorIndex = (dateIndex * notesOfFirst5Dates.length + noteIndex) % colorsType.length;
+                                    var colorClass = colorsType[colorIndex];
+
+                                    // Générez un identifiant unique pour chaque note
+                                    var noteId = 'note-' + dateIndex + '-' + noteIndex;
+                                    var date = data[noteIndex]['event_date'];
+                                    var country = data[noteIndex]['country'];
+									var type = data[noteIndex]['type'];
+									var source = data[noteIndex]['source'];
+									var fatalities = data[noteIndex]['fatalities']
+							
+                                    if (data[noteIndex]['event_date'] === date) {
+                                        if (note === '') {
+                                            return '';
+                                        }
+
+                                        return `
+                                            <li class="feed-item feed-item-${colorClass}" data-date="${date}" data-country="${country}" data-type="${type}" data-source="${source}" data-fatalities= "${fatalities}">
+                                                <div class="date">${date}</div>
+                                                <div class="text" style="color:white" id="${noteId}">${note}</div>
+                                            </li>
+                                        `;
+                                    } else {
+                                        return '';
+                                    }
+                                }).join('')}
+                            `;
+                        }).join('')}
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
+		$("#event-card").hide();
+    	$('#div-main-actor').hide();
+	
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date-description").hide();
+
+// Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
+$('#div-event-date').html(htmlContent).show();
+
+$(document).ready(function () {
+    $('li.feed-item').each(function () {
+        // Récupérez la classe de couleur de l'élément <li>
+        var colorClass = $(this).attr('class').split(' ').find(cls => cls.startsWith('feed-item-'));
+        
+        // Ajoutez un gestionnaire d'événements de clic uniquement si la classe de couleur existe
+        if (colorClass) {
+            $(this).on('click', function () {
+                // Récupérez le contenu de la note cliquée
+                var noteText = $(this).find('.text').text();
+                var date = $(this).data('date')
+                // Récupérez le pays associé à cette note à partir de l'attribut data-country
+                var country = $(this).data('country');
+				var type = $(this).data('type');
+				var source = $(this).data('source');
+				var fatalities = $(this).data('fatalities');
+
+		var descriptionLastDayContent = `
+		<div class="card full-height" id="events_information">
+					<div class="card-header">
+					<div class="card-title">
+						<div class="row align-items-center">
+							<div class="col-md-10">
+								<span style="font-weight: bold;">Event Description</span>
+							</div>
+							<div class="col-md-2">
+								<button id="transparent-button-events-informations" class="btn btn-default">Last Event</button>
+							</div>
+						</div>
+					</div>
+				</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<div style="color: white;">
+								
+								${noteText}<br>
+								<br>
+								<span style="font-weight: bold;">Country: </span>${country}<br>
+								<br>
+								<span style="font-weight: bold;">Date: </span>${date}<br>
+								<br>
+								<span style="font-weight: bold;">Type: </span>${type}<br>
+								<br>
+								<span style="font-weight: bold;">Source: </span>${source}<br>
+								<br>
+								<span style="font-weight: bold;">Fatalities: </span>${fatalities}<br>
+								<br>
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+		$("#event-card").hide()
+    	$('#div-main-actor').hide();
+	
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
+		$('#events_information').html(descriptionLastDayContent);
+		// console.log(newContent_informations)
+
+
+            });
+        }
+    });
+});
+    });
+
+	}
+	
+	function Last100Days(data){
+		$('#Last100Days').on('click', function () {
+        $('html,body').animate({
+            scrollTop: '+2500'
+        }, 1000);
+        $("#event-card").hide();
+        var allDates = []; // Tableau pour stocker toutes les dates
+        var uniqueDatesSet = new Set(); // Ensemble pour stocker les dates uniques
+        var uniqueDates = []; // Tableau pour stocker les dates uniques
+
+        // Parcourez les données pour obtenir les 5 premières dates uniques
+        for (var i = 0; i < data.length; i++) {
+            var EventDateItem = data[i]['event_date'];
+
+            // Vérifiez si la date n'est pas déjà présente dans uniqueDatesSet
+            if (!uniqueDatesSet.has(EventDateItem)) {
+                uniqueDatesSet.add(EventDateItem);
+                uniqueDates.push(EventDateItem);
+            }
+
+            if (uniqueDates.length === 100) {
+                break;
+            }
+        }
+
+        var notesOfFirst5Dates = [];
+
+        for (var i = 0; i < data.length; i++) {
+            var item = data[i];
+            var EventDateItem = item['event_date'];
+
+            if (uniqueDates.includes(EventDateItem)) {
+                var note = item['notes'];
+				var country = item['country'];
+				var type = item['type'];
+				var source = item['source'];
+				var fatalities = item['fatalities']
+                notesOfFirst5Dates.push(note);
+            }
+        }
+
+var colorsType = ['success', 'info', 'warning', 'danger'];
+
+	var htmlContent = `
+    <div class="card full-height" id="div-event-date">
+        <div class="card-header">
+            <div class="card-title">
+                <div class="row align-items-center">
+                    <div class="col-md-9">
+                        <span style="font-weight:bold;">Last Event</span>
+                    </div>
+                    <div class="col-md-3">
+                        <button id="transparent-button" class="btn btn-default">All Last Events</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body-scroll">
+            <div class="container mt-5">
+                <div class="activity-feed">
+                    <ol class="activity-feed">
+                        ${uniqueDates.map(function (date, dateIndex) {
+                            return `
+                                ${notesOfFirst5Dates.map(function (note, noteIndex) {
+                                    // Calculez l'index de la couleur en fonction de l'index global de l'élément
+                                    var colorIndex = (dateIndex * notesOfFirst5Dates.length + noteIndex) % colorsType.length;
+                                    var colorClass = colorsType[colorIndex];
+
+                                    // Générez un identifiant unique pour chaque note
+                                    var noteId = 'note-' + dateIndex + '-' + noteIndex;
+                                    var date = data[noteIndex]['event_date'];
+                                    var country = data[noteIndex]['country'];
+									var type = data[noteIndex]['type'];
+									var source = data[noteIndex]['source'];
+									var fatalities = data[noteIndex]['fatalities']
+							
+                                    if (data[noteIndex]['event_date'] === date) {
+                                        if (note === '') {
+                                            return '';
+                                        }
+
+                                        return `
+                                            <li class="feed-item feed-item-${colorClass}" data-date="${date}" data-country="${country}" data-type="${type}" data-source="${source}" data-fatalities= "${fatalities}">
+                                                <div class="date">${date}</div>
+                                                <div class="text" style="color:white" id="${noteId}">${note}</div>
+                                            </li>
+                                        `;
+                                    } else {
+                                        return '';
+                                    }
+                                }).join('')}
+                            `;
+                        }).join('')}
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
+		$("#event-card").hide();
+   		$('#div-main-actor').hide();
+	
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date-description").hide();
+
+
+// Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
+$('#div-event-date').html(htmlContent).show();
+
+$(document).ready(function () {
+    $('li.feed-item').each(function () {
+        // Récupérez la classe de couleur de l'élément <li>
+        var colorClass = $(this).attr('class').split(' ').find(cls => cls.startsWith('feed-item-'));
+        
+        // Ajoutez un gestionnaire d'événements de clic uniquement si la classe de couleur existe
+        if (colorClass) {
+            $(this).on('click', function () {
+                // Récupérez le contenu de la note cliquée
+                var noteText = $(this).find('.text').text();
+                var date = $(this).data('date')
+                // Récupérez le pays associé à cette note à partir de l'attribut data-country
+                var country = $(this).data('country');
+				var type = $(this).data('type');
+				var source = $(this).data('source');
+				var fatalities = $(this).data('fatalities');
+
+		var descriptionLastDayContent = `
+		<div class="card full-height" id="events_information">
+					<div class="card-header">
+					<div class="card-title">
+						<div class="row align-items-center">
+							<div class="col-md-10">
+								<span style="font-weight: bold;">Event Description</span>
+							</div>
+							<div class="col-md-2">
+								<button id="transparent-button-events-informations" class="btn btn-default">Last Event</button>
+							</div>
+						</div>
+					</div>
+				</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<div style="color: white;">
+								
+								${noteText}<br>
+								<br>
+								<span style="font-weight: bold;">Country: </span>${country}<br>
+								<br>
+								<span style="font-weight: bold;">Date: </span>${date}<br>
+								<br>
+								<span style="font-weight: bold;">Type: </span>${type}<br>
+								<br>
+								<span style="font-weight: bold;">Source: </span>${source}<br>
+								<br>
+								<span style="font-weight: bold;">Fatalities: </span>${fatalities}<br>
+								<br>
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+		$("#event-card").hide()
+
+    	$('#div-main-actor').hide();
+	
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
+		$('#events_information').html(descriptionLastDayContent);
+		// console.log(newContent_informations)
+
+
+            });
+        }
+    });
+});
+    });
+
+	}
+
+	function processMainActors(data) {
+    var popupContent = $("#popupContentMainActor");
+    var contentHtml = "";
+    // Utiliser un ensemble (Set) pour stocker les acteurs uniques
+    var uniqueActors = new Set();
+    var IdActor;
+
+    data.forEach(function(item, index) {
+        // Vérifiez si l'acteur a déjà été ajouté
+        var mainActorName = item['main-actor'];
+        // console.log(item)
+        var IdActor = item['id']; // Cherchez l'ID de l'acteur principal dans la base de données
+        // console.log('Main Actor:', mainActorName, 'ID:', IdActor);
+        if (!uniqueActors.has(mainActorName)) {
+            contentHtml += "<p id='main-actor-" + index + "'>" + mainActorName + "</p>";
+            uniqueActors.add(mainActorName); // Ajouter l'acteur à l'ensemble
+        }
+    });
+
+    // Ajouter la barre de recherche
+    contentHtml = '<input type="text" id="searchBar" placeholder="search...">' + contentHtml;
+
+    contentHtml += '<p id="noResultsMessage" style="display: none;">Aucun résultat trouvé.</p>';
+
+    popupContent.html(contentHtml);
+    popupContent.show();
+    // Sélectionner la barre de recherche et le message "Aucun résultat trouvé"
+    var searchBar = $("#searchBar");
+    var noResultsMessage = $("#noResultsMessage");
+    // Écouter l'événement d'entrée
+    searchBar.on("input", function() {
+        var searchText = searchBar.val().toLowerCase();
+        var items = popupContent.find("p"); // Sélectionner les éléments <p> dans la div
+        var anyResults = false; // Pour garder une trace si des résultats sont trouvés
+        items.each(function(index, item) {
+            var itemText = $(item).text().toLowerCase();
+            if (itemText.includes(searchText)) {
+                $(item).show();
+                anyResults = true;
+            } else {
+                $(item).hide();
+            }
+        });
+        // Afficher ou masquer le message "Aucun résultat trouvé" en fonction des résultats
+        if (!anyResults) {
+            noResultsMessage.show();
+            // Réduire la hauteur de la div à 150px
+            $("#popupContentMainActor").css("height", "150px");
+        } else {
+            noResultsMessage.hide();
+            // Rétablir la hauteur par défaut
+            $("#popupContentMainActor").css("height", "300px");
+        }
+    });
+
+    $("p[id^='main-actor']").click(function() {
+        var typesColor = ['success', 'info', 'warning', 'danger'];
+
+        var count = 0;
+        var notesList = $('<ol>').addClass('activity-feed'); // Ajoutez la classe activity-feed à la liste	
+        var paragraphText = $(this).text();
+        for (var i = 0; i < data.length; i++) {
+            var mainActorContent = data[i]['main-actor'];
+
+            if (mainActorContent && mainActorContent.includes(paragraphText)) {
+                count++;
+                var notes = data[i]['notes'];
+
+                if (notes !== null && notes!== '') {
+				
+					var listItem = $('<li>').addClass('feed-item').addClass('feed-item-' + typesColor[i % typesColor.length]);
+					var date = $('<div class="date"></div>').text(formatEventDate(data[i]['event_date']));
+					var text = $('<div class="text" style="color:white"></div>').text(notes);
+
+					// Ajoutez un attribut data-id avec la valeur de l'ID à chaque élément de note
+					listItem.attr('data-id', data[i]['id']); // Supposons que l'ID soit stocké dans data[i]['id']
+
+					listItem.append(date, text);
+					notesList.append(listItem);
+					
+
+                }
+            }
+        }
+
+        $('html, body').animate({
+            scrollTop: '+=2500'
+        }, 1000);
+
+        var newContent = `
+            <div class="card full-height" id="div-main-actor">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="row align-items-center">
+                            <div class="col-md-9">
+                                <span style="font-weight: bold;">Last Events</span>
+                            </div>
+                            <div class="col-md-3">
+                                <button id="transparent-button" class="btn btn-default">All Last Events</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body-scroll">
+                    <div class="container mt-5">
+                        <div class="activity-feed">
+                            ${notesList.prop('outerHTML')} <!-- Insérez la liste dans le contenu -->
+                        </div>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>`;
+
+        $('#event-card').hide();
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		$("#div-main-actor-description").hide();
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
+        $('#div-main-actor').html(newContent).show();
+
+        $('#transparent-button').on('click', function() {
+            showCard();
+            $('#div-main-actor').hide();
+        });
+$('#div-main-actor .feed-item').on('click', function() {
+    // var noteText = $(this).find('.text').text();
+    // // alert('Note: ' + noteText);
+	// var eventId =$(this).data('id')
+	// alert(eventId)
+	var noteText = $(this).find('.text').text();
+    var eventId = $(this).data('id'); // Maintenant, vous pouvez extraire l'ID
+
+    var event = data.find(item => item.id === eventId);
+
+   
+        var country = event['country'];
+        var date = event['event_date'];
+        var type = event['type'];
+        var source = event['source'];
+        var fatalities = event['fatalities'];
+
+	
+    var newContentDescribeMainActor = `
+        <div class="card full-height" id="div-main-actor-description">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="row align-items-center">
+                        <div class="col-md-2">
+                            <button class="btn btn-default" id="button_goBack">
+                                <i class="fas fa-arrow-left" style="font-size:18px"></i>go back
+                            </button>
+                        </div>
+                        <div class="col-md-7">
+                            <span style ="font-weight:bold ; display:block;text-align:center;margin:0 auto;">Event Description</span>
+                        </div>
+                        <div class="col-md-3">
+                            <button id="transparent-button-newContentDescribeMainActor" class="btn btn-default"> All Last Event</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body-scroll">
+                    <div class="container mt-5">
+                        <div style="color:white;">
+                            ${noteText}<br>
+                            <br>
+                            <span style="font-weight:bold">Country:</span>${country}<br>
+                            <br>
+                            <span style="font-weight:bold">Date:</span>${date}<br>
+                            <br>
+                            <span style="font-weight:bold">Type:</span>${type}<br>
+                            <br>
+                            <span style="font-weight:bold">source:</span>${source}<br>
+                            <br>
+                            <span style="font-weight:bold">fatalities:</span>${fatalities}<br>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+	$("#even-card").hide();
+    $('#div-main-actor').hide();
+	
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
+
+    $('#div-main-actor-description').html(newContentDescribeMainActor).show();
+	$("#transparent-button-newContentDescribeMainActor").on("click",function(){
+		$('#div-main-actor-description').hide();
+		showCard()
+	})
+	$("#button_goBack").on("click",function(){
+		$("#div-main-actor-description").hide();
+		$("#div-main-actor").show()
+	})
+});
+});
+
+  
+}
+
+
+    function processEventTypes(data) {
+        
+		var popupContentEventType = $("#popupContentEventType");
+		var contentHtml ="";
+		var uniqueEventType = new Set();
+		data.forEach(function(item,index){
+			if(!uniqueEventType.has(item['type'])){
+				contentHtml += "<p id='type-" + index + "'>" + item['type'] +"</p>";
+				uniqueEventType.add(item['type']);
+			}
+		})
+		contentHtml = '<input type ="text" id="searchBarEventType" placeholder="search ...">'+contentHtml;
+		contentHtml += '<p id="noResultsMessageEventType" style="display:none;">Aucun resultat trouvé .</p>';
+
+		popupContentEventType.html(contentHtml);
+		popupContentEventType.show();
+
+		var searchBarEventType =$("#searchBarEventType");
+		var noResultsMessageEventType =  $("#noResultsMessageEventType");
+
+		searchBarEventType.on("input",function(){
+			var searchTextEventType = searchBarEventType.val().toLowerCase();
+			var itemsEventType = popupContentEventType.find("p");
+			var anyResultsEventType = false ;
+
+			itemsEventType.each(function(index,item){
+				var itemTextEventType = $(item).text().toLowerCase();
+				if(itemTextEventType.includes(searchTextEventType)){
+					$(item).show();
+					anyResultsEventType =true;
+				}
+				else{
+					$(item).hide();
+				}
+			})
+			if (!anyResults) {
+				noResultsMessage.show();
+			} else {
+				noResultsMessage.hide();
+			}
+		});
+    }
+
+    function processEventDates(data) {
+		var dropdown = $('#eventDatesDropdown');
+        dropdown.empty(); // Vide les éléments existants s'il y en a
+
+        // Récupère la première date et l'ajoute au dropdown
+        if (data.length > 0) {
+            var firstDate = data[0].event_date;
+            dropdown.append('<li><a class="dropdown-item" href="#">' + firstDate + '</a></li>');
+        }
+    }
+	function processEventData(data){
+		// ---------------------------------------------------------------------------------------------
+		// recuperation de données event type 
+		var popupContentEventType = $("#popupContentEventType");
+		var contentHtml ="";
+		var uniqueEventType = new Set();
+		data.forEach(function(item,index){
+			if(!uniqueEventType.has(item['type'])){
+				contentHtml += "<p id='type-" + index + "'>" + item['type'] +"</p>";
+				uniqueEventType.add(item['type']);
+			}
+		})
+		contentHtml = '<input type ="text" id="searchBarEventType" placeholder="search ...">'+contentHtml;
+		contentHtml += '<p id="noResultsMessageEventType" style="display:none;">Aucun resultat trouvé .</p>';
+
+		popupContentEventType.html(contentHtml);
+		popupContentEventType.show();
+
+		var searchBarEventType =$("#searchBarEventType");
+		var noResultsMessageEventType =  $("#noResultsMessageEventType");
+
+		searchBarEventType.on("input",function(){
+			var searchTextEventType = searchBarEventType.val().toLowerCase();
+			var itemsEventType = popupContentEventType.find("p");
+			var anyResultsEventType = false ;
+
+			itemsEventType.each(function(index,item){
+				var itemTextEventType = $(item).text().toLowerCase();
+				if(itemTextEventType.includes(searchTextEventType)){
+					$(item).show();
+					anyResultsEventType =true;
+				}
+				else{
+					$(item).hide();
+				}
+			})
+			if(!anyResultsEventType){
+				noResultsMessageEventType.show();
+				$("#popupContentEventType").css("height","130px")
+			}
+			else{
+				noResultsMessageEventType.hide();
+				$("#popupContentEventType").css("height","300px")
+			}
+		})
+		$("p[id^='type']").click(function(){
+			var colorsType =['success','info','warning','danger'];
+			var count = 0;
+			var notesEventTypeList = $('<ol>').addClass('activity-feed'); 
+			var paragraphTextEventType = $(this).text();
+			for (var i = 0; i<data.length;i++){
+				var eventTypeContent = data[i]['type'];
+				if(eventTypeContent&&eventTypeContent.includes(paragraphTextEventType)){
+					count ++;
+					var notes=data[i]['notes'];
+					if(notes!=null && notes!==''){
+						var listItemEventType = $('<li>').addClass('feed-item').addClass('feed-item-'+ colorsType[i% colorsType.length]);
+						var date =$('<div class="date"></div>').text(formatEventDate(data[i]['event_date']));
+						var text = $('<div class="text" style="color:white"></div>').text(notes);
+
+						listItemEventType.attr('data-id',data[i]['id']);
+
+						listItemEventType.append(date,text);
+						notesEventTypeList.append(listItemEventType)
+
+					}
+				}
+			}
+			
+			$('html,body').animate({
+				scrollTop:'+=2500'
+			},1000);
+			var newContentEventType =`
+				<div class="card full-height" id="div-event-type">
+					<div class="card-header">
+						<div class="card-title">
+							<div class="row align-items-center">
+							
+								<div class="col-md-9">
+									<span style="font-weight:bold;">Event Description</span>
+								</div>
+								<div class="col-md-3">
+									<button id="transparent-button" class="btn btn-default">All Last Events</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<div class="activity-feed">
+								${notesEventTypeList.prop('outerHTML')}
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+			$('#event-card').hide();			
+			$("#div-main-actor").hide();
+			$("#events_information").hide();		
+			$("#div-event-type-description").hide();
+			$("#div-main-actor-description").hide();
+			$("#div-sub-event").hide();
+			$("#div-sub-event-description").hide();
+			$("#div-event-source").hide();
+			$("#div-event-source-description").hide();
+			$("#div-year").hide();
+			$("#div-year-description").hide();
+			$("#div-event-date").hide();
+			$("#div-event-date-description").hide();
+
+			$('#div-event-type').html(newContentEventType).show();
+			$("#transparent-button").on('click',function(){
+				showCard();
+				$("#div-event-type").hide();
+			})
+			$("#div-event-type .feed-item").on('click',function(){
+				var noteTextEventType = $(this).find('.text').text();
+				var eventTypeId = $(this).data('id');
+				var eventType = data.find(item => item.id === eventTypeId);
+				var countryEvent_type = eventType['country'];
+				var dateEvent_type = eventType['event_date'];
+				var typeEvent_type = eventType['type'];
+				var sourceEvent_type = eventType['source'];
+				var fatalitiesEvent_type = eventType['fatalities']
+				// alert(noteTextEventType)
+				var newContentdescribeEventType =  `
+        <div class="card full-height" id="div-event-type-description">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="row align-items-center">
+                        <div class="col-md-2">
+                            <button class="btn btn-default" id="button_goBack">
+                                <i class="fas fa-arrow-left" style="font-size:18px"></i>go back
+                            </button>
+                        </div>
+                        <div class="col-md-7">
+                            <span style ="font-weight:bold ; display:block;text-align:center;margin:0 auto;">Event Description</span>
+                        </div>
+                        <div class="col-md-3">
+                            <button id="transparent-button-newContentDescribeEventType" class="btn btn-default"> All Last Event</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body-scroll">
+                    <div class="container mt-5">
+                        <div style="color:white;">
+                            ${noteTextEventType}<br>
+                            <br>
+                            <span style="font-weight:bold">Country:</span>${countryEvent_type}<br>
+                            <br>
+                            <span style="font-weight:bold">Date:</span>${dateEvent_type}<br>
+                            <br>
+                            <span style="font-weight:bold">Type:</span>${typeEvent_type}<br>
+                            <br>
+                            <span style="font-weight:bold">source:</span>${sourceEvent_type}<br>
+                            <br>
+                            <span style="font-weight:bold">fatalities:</span>${fatalitiesEvent_type}<br>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+		$("#div-main-actor").hide();
+		$("#event-card").hide()
+		$("#events_information").hide();
+		$("#div-main-actor-description").hide();
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
+		$("#div-event-type").hide();
+        $("#div-event-type-description").html(newContentdescribeEventType).show();
+		$("#transparent-button-newContentDescribeEventType").on("click",function(){
+		$('#div-event-type-description').hide();
+		showCard()
+	})
+	$("#button_goBack").on("click",function(){
+		$("#div-event-type-description").hide();
+		$("#div-event-type").show()
+	})
+
+        
+			})
+		})
+	}
+	function processActorTypes(data) {
+        var popupContentActor = $("#popupContentActor");
+        var contentHtmlActor = "";
+
+        // Construire le contenu HTML de la div
+        contentHtmlActor += '<input type="text" id="searchBarActor" placeholder="search...">';
+        contentHtmlActor += '<div id="searchResultsActor"></div>';
+        contentHtmlActor += '<p style="margin: 0;">Civilians</p>';
+        contentHtmlActor += '<p style="margin: 0;">External/Other Forces</p>';
+        contentHtmlActor += '<p style="margin: 0;">Identity Militias</p>';
+        contentHtmlActor += '<p style="margin: 0;">Political Militias</p>';
+        contentHtmlActor += '<p style="margin: 0;">Protesters</p>';
+        contentHtmlActor += '<p style="margin: 0;">Rebel Forces</p>';
+        contentHtmlActor += '<p style="margin: 0;">Rioters</p>';
+        contentHtmlActor += '<p style="margin: 0;">State Forces</p>';
+        contentHtmlActor += '<p id="popupContentActorNoResultsMessage" class="hide">Aucun résultat trouvé.</p>';
+
+        popupContentActor.html(contentHtmlActor);
+        popupContentActor.show();
+		searchFilter("popupContentActor", "searchBarActor", "searchResultsActor");
+	}
+	function searchFilter(containerId, searchBarId, resultsContainerId) {
+    var container = $("#" + containerId);
+    var searchBar = $("#" + searchBarId);
+    var resultsContainer = $("#" + resultsContainerId);
+
+    searchBar.on("input", function() {
+        var searchText = searchBar.val().toLowerCase();
+        var items = container.find("p"); 
+
+        var anyResults = false; 
+
+        items.each(function(index, item) {
+            var itemText = $(item).text().toLowerCase();
+            if (itemText.includes(searchText)) {
+                $(item).show();
+                anyResults = true;
+            } else {
+                $(item).hide();
+            }
+        });
+
+        var noResultsMessage = $("#" + containerId + "NoResultsMessage");
+		if (!anyResults) {
+			noResultsMessage.show();
+			// Réduire la hauteur de la div à 150px
+			$("#popupContentActor").css("height", "130px");
+			} else {
+				noResultsMessage.hide()
+				// Rétablir la hauteur par défaut
+				$("#popupContentActor").css("height", "300px");
+			}
+    	});
+	}
+
+	function processEventYear(data){
+		var popupContentEventYear = $("#popupContentEventYear");
+		var contentHtml = "";
+		var uniqueEventYear = new Set();
+
+		data.forEach(function(item, index) {
+		    if (!uniqueEventYear.has(item['year'])) {
+ 		       contentHtml += "<p id='year-" + index + "'>" + item['year'] + "</p>";
+		        uniqueEventYear.add(item['year']);
+		    }
+		});
+
+	contentHtml = '<input type="text" id="searchBarEventYear" placeholder="Search...">' + contentHtml;
+	contentHtml += '<p id="noResultsMessageEventYear" style="display: none;">Aucun résultat trouvé.</p>';
+
+	popupContentEventYear.html(contentHtml);
+	popupContentEventYear.show();
+
+	var searchBarEventYear = $("#searchBarEventYear");
+	var noResultsMessageEventYear = $("#noResultsMessageEventYear");
+
+	searchBarEventYear.on("input", function() {
+		var searchTextEventYear = searchBarEventYear.val().toLowerCase();
+		var itemsEventYear = popupContentEventYear.find("p");
+		var anyResultsEventYear = false;
+
+		itemsEventYear.each(function(index, item) {
+			var itemTextEventYear = $(item).text().toLowerCase();
+			if (itemTextEventYear.includes(searchTextEventYear)) {
+				$(item).show();
+				anyResultsEventYear = true;
+			} else {
+				$(item).hide();
+			}
+		});
+
+		if (!anyResultsEventYear) {
+			noResultsMessageEventYear.show();
+		} else {
+			noResultsMessageEventYear.hide();
+		}		
+	});
+	$("p[id^='year']").click(function(){
+			
+			var colors =['success','info','warning','danger'];
+			var count = 0;
+			var notesYearList = $('<ol>').addClass('activity-feed'); 
+			var paragraphTextYear = $(this).text();
+			for (var i = 0; i<data.length;i++){
+
+				var yearContent = data[i]['year'];
+			
+					if(yearContent){
+			
+					count ++;
+				
+					var notes=data[i]['notes'];
+			
+					if(notes!=null && notes!==''){
+						var listItemYear = $('<li>').addClass('feed-item').addClass('feed-item-'+ colors[i% colors.length]);
+						var date =$('<div class="date"></div>').text(formatEventDate(data[i]['event_date']));
+			
+						var text = $('<div class="text" style="color:white"></div>').text(notes);
+			
+
+						listItemYear.attr('data-id',data[i]['id']);
+		
+
+						listItemYear.append(date,text);
+						notesYearList.append(listItemYear)
+				
+
+					}
+				}
+			}			
+			$('html,body').animate({
+				scrollTop:'+=2500'
+			},1000);
+			var newContentYear =`
+				<div class="card full-height" id="div-year">
+					<div class="card-header">
+						<div class="card-title">
+							<div class="row align-items-center">
+							
+								<div class="col-md-9">
+									<span style="font-weight:bold;">Last Events</span>
+								</div>
+								<div class="col-md-3">
+									<button id="transparent-button" class="btn btn-default">All Last Events</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<div class="activity-feed">
+								${notesYearList.prop('outerHTML')}
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+			
+			$('#event-card').hide();			
+			$('#div-main-actor').hide();
+			$("#events_information").hide();
+			$("#div-event-type").hide();
+			$("#div-event-type-description").hide();
+			$("#div-main-actor-description").hide();
+			$("#div-sub-event").hide();
+			$("#div-sub-event-description").hide();
+			$("#div-event-source").hide();
+			$("#div-event-source-description").hide();
+			$("#div-year-description").hide();
+			$("#div-event-date").hide();
+			$("#div-event-date-description").hide();
+
+			$('#div-year').html(newContentYear).show();
+			$("#transparent-button").on('click',function(){
+				showCard();
+				$("#div-year").hide();
+			})
+		
+			$("#div-year .feed-item").on('click',function(){
+				
+				var noteTextYear = $(this).find('.text').text();
+				var yearId = $(this).data('id');
+				var yearData = data.find(item => item.id === yearId);
+				var countryYear = yearData['country'];
+				var dateYear = yearData['event_date'];
+				var typeYear= yearData['type'];
+				var sourceYear = yearData['source'];
+				var fatalitiesYear= yearData['fatalities']
+				
+				var newContentdescribeYear =  `
+        <div class="card full-height" id="div-year-description">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="row align-items-center">
+                        <div class="col-md-2">
+                            <button class="btn btn-default" id="button_goBack">
+                                <i class="fas fa-arrow-left" style="font-size:18px"></i>go back
+                            </button>
+                        </div>
+                        <div class="col-md-7">
+                            <span style ="font-weight:bold ; display:block;text-align:center;margin:0 auto;">Event Description</span>
+                        </div>
+                        <div class="col-md-3">
+                            <button id="transparent-button-newContentDescribeEventType" class="btn btn-default"> All Last Event</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body-scroll">
+                    <div class="container mt-5">
+                        <div style="color:white;">
+                            ${noteTextYear}<br>
+                            <br>
+                            <span style="font-weight:bold">Country:</span>${countryYear}<br>
+                            <br>
+                            <span style="font-weight:bold">Date:</span>${dateYear}<br>
+                            <br>
+                            <span style="font-weight:bold">Type:</span>${typeYear}<br>
+                            <br>
+                            <span style="font-weight:bold">source:</span>${sourceYear}<br>
+                            <br>
+                            <span style="font-weight:bold">fatalities:</span>${fatalitiesYear}<br>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+		$("#event-card").hide()
+        $('#div-main-actor').hide();
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		$("#div-main-actor-description").hide();
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();;
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
+		$("#div-year").hide();
+        $("#div-year-description").html(newContentdescribeYear).show();
+		$("#transparent-button-newContentDescribeYear").on("click",function(){
+		$('#div-year-description').hide();
+		showCard()
+	})
+	$("#button_goBack").on("click",function(){
+		$("#div-year-description").hide();
+		$("#div-year").show()
+	})
+			})
+		})
+
+	}
+
+
+	function processEventSource(data){
+		var popupContentEventSource = $("#popupContentEventSource");
+		var contentHtml ="";
+		var uniqueEventSource = new Set();
+		data.forEach(function(item,index){
+			if(!uniqueEventSource.has(item['source'])){
+				contentHtml += "<p id='source-" + index + "'>" + item['source'] +"</p>";
+				uniqueEventSource.add(item['source']);
+			}
+		})
+		contentHtml = '<input type ="text" id="searchBarEventSource" placeholder="search ...">'+contentHtml;
+		contentHtml += '<p id="noResultsMessageEventSource" style="display:none;">Aucun resultat trouvé .</p>';
+
+		popupContentEventSource .html(contentHtml);
+		popupContentEventSource .show();
+
+		var searchBarEventSource =$("#searchBarEventSource");
+		var noResultsMessageEventSource =  $("#noResultsMessageEventSource");
+
+		searchBarEventSource.on("input",function(){
+			var searchTextEventSource = searchBarEventSource.val().toLowerCase();
+			var itemsEventSource = popupContentEventSource .find("p");
+			var anyResultsEventSource = false ;
+
+			itemsEventSource.each(function(index,item){
+				var itemTextEventSource = $(item).text().toLowerCase();
+				if(itemTextEventSource.includes(searchTextEventSource)){
+					$(item).show();
+					anyResultsEventSource =true;
+				}
+				else{
+					$(item).hide();
+				}
+			})
+			if(!anyResultsEventSource){
+				noResultsMessageEventSource.show();
+				$("#popupContentEventSource").css("height","130px")
+			}
+			else{
+				noResultsMessageEventSource.hide();
+				$("#popupContentEventSource").css("height","300px")
+			}
+		})
+		$("p[id^='source']").click(function(){
+			var colorsType =['success','info','warning','danger'];
+			var count = 0;
+			var notesEventSourceList = $('<ol>').addClass('activity-feed'); 
+			var paragraphTextEventSource = $(this).text();
+			for (var i = 0; i<data.length;i++){
+				var EventSourceContent = data[i]['source'];
+				if(EventSourceContent&&EventSourceContent.includes(paragraphTextEventSource)){
+					count ++;
+					var notes=data[i]['notes'];
+					if(notes!=null && notes!==''){
+						var listItemEventSource = $('<li>').addClass('feed-item').addClass('feed-item-'+ colorsType[i% colorsType.length]);
+						var date =$('<div class="date"></div>').text(formatEventDate(data[i]['event_date']));
+						var text = $('<div class="text" style="color:white"></div>').text(notes);
+
+						listItemEventSource.attr('data-id',data[i]['id']);
+
+						listItemEventSource.append(date,text);
+						notesEventSourceList.append(listItemEventSource)
+
+					}
+				}
+			}
+			
+			$('html,body').animate({
+				scrollTop:'+=2500'
+			},1000);
+			var newContentEventSource =`
+				<div class="card full-height" id="div-event-type">
+					<div class="card-header">
+						<div class="card-title">
+							<div class="row align-items-center">
+							
+								<div class="col-md-9">
+									<span style="font-weight:bold;">Event Description</span>
+								</div>
+								<div class="col-md-3">
+									<button id="transparent-button" class="btn btn-default">All Last Events</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<div class="activity-feed">
+								${notesEventSourceList.prop('outerHTML')}
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+			$('#event-card').hide();
+			
+			$('#div-main-actor').hide();
+		$("#events_information").hide();
+		$("#div-event-type-description").hide();
+		$("#div-main-actor-description").hide();
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
+			$('#div-event-type').html(newContentEventSource).show();
+			$("#transparent-button").on('click',function(){
+				showCard();
+				$("#div-event-type").hide();
+			})
+			$("#div-event-type .feed-item").on('click',function(){
+				var noteTextEventSource = $(this).find('.text').text();
+				var EventSourceId = $(this).data('id');
+				var EventSource = data.find(item => item.id === EventSourceId);
+				var countryEvent_type = EventSource['country'];
+				var dateEvent_type = EventSource['event_date'];
+				var typeEvent_type = EventSource['type'];
+				var sourceEvent_type = EventSource['source'];
+				var fatalitiesEvent_type = EventSource['fatalities']
+				// alert(noteTextEventSource)
+				var newContentdescribeEventSource =  `
+        <div class="card full-height" id="div-event-type-description">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="row align-items-center">
+                        <div class="col-md-2">
+                            <button class="btn btn-default" id="button_goBack">
+                                <i class="fas fa-arrow-left" style="font-size:18px"></i>go back
+                            </button>
+                        </div>
+                        <div class="col-md-7">
+                            <span style ="font-weight:bold ; display:block;text-align:center;margin:0 auto;">Event Description</span>
+                        </div>
+                        <div class="col-md-3">
+                            <button id="transparent-button-newContentDescribeEventSource" class="btn btn-default"> All Last Event</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body-scroll">
+                    <div class="container mt-5">
+                        <div style="color:white;">
+                            ${noteTextEventSource}<br>
+                            <br>
+                            <span style="font-weight:bold">Country:</span>${countryEvent_type}<br>
+                            <br>
+                            <span style="font-weight:bold">Date:</span>${dateEvent_type}<br>
+                            <br>
+                            <span style="font-weight:bold">Type:</span>${typeEvent_type}<br>
+                            <br>
+                            <span style="font-weight:bold">source:</span>${sourceEvent_type}<br>
+                            <br>
+                            <span style="font-weight:bold">fatalities:</span>${fatalitiesEvent_type}<br>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+		$("#event-card").hide()
+		
+        $('#div-main-actor').hide();
+		$("#events_information").hide();
+		$("#div-main-actor-description").hide();
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
+		$("#div-event-type").hide();
+        $("#div-event-type-description").html(newContentdescribeEventSource).show();
+		$("#transparent-button-newContentDescribeEventSource").on("click",function(){
+		$('#div-event-type-description').hide();
+		showCard()
+	})
+	$("#button_goBack").on("click",function(){
+		$("#div-event-type-description").hide();
+		$("#div-event-type").show()
+	})
+
+			})
+		})
+	}
+	
+	
+	function processEventPeriod(data) {		
+    var popupContentEventPeriod = $("#popupContentEventPeriod");
+    var contentHtml = "";
+    var uniqueEventPeriod = new Set();
+
+    data.forEach(function (item, index) {
+        var eventDateParts = (item['event_date'] ?? '').split('-');
+        var formattedDate = eventDateParts[0] + eventDateParts[1]; // Combine year and month
+
+        if (!uniqueEventPeriod.has(formattedDate)) {
+            // Add a click event listener to the <p> element
+            contentHtml += "<p class='event-period' id='event_period-" + index + "'>" + formattedDate + "</p>";
+            uniqueEventPeriod.add(formattedDate);
+        }		
+    });
+
+    contentHtml = '<input type="text" id="searchBarEventPeriod" placeholder="Search...">' + contentHtml;
+    contentHtml += '<p id="noResultsMessageEventPeriod" style="display:none;">Aucun résultat trouvé.</p>';
+
+    popupContentEventPeriod.html(contentHtml);
+    popupContentEventPeriod.show();
+
+    var searchBarEventPeriod = $("#searchBarEventPeriod");
+    var noResultsMessageEventPeriod = $("#noResultsMessageEventPeriod");
+
+    searchBarEventPeriod.on("input", function () {
+        var searchTextEventPeriod = searchBarEventPeriod.val().toLowerCase();
+        var anyResultsEventPeriod = false;
+
+        eventDateElements.each(function (index, item) {
+            var itemTextEventPeriod = $(item).text().toLowerCase();
+            if (itemTextEventPeriod.includes(searchTextEventPeriod)) {
+                $(item).show();
+                anyResultsEventPeriod = true;
+            } else {
+                $(item).hide();
+            }
+        });
+
+        if (!anyResultsEventPeriod) {
+            noResultsMessageEventPeriod.show();
+            $("#popupContentEventPeriod").css("height", "130px");
+        } else {
+            noResultsMessageEventPeriod.hide();
+            $("#popupContentEventPeriod").css("height", "300px");
+        }
+    });
+	$("p[id^='event_period']").click(function(){
+	
+		var paragraphTextEventPeriod = $(this).text();
+		
+		newParagraphTextEventPeriod = paragraphTextEventPeriod.substring(0,4)+'-'+paragraphTextEventPeriod.substring(4);
+		
+		
+		
+		var colorsType =['success','info','warning','danger'];
+			var count = 0;
+			var notesEventDateList = $('<ol>').addClass('activity-feed'); 
+			var paragraphTextEventDate = $(this).text();
+			for (var i = 0; i<data.length;i++){
+				var EventDateContent = data[i]['event_date'];
+				var newEventDateContent = EventDateContent.substring(0,7)
+				if(EventDateContent&&EventDateContent.includes(newParagraphTextEventPeriod)){
+					count ++;
+					var notes=data[i]['notes'];
+					if(notes!=null && notes!==''){
+						var listItemEventDate = $('<li>').addClass('feed-item').addClass('feed-item-'+ colorsType[i% colorsType.length]);
+						var date =$('<div class="date"></div>').text(formatEventDate(data[i]['event_date']));
+						var text = $('<div class="text" style="color:white"></div>').text(notes);
+
+						listItemEventDate.attr('data-id',data[i]['id']);
+
+						listItemEventDate.append(date,text);
+						notesEventDateList.append(listItemEventDate)
+
+					}
+				}
+			}
+			
+			$('html,body').animate({
+				scrollTop:'+=2500'
+			},1000);
+			var newContentEventDate =`
+				<div class="card full-height" id="div-event-date">
+					<div class="card-header">
+						<div class="card-title">
+							<div class="row align-items-center">
+							
+								<div class="col-md-9">
+									<span style="font-weight:bold;">Event Description</span>
+								</div>
+								<div class="col-md-3">
+									<button id="transparent-button" class="btn btn-default">All Last Events</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<div class="activity-feed">
+								${notesEventDateList.prop('outerHTML')}
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+			$('#event-card').hide();
+			
+			$('#div-main-actor').hide();
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		$("#div-main-actor-description").hide();
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date-description").hide();
+
+			$('#div-event-date').html(newContentEventDate).show();
+			$("#transparent-button").on('click',function(){
+				showCard();
+				$("#div-event-date").hide();
+			})
+			$("#div-event-date .feed-item").on('click',function(){
+				var noteTextEventDate = $(this).find('.text').text();
+				var EventDateId = $(this).data('id');
+				var EventDate = data.find(item => item.id === EventDateId);
+				var countryEventDate = EventDate['country'];
+				var dateEventDate = EventDate['event_date'];
+				var typeEventDate = EventDate['type'];
+				var sourceEventDate = EventDate['source'];
+				var fatalitiesEventDate = EventDate['fatalities']
+				// alert(noteTextEventSource)
+				var newContentdescribeEventDate =  `
+        <div class="card full-height" id="div-event-date-description">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="row align-items-center">
+                        <div class="col-md-2">
+                            <button class="btn btn-default" id="button_goBack">
+                                <i class="fas fa-arrow-left" style="font-size:18px"></i>go back
+                            </button>
+                        </div>
+                        <div class="col-md-7">
+                            <span style ="font-weight:bold ; display:block;text-align:center;margin:0 auto;">Event Description</span>
+                        </div>
+                        <div class="col-md-3">
+                            <button id="transparent-button-newContentDescribeEventDate" class="btn btn-default"> All Last Event</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body-scroll">
+                    <div class="container mt-5">
+                        <div style="color:white;">
+                            ${noteTextEventDate}<br>
+                            <br>
+                            <span style="font-weight:bold">Country:</span>${countryEventDate}<br>
+                            <br>
+                            <span style="font-weight:bold">Date:</span>${dateEventDate}<br>
+                            <br>
+                            <span style="font-weight:bold">Type:</span>${typeEventDate}<br>
+                            <br>
+                            <span style="font-weight:bold">source:</span>${sourceEventDate}<br>
+                            <br>
+                            <span style="font-weight:bold">fatalities:</span>${fatalitiesEventDate}<br>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+		$("#event-card").hide()
+		$("#div-event-date").hide();
+        $("#div-event-date-description").html(newContentdescribeEventDate).show();
+		$("#transparent-button-newContentDescribeEventDate").on("click",function(){
+		$('#div-event-date-description').hide();
+		showCard()
+	})
+	$("#button_goBack").on("click",function(){
+		$("#div-event-date-description").hide();
+		$("#div-event-date").show()
+	})
+
+       
+			})
+	})
+}
+
+
+	function processEventTimeDate(data){
+		var popupContentEventDate = $("#popupContentEventDate");
+		var contentHtml ="";
+		var uniqueEventDate = new Set();
+		data.forEach(function(item,index){
+			if(!uniqueEventDate.has(item['event_date'])){
+				contentHtml += "<p id='event_date-" + index + "'>" + item['event_date'] +"</p>";
+				uniqueEventDate.add(item['event_date']);
+			}
+		})
+		contentHtml = '<input type ="text" id="searchBarEventDate" placeholder="search ...">'+contentHtml;
+		contentHtml += '<p id="noResultsMessageEventDate" style="display:none;">Aucun resultat trouvé .</p>';
+
+		popupContentEventDate .html(contentHtml);
+		popupContentEventDate .show();
+
+		var searchBarEventDate =$("#searchBarEventDate");
+		var noResultsMessageEventDate =  $("#noResultsMessageEventDate");
+
+		searchBarEventDate.on("input",function(){
+			var searchTextEventDate = searchBarEventDate.val().toLowerCase();
+			var itemsEventDate = popupContentEventDate .find("p");
+			var anyResultsEventDate = false ;
+
+			itemsEventDate.each(function(index,item){
+				var itemTextEventDate = $(item).text().toLowerCase();
+				if(itemTextEventDate.includes(searchTextEventDate)){
+					$(item).show();
+					anyResultsEventDate =true;
+				}
+				else{
+					$(item).hide();
+				}
+			})
+			if(!anyResultsEventDate){
+				noResultsMessageEventDate.show();
+				$("#popupContentEventDate").css("height","130px");
+			}
+			else{
+				noResultsMessageEventDate.hide();
+				$("#popupContentEventDate").css("height","300px");
+			}
+		})
+		$("p[id^='event_date']").click(function(){
+			
+			var colorsType =['success','info','warning','danger'];
+			var count = 0;
+			var notesEventDateList = $('<ol>').addClass('activity-feed'); 
+			var paragraphTextEventDate = $(this).text();
+			for (var i = 0; i<data.length;i++){
+				var EventDateContent = data[i]['event_date'];
+				if(EventDateContent&&EventDateContent.includes(paragraphTextEventDate)){
+					count ++;
+					var notes=data[i]['notes'];
+					if(notes!=null && notes!==''){
+						var listItemEventDate = $('<li>').addClass('feed-item').addClass('feed-item-'+ colorsType[i% colorsType.length]);
+						var date =$('<div class="date"></div>').text(formatEventDate(data[i]['event_date']));
+						var text = $('<div class="text" style="color:white"></div>').text(notes);
+
+						listItemEventDate.attr('data-id',data[i]['id']);
+
+						listItemEventDate.append(date,text);
+						notesEventDateList.append(listItemEventDate)
+
+					}
+				}
+			}
+			
+			$('html,body').animate({
+				scrollTop:'+=2500'
+			},1000);
+			var newContentEventDate =`
+				<div class="card full-height" id="div-event-date">
+					<div class="card-header">
+						<div class="card-title">
+							<div class="row align-items-center">
+							
+								<div class="col-md-9">
+									<span style="font-weight:bold;">Event Description</span>
+								</div>
+								<div class="col-md-3">
+									<button id="transparent-button" class="btn btn-default">All Last Events</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<div class="activity-feed">
+								${notesEventDateList.prop('outerHTML')}
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+			$('#event-card').hide();
+        $('#div-main-actor').hide();
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		$("#div-main-actor-description").hide();
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date-description").hide();
+
+			$('#div-event-date').html(newContentEventDate).show();
+			$("#transparent-button").on('click',function(){
+				showCard();
+				$("#div-event-date").hide();
+			})
+			$("#div-event-date .feed-item").on('click',function(){
+				var noteTextEventDate = $(this).find('.text').text();
+				var EventDateId = $(this).data('id');
+				var EventDate = data.find(item => item.id === EventDateId);
+				var countryEventDate = EventDate['country'];
+				var dateEventDate = EventDate['event_date'];
+				var typeEventDate = EventDate['type'];
+				var sourceEventDate = EventDate['source'];
+				var fatalitiesEventDate = EventDate['fatalities']
+				// alert(noteTextEventSource)
+				var newContentdescribeEventDate =  `
+        <div class="card full-height" id="div-event-date-description">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="row align-items-center">
+                        <div class="col-md-2">
+                            <button class="btn btn-default" id="button_goBack">
+                                <i class="fas fa-arrow-left" style="font-size:18px"></i>go back
+                            </button>
+                        </div>
+                        <div class="col-md-7">
+                            <span style ="font-weight:bold ; display:block;text-align:center;margin:0 auto;">Event Description</span>
+                        </div>
+                        <div class="col-md-3">
+                            <button id="transparent-button-newContentDescribeEventDate" class="btn btn-default"> All Last Event</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body-scroll">
+                    <div class="container mt-5">
+                        <div style="color:white;">
+                            ${noteTextEventDate}<br>
+                            <br>
+                            <span style="font-weight:bold">Country:</span>${countryEventDate}<br>
+                            <br>
+                            <span style="font-weight:bold">Date:</span>${dateEventDate}<br>
+                            <br>
+                            <span style="font-weight:bold">Type:</span>${typeEventDate}<br>
+                            <br>
+                            <span style="font-weight:bold">source:</span>${sourceEventDate}<br>
+                            <br>
+                            <span style="font-weight:bold">fatalities:</span>${fatalitiesEventDate}<br>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+		$("#event-card").hide()
+		
+        $('#div-main-actor').hide();
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		$("#div-main-actor-description").hide();
+		$("#div-sub-event").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+
+		$("#div-event-date").hide();
+        $("#div-event-date-description").html(newContentdescribeEventDate).show();
+		$("#transparent-button-newContentDescribeEventDate").on("click",function(){
+		$('#div-event-date-description').hide();
+		showCard()
+	})
+	$("#button_goBack").on("click",function(){
+		$("#div-event-date-description").hide();
+		$("#div-event-date").show()
+	})
+
+       
+			})
+		})
+	}
+
+	function processEventSubtype(data){
+		var popupContentEventSubtype = $("#popupContentEventSubtype");
+		var contentHtml ="";
+		var uniqueEventSubtype = new Set();
+		data.forEach(function(item,index){
+			if(!uniqueEventSubtype.has(item['sub_event_type'])){
+				contentHtml += "<p id='sub_event_type-" + index + "'>" + item['sub_event_type'] +"</p>";
+				uniqueEventSubtype.add(item['sub_event_type']);
+			}
+		})
+		contentHtml = '<input type ="text" id="searchBarEventSubtype" placeholder="search ...">'+contentHtml;
+		contentHtml += '<p id="noResultsMessageEventSubtype" style="display:none;">Aucun resultat trouvé .</p>';
+
+		popupContentEventSubtype .html(contentHtml);
+		popupContentEventSubtype .show();
+
+		var searchBarEventSubtype =$("#searchBarEventSubtype");
+		var noResultsMessageEventSubtype =  $("#noResultsMessageEventSubtype");
+
+		searchBarEventSubtype.on("input",function(){
+			var searchTextEventSubtype = searchBarEventSubtype.val().toLowerCase()			
+			var itemsEventSubtype = popupContentEventSubtype .find("p");
+			var anyResultsEventSubtype = false ;
+
+			itemsEventSubtype.each(function(index,item){
+				var itemTextEventSubtype = $(item).text().toLowerCase();
+				if(itemTextEventSubtype.includes(searchTextEventSubtype)){
+					$(item).show();
+					anyResultsEventSubtype =true;
+				}
+				else{
+					$(item).hide();
+				}
+			})
+			if(!anyResultsEventSubtype){
+				noResultsMessageEventSubtype.show();
+				$("#popupContentEventSubtype").css("height","130px")
+			}
+			else{
+				noResultsMessageEventSubtype.hide();
+				$("#popupContentEventSubtype").css("height","300px")
+			}
+		})
+		$("p[id^='sub_event_type']").click(function(){
+			var colorSubEvent = ['success','info','warning','danger'];
+			var count = 0;
+			var noteSubEvent = $('<ol>').addClass('activity-feed');
+			var paragraphTextSubEvent = $(this).text();
+			for(var i = 0;i<data.length;i++){
+				var subEventContent = data[i]['sub_event_type'];
+				if(subEventContent&&subEventContent.includes(paragraphTextSubEvent)){
+					count ++;
+					var notes = data[i]['notes'];
+					if(notes!=null && notes !==''){
+						var listItemSubEvent = $('<li>').addClass('feed-item').addClass('feed-item-'+colorSubEvent[i%colorSubEvent.length]);
+						var date =$('<div class="date"></div>').text(formatEventDate(data[i]['event_date']));
+						var text = $('<div class="text" style="color:white"></div>').text(notes);
+						console.log(date,text)
+						listItemSubEvent.attr('data-id',data[i]['id']);
+
+						listItemSubEvent.append(date,text);
+						noteSubEvent.append(listItemSubEvent)
+					}
+				}
+			}
+			$('html,body').animate({
+				scrollTop:'+2500'
+			},1000);
+
+			var newContentSubEvent =`
+			<div class="card full-height" id="div-sub-event">
+					<div class="card-header">
+						<div class="card-title">
+							<div class="row align-items-center">
+							
+								<div class="col-md-9">
+									<span style="font-weight:bold;">Last Event</span>
+								</div>
+								<div class="col-md-3">
+									<button id="transparent-button-sub" class="btn btn-default">All Last Events</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-body-scroll">
+						<div class="container mt-5">
+							<div class="activity-feed">
+								${noteSubEvent.prop('outerHTML')}
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+			$('#event-card').hide();
+			
+			$('#div-main-actor').hide();
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		$("#div-main-actor-description").hide();
+		$("#div-sub-event-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
+			$('#div-sub-event').html(newContentSubEvent).show();
+			$("#transparent-button-sub").on('click',function(){
+				showCard();
+				$("#div-sub-event").hide();
+			})
+			$("#div-sub-event .feed-item").on("click",function(){
+				
+				var noteTextSubEvent = $(this).find('.text').text();
+				var subEVentId = $(this).data('id');
+				var subEvent = data.find(item => item.id === subEVentId );
+				var countrySubEvent = subEvent['country'];
+				var dateSubEvent = subEvent['event_date'];
+				var typeSubEVent = subEvent['type'];
+				var sourceSubEvent = subEvent['source']
+				var fatalitiesSubEvent = subEvent['fatalities']
+
+				var newContentdescribeSubEvent =`
+				<div class="card full-height" id="div-sub-event-description">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="row align-items-center">
+                        <div class="col-md-2">
+                            <button class="btn btn-default" id="button_goBack">
+                                <i class="fas fa-arrow-left" style="font-size:18px"></i>go back
+                            </button>
+                        </div>
+                        <div class="col-md-7">
+                            <span style ="font-weight:bold ; display:block;text-align:center;margin:0 auto;">Event Description</span>
+                        </div>
+                        <div class="col-md-3">
+                            <button id="transparent-button-newContentDescribeSubEvent" class="btn btn-default"> All Last Event</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body-scroll">
+                    <div class="container mt-5">
+                        <div style="color:white;">
+                            ${noteTextSubEvent}<br>
+                            <br>
+                            <span style="font-weight:bold">Country:</span>${countrySubEvent}<br>
+                            <br>
+                            <span style="font-weight:bold">Date:</span>${dateSubEvent}<br>
+                            <br>
+                            <span style="font-weight:bold">Type:</span>${typeSubEVent}<br>
+                            <br>
+                            <span style="font-weight:bold">source:</span>${sourceSubEvent}<br>
+                            <br>
+                            <span style="font-weight:bold">fatalities:</span>${fatalitiesSubEvent}<br>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+				`;
+				$("#event-card").hide();
+				$("#div-sub-event").hide();
+				
+				$('#div-main-actor').hide();
+		$("#events_information").hide();
+		$("#div-event-type").hide();
+		$("#div-event-type-description").hide();
+		$("#div-main-actor-description").hide();
+		$("#div-event-source").hide();
+		$("#div-event-source-description").hide();
+		$("#div-year").hide();
+		$("#div-year-description").hide();
+		$("#div-event-date").hide();
+		$("#div-event-date-description").hide();
+
+				$("#div-sub-event-description").html(newContentdescribeSubEvent).show();
+				$("#transparent-button-newContentDescribeSubEvent").on("click",function(){
+							
+					$('#div-sub-event-description').hide();
+					showCard();
+							})
+				
+				$("#button_goBack").on("click",function(){
+					$("#div-sub-event-description").hide();
+					$("#div-sub-event").show()
+				})
+
+
+			})
+
+		})
+	}
+
+});
+
+
+
+
+
+</script>
+
+{% endblock javascripts %}

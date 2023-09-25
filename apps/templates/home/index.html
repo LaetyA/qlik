@@ -2931,7 +2931,7 @@ $('#LastDay').on('click', function() {
         dataType: 'json',
         success: function(data) {
             // Une fois les données chargées, exécutez la fonction de traitement
-            LastDay(data);
+            Last5Days(data);
         },
         error: function(error) {
             console.log('Une erreur s\'est produite :', error);
@@ -2946,7 +2946,7 @@ $('#Last30Days').on('click', function() {
         dataType: 'json',
         success: function(data) {
             // Une fois les données chargées, exécutez la fonction de traitement
-            LastDay(data);
+            Last30Days(data);
         },
         error: function(error) {
             console.log('Une erreur s\'est produite :', error);
@@ -2961,7 +2961,7 @@ $('#Last90Days').on('click', function() {
         dataType: 'json',
         success: function(data) {
             // Une fois les données chargées, exécutez la fonction de traitement
-            LastDay(data);
+            Last90Days(data);
         },
         error: function(error) {
             console.log('Une erreur s\'est produite :', error);
@@ -2976,7 +2976,7 @@ $('#Last100Days').on('click', function() {
         dataType: 'json',
         success: function(data) {
             // Une fois les données chargées, exécutez la fonction de traitement
-            LastDay(data);
+            Last100Days(data);
         },
         error: function(error) {
             console.log('Une erreur s\'est produite :', error);
@@ -3124,11 +3124,29 @@ var premiereDateHTML = `
         </div>
     </div>
 `;
-$("#event-card").hide();
+  
+	$("#event-card").hide();
+	$("#div-main-actor").hide();
+	$("#div-event-type").hide();
+	$("#div-event-type-description").hide();
+	$("#div-main-actor-description").hide();
+	$("#div-sub-event").hide();
+	$("#div-sub-event-description").hide();
+	$("#div-event-source").hide();
+	$("#div-event-source-description").hide();
+	$("#div-year").hide();
+	$("#div-year-description").hide();
+	$("#div-event-date-description").hide();
+	$("#events_information").hide();
 
+
+$("#event-card").hide();
 // Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
 $('#div-event-date').html(premiereDateHTML).show();
-
+$('#transparent-button').on('click', function() {
+    showCard();
+    $('#div-event-date').hide();
+});
 // Ajoutez un gestionnaire d'événement de clic à chaque élément li
 premiereDateInfoArray.forEach(function (info, index) {
     var noteId = 'note-' + index;
@@ -3151,12 +3169,17 @@ premiereDateInfoArray.forEach(function (info, index) {
 					<div class="card-header">
 					<div class="card-title">
 						<div class="row align-items-center">
-							<div class="col-md-10">
-								<span style="font-weight: bold;">Event Description</span>
-							</div>
 							<div class="col-md-2">
-								<button id="transparent-button-events-informations" class="btn btn-default">Last Event</button>
-							</div>
+                            <button class="btn btn-default" id="button_goBack">
+                                <i class="fas fa-arrow-left" style="font-size:18px"></i>go back
+                            </button>
+                        </div>
+                        <div class="col-md-7">
+                            <span style ="font-weight:bold ; display:block;text-align:center;margin:0 auto;">Event Description</span>
+                        </div>
+                        <div class="col-md-3">
+                            <button id="transparent-button-newContentDescribeMainActor" class="btn btn-default"> All Last Event</button>
+                        </div>
 						</div>
 					</div>
 				</div>
@@ -3181,26 +3204,39 @@ premiereDateInfoArray.forEach(function (info, index) {
 					</div>
 				</div>
 			`;
-		$("#event-card").hide()
-    	$('#div-main-actor').hide();	
-		$("#div-event-type").hide();
-		$("#div-event-type-description").hide();		
-		$("#div-sub-event").hide();
-		$("#div-sub-event-description").hide();
-		$("#div-event-source").hide();
-		$("#div-event-source-description").hide();
-		$("#div-year").hide();
-		$("#div-year-description").hide();
-		$("#div-event-date").hide();
-		$("#div-event-date-description").hide();
+			
+				$("#event-card").hide();
+				$('#div-event-date').hide();
+				$("#div-main-actor").hide();
+				$("#div-event-type").hide();
+				$("#div-event-type-description").hide();
+				$("#div-main-actor-description").hide();
+				$("#div-sub-event").hide();
+				$("#div-sub-event-description").hide();
+				$("#div-event-source").hide();
+				$("#div-event-source-description").hide();
+				$("#div-year").hide();
+				$("#div-year-description").hide();
+				$("#div-event-date-description").hide();		
 
+			
 		$('#events_information').html(descriptionLastDayContent);
 		// console.log(newContent_informations)
+		$("#events_information").show();
+
+		$("#transparent-button-newContentDescribeMainActor").on("click",function(){
+			$('#events_information').hide();
+			showCard()
+		})
+	$("#button_goBack").on("click",function(){
+		$("#events_information").hide();
+		$("#div-event-date").show()
+	})
 
     });
 });
 
-console.log('Informations associées à la première date :', premiereDateInfoArray);
+// console.log('Informations associées à la première date :', premiereDateInfoArray);
 
 	
 	}
@@ -3257,7 +3293,8 @@ var colorsType = ['success', 'info', 'warning', 'danger'];
                         <span style="font-weight:bold;">Last Event</span>
                     </div>
                     <div class="col-md-3">
-                        <button id="transparent-button" class="btn btn-default">All Last Events</button>
+						<button id="transparent-button-newContentDescribeMainActor" class="btn btn-default"> All Last Event</button>
+
                     </div>
                 </div>
             </div>
@@ -3304,23 +3341,33 @@ var colorsType = ['success', 'info', 'warning', 'danger'];
         </div>
     </div>
 `;
-		$("#event-card").hide();
-    	$('#div-main-actor').hide();
-	
-		$("#events_information").hide();
-		$("#div-event-type").hide();
-		$("#div-event-type-description").hide();
-		
-		$("#div-sub-event").hide();
-		$("#div-sub-event-description").hide();
-		$("#div-event-source").hide();
-		$("#div-event-source-description").hide();
-		$("#div-year").hide();
-		$("#div-year-description").hide();
-		$("#div-event-date-description").hide();
 
+	$("#event-card").hide();
+	$("#div-main-actor").hide();
+	$("#div-event-type").hide();
+	$("#div-event-type-description").hide();
+	$("#div-main-actor-description").hide();
+	$("#div-sub-event").hide();
+	$("#div-sub-event-description").hide();
+	$("#div-event-source").hide();
+	$("#div-event-source-description").hide();
+	$("#div-year").hide();
+	$("#div-year-description").hide();
+	$("#div-event-date-description").hide();
+	$("#events_information").hide();
+
+$('#div-event-date').html(htmlContent);
+$("#div-event-date").show();
 // Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
-$('#div-event-date').html(htmlContent).show();
+// $('#transparent-button').on('click', function() {
+//     $('#div-event-date').hide();
+//     showCard();
+// });
+$("#transparent-button-newContentDescribeMainActor").on("click",function(){
+	$('#div-event-date').hide();
+		showCard()
+	})
+// Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
 
 $(document).ready(function () {
     $('li.feed-item').each(function () {
@@ -3344,12 +3391,18 @@ $(document).ready(function () {
 					<div class="card-header">
 					<div class="card-title">
 						<div class="row align-items-center">
-							<div class="col-md-10">
-								<span style="font-weight: bold;">Event Description</span>
-							</div>
 							<div class="col-md-2">
-								<button id="transparent-button-events-informations" class="btn btn-default">Last Event</button>
+								<button class="btn btn-default" id="button_goBack">
+									<i class="fas fa-arrow-left" style="font-size:18px"></i>go back
+								</button>
 							</div>
+							<div class="col-md-7">
+								<span style ="font-weight:bold ; display:block;text-align:center;margin:0 auto;">Event Description</span>
+							</div>
+							<div class="col-md-3">
+								<button id="transparent-button-newContentDescribeMainActor" class="btn btn-default"> All Last Event</button>
+							</div>
+
 						</div>
 					</div>
 				</div>
@@ -3374,22 +3427,34 @@ $(document).ready(function () {
 					</div>
 				</div>
 			`;
-		$("#event-card").hide()
-    	$('#div-main-actor').hide();
-	
-		$("#div-event-type").hide();
-		$("#div-event-type-description").hide();
 		
-		$("#div-sub-event").hide();
-		$("#div-sub-event-description").hide();
-		$("#div-event-source").hide();
-		$("#div-event-source-description").hide();
-		$("#div-year").hide();
-		$("#div-year-description").hide();
-		$("#div-event-date").hide();
-		$("#div-event-date-description").hide();
+				$("#event-card").hide();
+				$('#div-event-date').hide();
+				$("#div-main-actor").hide();
+				$("#div-event-type").hide();
+				$("#div-event-type-description").hide();
+				$("#div-main-actor-description").hide();
+				$("#div-sub-event").hide();
+				$("#div-sub-event-description").hide();
+				$("#div-event-source").hide();
+				$("#div-event-source-description").hide();
+				$("#div-year").hide();
+				$("#div-year-description").hide();
+				$("#div-event-date-description").hide();		
 
-		$('#events_information').html(descriptionLastDayContent);
+			
+	$('#events_information').html(descriptionLastDayContent);
+	// console.log(newContent_informations)
+	$("#events_information").show();
+
+	$("#transparent-button-newContentDescribeMainActor").on("click",function(){
+		$('#events_information').hide();
+		showCard()
+	})
+	$("#button_goBack").on("click",function(){
+		$("#events_information").hide();
+		$("#div-event-date").show()
+	})
 		
             });
         }
@@ -3401,7 +3466,23 @@ $(document).ready(function () {
 	$("#allDays").on('click',function(){
 		$('html,body').animate({
             scrollTop: '+2500'
-        }, 1000);
+        }, 1000);	
+			
+			$("#div-main-actor").hide();
+			$("#div-event-type").hide();
+			$("#div-event-date").hide();
+			$("#div-event-type-description").hide();
+			$("#div-main-actor-description").hide();
+			$("#div-sub-event").hide();
+			$("#div-sub-event-description").hide();
+			$("#div-event-source").hide();
+			$("#div-event-source-description").hide();
+			$("#div-year").hide();
+			$("#div-year-description").hide();
+			$("#div-event-date-description").hide();
+			$("#events_information").hide();
+
+			showCard();
 	})
 	function Last30Days(data){
 		
@@ -3453,7 +3534,7 @@ var colorsType = ['success', 'info', 'warning', 'danger'];
                         <span style="font-weight:bold;">Last Event</span>
                     </div>
                     <div class="col-md-3">
-                        <button id="transparent-button" class="btn btn-default">All Last Events</button>
+						<button id="transparent-button-newContentDescribeMainActor" class="btn btn-default"> All Last Event</button>
                     </div>
                 </div>
             </div>
@@ -3500,21 +3581,26 @@ var colorsType = ['success', 'info', 'warning', 'danger'];
         </div>
     </div>
 `;
-$("#event-card").hide();
-    $('#div-main-actor').hide();
-	
-		$("#events_information").hide();
-		$("#div-event-type").hide();
-		$("#div-event-type-description").hide();
-		
-		$("#div-sub-event").hide();
-		$("#div-sub-event-description").hide();
-		$("#div-event-source").hide();
-		$("#div-event-source-description").hide();
-		$("#div-year").hide();
-		$("#div-year-description").hide();
-		$("#div-event-date-description").hide();
+	$("#event-card").hide();
+	$("#div-main-actor").hide();
+	$("#div-event-type").hide();
+	$("#div-event-type-description").hide();
+	$("#div-main-actor-description").hide();
+	$("#div-sub-event").hide();
+	$("#div-sub-event-description").hide();
+	$("#div-event-source").hide();
+	$("#div-event-source-description").hide();
+	$("#div-year").hide();
+	$("#div-year-description").hide();
+	$("#div-event-date-description").hide();
+	$("#events_information").hide();
 
+
+
+$('#transparent-button-newContentDescribeMainActor').on('click', function() {
+    showCard();
+    $('#div-event-date').hide();
+});
 // Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
 $('#div-event-date').html(htmlContent).show();
 
@@ -3540,12 +3626,18 @@ $(document).ready(function () {
 					<div class="card-header">
 					<div class="card-title">
 						<div class="row align-items-center">
-							<div class="col-md-10">
-								<span style="font-weight: bold;">Event Description</span>
-							</div>
 							<div class="col-md-2">
-								<button id="transparent-button-events-informations" class="btn btn-default">Last Event</button>
-							</div>
+								<button class="btn btn-default" id="button_goBack">
+									<i class="fas fa-arrow-left" style="font-size:18px"></i>go back
+								</button>
+								</div>
+								<div class="col-md-7">
+									<span style ="font-weight:bold ; display:block;text-align:center;margin:0 auto;">Event Description</span>
+								</div>
+								<div class="col-md-3">
+									<button id="transparent-button-newContentDescribeMainActor" class="btn btn-default"> All Last Event</button>
+								</div>
+
 						</div>
 					</div>
 				</div>
@@ -3570,23 +3662,36 @@ $(document).ready(function () {
 					</div>
 				</div>
 			`;
-		$("#event-card").hide()
-    $('#div-main-actor').hide();
-	
-		$("#div-event-type").hide();
-		$("#div-event-type-description").hide();
-		
-		$("#div-sub-event").hide();
-		$("#div-sub-event-description").hide();
-		$("#div-event-source").hide();
-		$("#div-event-source-description").hide();
-		$("#div-year").hide();
-		$("#div-year-description").hide();
-		$("#div-event-date").hide();
-		$("#div-event-date-description").hide();
+			
+    
+	$("#event-card").hide();
+	$('#div-event-date').hide();
+	$("#div-main-actor").hide();
+	$("#div-event-type").hide();
+	$("#div-event-type-description").hide();
+	$("#div-main-actor-description").hide();
+	$("#div-sub-event").hide();
+	$("#div-sub-event-description").hide();
+	$("#div-event-source").hide();
+	$("#div-event-source-description").hide();
+	$("#div-year").hide();
+	$("#div-year-description").hide();
+	$("#div-event-date-description").hide();		
 
-		$('#events_information').html(descriptionLastDayContent);
+
+
+	$('#events_information').html(descriptionLastDayContent);
+		$('#events_information').show();
 	
+$("#transparent-button-newContentDescribeMainActor").on("click",function(){
+	$('#events_information').hide();
+	showCard()
+})
+$("#button_goBack").on("click",function(){
+	$("#events_information").hide();
+	$("#div-event-date").show()
+})
+
 
             });
         }
@@ -3647,7 +3752,7 @@ var colorsType = ['success', 'info', 'warning', 'danger'];
                         <span style="font-weight:bold;">Last Event</span>
                     </div>
                     <div class="col-md-3">
-                        <button id="transparent-button" class="btn btn-default">All Last Events</button>
+                        <button id="transparent-button-newContentDescribeMainActor" class="btn btn-default"> All Last Event</button>
                     </div>
                 </div>
             </div>
@@ -3694,23 +3799,30 @@ var colorsType = ['success', 'info', 'warning', 'danger'];
         </div>
     </div>
 `;
-		$("#event-card").hide();
-    	$('#div-main-actor').hide();
-	
-		$("#events_information").hide();
-		$("#div-event-type").hide();
-		$("#div-event-type-description").hide();
-		
-		$("#div-sub-event").hide();
-		$("#div-sub-event-description").hide();
-		$("#div-event-source").hide();
-		$("#div-event-source-description").hide();
-		$("#div-year").hide();
-		$("#div-year-description").hide();
-		$("#div-event-date-description").hide();
+
+	$("#event-card").hide();
+	$("#div-main-actor").hide();
+	$("#div-event-type").hide();
+	$("#div-event-type-description").hide();
+	$("#div-main-actor-description").hide();
+	$("#div-sub-event").hide();
+	$("#div-sub-event-description").hide();
+	$("#div-event-source").hide();
+	$("#div-event-source-description").hide();
+	$("#div-year").hide();
+	$("#div-year-description").hide();
+	$("#div-event-date-description").hide();
+	$("#events_information").hide();
+
+	$('#div-event-date').html(htmlContent).show();
 
 // Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
-$('#div-event-date').html(htmlContent).show();
+
+$('#transparent-button-newContentDescribeMainActor').on('click', function() {
+    showCard();
+    $('#div-event-date').hide();
+});
+// Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
 
 $(document).ready(function () {
     $('li.feed-item').each(function () {
@@ -3734,12 +3846,19 @@ $(document).ready(function () {
 					<div class="card-header">
 					<div class="card-title">
 						<div class="row align-items-center">
-							<div class="col-md-10">
-								<span style="font-weight: bold;">Event Description</span>
-							</div>
 							<div class="col-md-2">
-								<button id="transparent-button-events-informations" class="btn btn-default">Last Event</button>
+								<button class="btn btn-default" id="button_goBack">
+									<i class="fas fa-arrow-left" style="font-size:18px"></i>go back
+								</button>
 							</div>
+							<div class="col-md-7">
+								<span style ="font-weight:bold ; display:block;text-align:center;margin:0 auto;">Event Description</span>
+							</div>
+							<div class="col-md-3">
+								<button id="transparent-button-newContentDescribeMainActor" class="btn btn-default"> All Last Event</button>
+							</div>
+
+
 						</div>
 					</div>
 				</div>
@@ -3764,24 +3883,34 @@ $(document).ready(function () {
 					</div>
 				</div>
 			`;
-		$("#event-card").hide()
-    	$('#div-main-actor').hide();
-	
-		$("#events_information").hide();
-		$("#div-event-type").hide();
-		$("#div-event-type-description").hide();
-		
-		$("#div-sub-event").hide();
-		$("#div-sub-event-description").hide();
-		$("#div-event-source").hide();
-		$("#div-event-source-description").hide();
-		$("#div-year").hide();
-		$("#div-year-description").hide();
-		$("#div-event-date").hide();
-		$("#div-event-date-description").hide();
+			
+    
+	$("#event-card").hide();
+	$('#div-event-date').hide();
+	$("#div-main-actor").hide();
+	$("#div-event-type").hide();
+	$("#div-event-type-description").hide();
+	$("#div-main-actor-description").hide();
+	$("#div-sub-event").hide();
+	$("#div-sub-event-description").hide();
+	$("#div-event-source").hide();
+	$("#div-event-source-description").hide();
+	$("#div-year").hide();
+	$("#div-year-description").hide();
+	$("#div-event-date-description").hide();		
+
 
 		$('#events_information').html(descriptionLastDayContent);
 		// console.log(newContent_informations)
+		$('events_information').show();
+		$("#transparent-button-newContentDescribeMainActor").on("click",function(){
+$('#events_information').hide();
+showCard()
+})
+$("#button_goBack").on("click",function(){
+$("#events_information").hide();
+$("#div-event-date").show()
+})
 
 
             });
@@ -3797,6 +3926,7 @@ $(document).ready(function () {
         $('html,body').animate({
             scrollTop: '+2500'
         }, 1000);
+		
         $("#event-card").hide();
         var allDates = []; // Tableau pour stocker toutes les dates
         var uniqueDatesSet = new Set(); // Ensemble pour stocker les dates uniques
@@ -3844,7 +3974,8 @@ var colorsType = ['success', 'info', 'warning', 'danger'];
                         <span style="font-weight:bold;">Last Event</span>
                     </div>
                     <div class="col-md-3">
-                        <button id="transparent-button" class="btn btn-default">All Last Events</button>
+						<button id="transparent-button-newContentDescribeMainActor" class="btn btn-default"> All Last Event</button>
+
                     </div>
                 </div>
             </div>
@@ -3891,21 +4022,27 @@ var colorsType = ['success', 'info', 'warning', 'danger'];
         </div>
     </div>
 `;
-		$("#event-card").hide();
-   		$('#div-main-actor').hide();
-	
-		$("#events_information").hide();
-		$("#div-event-type").hide();
-		$("#div-event-type-description").hide();
-		
-		$("#div-sub-event").hide();
-		$("#div-sub-event-description").hide();
-		$("#div-event-source").hide();
-		$("#div-event-source-description").hide();
-		$("#div-year").hide();
-		$("#div-year-description").hide();
-		$("#div-event-date-description").hide();
 
+    
+	$("#event-card").hide();
+	$("#div-main-actor").hide();
+	$("#div-event-type").hide();
+	$("#div-event-type-description").hide();
+	$("#div-main-actor-description").hide();
+	$("#div-sub-event").hide();
+	$("#div-sub-event-description").hide();
+	$("#div-event-source").hide();
+	$("#div-event-source-description").hide();
+	$("#div-year").hide();
+	$("#div-year-description").hide();
+	$("#div-event-date-description").hide();
+	$("#events_information").hide();
+
+
+$('#transparent-button-newContentDescribeMainActor').on('click', function() {
+    showCard();
+    $('#div-event-date').hide();
+});
 
 // Insérez le contenu HTML dans l'élément avec l'ID 'div-event-date'
 $('#div-event-date').html(htmlContent).show();
@@ -3932,11 +4069,17 @@ $(document).ready(function () {
 					<div class="card-header">
 					<div class="card-title">
 						<div class="row align-items-center">
-							<div class="col-md-10">
-								<span style="font-weight: bold;">Event Description</span>
-							</div>
+							
 							<div class="col-md-2">
-								<button id="transparent-button-events-informations" class="btn btn-default">Last Event</button>
+								<button class="btn btn-default" id="button_goBack">
+									<i class="fas fa-arrow-left" style="font-size:18px"></i>go back
+								</button>
+							</div>
+							<div class="col-md-7">
+								<span style ="font-weight:bold ; display:block;text-align:center;margin:0 auto;">Event Description</span>
+							</div>
+							<div class="col-md-3">
+								<button id="transparent-button-newContentDescribeMainActor" class="btn btn-default"> All Last Event</button>
 							</div>
 						</div>
 					</div>
@@ -3962,25 +4105,35 @@ $(document).ready(function () {
 					</div>
 				</div>
 			`;
-		$("#event-card").hide()
-
-    	$('#div-main-actor').hide();
-	
-		$("#div-event-type").hide();
-		$("#div-event-type-description").hide();
 		
-		$("#div-sub-event").hide();
-		$("#div-sub-event-description").hide();
-		$("#div-event-source").hide();
-		$("#div-event-source-description").hide();
-		$("#div-year").hide();
-		$("#div-year-description").hide();
-		$("#div-event-date").hide();
-		$("#div-event-date-description").hide();
+
+	$("#event-card").hide();
+	$('#div-event-date').hide();
+	$("#div-main-actor").hide();
+	$("#div-event-type").hide();
+	$("#div-event-type-description").hide();
+	$("#div-main-actor-description").hide();
+	$("#div-sub-event").hide();
+	$("#div-sub-event-description").hide();
+	$("#div-event-source").hide();
+	$("#div-event-source-description").hide();
+	$("#div-year").hide();
+	$("#div-year-description").hide();
+	$("#div-event-date-description").hide();		
+
+
+$("#transparent-button-newContentDescribeMainActor").on("click",function(){
+$('#events_information').hide();
+showCard()
+})
+$("#button_goBack").on("click",function(){
+$("#events_information").hide();
+$("#div-event-date").show()
+})
 
 		$('#events_information').html(descriptionLastDayContent);
 		// console.log(newContent_informations)
-
+		$("#events_information").show();
 
             });
         }
